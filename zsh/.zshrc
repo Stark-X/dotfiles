@@ -111,4 +111,7 @@ function lll() {
 #https://stackoverflow.com/questions/8616843/ctrl-s-is-not-working-as-a-horizontal-split-in-vim-when-using-commandt
 stty -ixon -ixoff
 export PATH=$PATH:/Users/$USER/Applications/kubernetes/client/bin
+alias ag='ag --hidden'
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -58,7 +58,7 @@ Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'leafgarland/typescript-vim'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 " Asynchronous Lint Engine
 Plug 'w0rp/ale'
 Plug 'posva/vim-vue'
@@ -140,8 +140,37 @@ let g:user_emmet_settings = {
   \}
 " ==================== WeChat App ====================
 
+" ==================== Syntax Support  ====================
 " Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'sheerun/vim-polyglot'
+" ==================== Syntax Support  ====================
+
+" ==================== ACK ====================
+" Take place the vimgrep
+function! Install_ag(info)
+    " info is a dictionary with 3 fields
+    " - name:   name of the plugin
+    " - status: 'installed', 'updated', or 'unchanged'
+    " - force:  set on PlugInstall! or PlugUpdate!
+    if a:info.status == 'installed' || a:info.force
+        if has('macunix')
+            !brew install the_silver_searcher 
+        else
+            echo 'Please access https://github.com/ggreer/the_silver_searcher for the installation'
+        endif
+    endif
+endfunction
+" Use ag(the_silver_searcher) as the search engine
+Plug 'mileszs/ack.vim', { 'do': function('Install_ag') }
+let g:ackprg = 'ag --vimgrep --hidden'
+" ==================== ACK ====================
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+nmap <C-P> :Files<CR>
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
@@ -316,7 +345,7 @@ let g:AutoPairsFlyMode = 0
 vnoremap // y/<c-r>"<cr>
 
 " ctrlp ignore
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+" let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
 " Comment with one Space
 let g:NERDSpaceDelims=1
