@@ -140,7 +140,8 @@ let g:user_emmet_settings = {
   \}
 " ==================== WeChat App ====================
 
-Plug 'martinda/Jenkinsfile-vim-syntax'
+" Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'sheerun/vim-polyglot'
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
