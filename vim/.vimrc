@@ -29,7 +29,12 @@ Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+map <f3> :NERDTreeToggle<CR>
+" Ignore *.pyc
+let NERDTreeIgnore = ['\.pyc$']
 autocmd! User nerdtree echom 'NERDTree is now loaded.'
+
 Plug 'scrooloose/nerdcommenter'
 "markdown语法高亮
 Plug 'plasticboy/vim-markdown'
@@ -312,11 +317,8 @@ vnoremap // y/<c-r>"<cr>
 " ctrlp ignore
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
-map <f3> :NERDTreeToggle<CR>
 " Comment with one Space
 let g:NERDSpaceDelims=1
-" Ignore *.pyc
-let NERDTreeIgnore = ['\.pyc$']
 " NERDCommenter for vue settings
 let g:ft = ''
 function! NERDCommenter_before()
