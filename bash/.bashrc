@@ -16,4 +16,5 @@ stty -ixon -ixoff
 export PATH=$PATH:/Users/$USER/Applications/kubernetes/client/bin
 alias ag='ag --hidden'
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Disable fzf for bash
+# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
