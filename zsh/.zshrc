@@ -115,3 +115,10 @@ alias ag='ag --hidden'
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+### Command Initial ###
+eval $(thefuck --alias)
+### Command Initial ###
+
+export LC_ALL='en_US.UTF-8'
+export LANG='en_US.UTF-8'

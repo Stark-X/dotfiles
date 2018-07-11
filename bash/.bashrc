@@ -18,3 +18,10 @@ alias ag='ag --hidden'
 
 # Disable fzf for bash
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+### Command Initial ###
+eval $(thefuck --alias)
+### Command Initial ###
+
+export LC_ALL='en_US.UTF-8'
+export LANG='en_US.UTF-8'
