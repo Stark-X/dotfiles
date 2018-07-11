@@ -262,6 +262,8 @@ if has('win32')
 endif
 if has('macunix')
     let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
+    " Only work on MacVim, the iTerm2 will use ^[
+    set macmeta
 endif
 let g:mkdp_auto_close = 1
 let g:mkdp_auto_open = 1
@@ -413,3 +415,4 @@ nnoremap <silent> N Nzz
 nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
+
