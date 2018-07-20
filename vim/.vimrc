@@ -1,3 +1,9 @@
+" Remove python3(3.7) importlib deprecated warning
+" https://github.com/vim/vim/issues/3117
+if has('python3')
+  silent! python3 1
+endif
+
 "set nocompatible              " be iMproved, required
 filetype off                  " required
 
