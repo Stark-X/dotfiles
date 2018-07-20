@@ -268,6 +268,8 @@ if has('win32')
 endif
 if has('macunix')
     let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
+endif
+if has("gui_macvim")
     " Only work on MacVim, the iTerm2 will use ^[
     set macmeta
 endif
