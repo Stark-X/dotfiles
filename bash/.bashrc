@@ -9,12 +9,15 @@ function lll() {
 ### Custom Functions ###
 
 ### Alias ###
+alias ag='ag --hidden'
 ### Alias ###
 
 #https://stackoverflow.com/questions/8616843/ctrl-s-is-not-working-as-a-horizontal-split-in-vim-when-using-commandt
 stty -ixon -ixoff
-export PATH=$PATH:/Users/$USER/Applications/kubernetes/client/bin
-alias ag='ag --hidden'
+
+export GOPATH=$HOME/workspace/go
+# export GOBIN=$HOME/go/bin
+export PATH=$PATH:/Users/$USER/Applications/kubernetes/client/bin:$GOPATH/bin
 
 # Disable fzf for bash
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
