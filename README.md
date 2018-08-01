@@ -5,7 +5,8 @@ Personal dotfiles, including vim, slate, .zshrc, .bashrc, etc.
 - vimrc
 - zshrc
 - bashrc
-- slate
+- ~~slate~~ [DEPRECATED]
+- HammerSpoon, https://github.com/Hammerspoon/hammerspoon
 
 ## Usage
 
