@@ -145,7 +145,12 @@ end
 function toggleFullAndCenter(currentWin)
     local frame = currentWin:frame()
     local fullScreenFrame = getFullscreenFrame(currentWin)
-    if frame.w ~= fullScreenFrame.w or frame.h ~= fullScreenFrame.h or frame.x ~= fullScreenFrame.x or frame.y ~= fullScreenFrame.y then
+    if not (
+            (frame.w < fullScreenFrame.w + 10 and frame.w >= fullScreenFrame.w - 10) or 
+            (frame.h < fullScreenFrame.h + 10 and frame.h >= fullScreenFrame.h - 10) or 
+            (frame.x == fullScreenFrame.x) or
+            (frame.y == fullScreenFrame.y)
+        )then
         return getFullscreenFrame(currentWin)
     else
         return getCenterFrame(currentWin)
