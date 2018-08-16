@@ -42,7 +42,7 @@ let NERDTreeIgnore = ['\.pyc$']
 autocmd! User nerdtree echom 'NERDTree is now loaded.'
 
 Plug 'scrooloose/nerdcommenter'
-"markdown语法高亮
+" markdown syntax highlight
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
 autocmd! User markdown-preview.vim echom 'MarkdownPreview is now loaded.'
@@ -236,6 +236,7 @@ autocmd FileType feature setlocal shiftwidth=2
 autocmd FileType make setlocal noet
 autocmd FileType groovy setlocal cindent
 autocmd FileType yaml,conf,json,javascript,vue,markdown setlocal cindent sw=2
+autocmd Filetype markdown setlocal spell
 
 " for typescript-vim
 autocmd QuickFixCmdPost [^l]* nested cwindow
@@ -321,7 +322,7 @@ let g:ale_linters = {
 \}
 " Fix files when they are saved.
 let g:ale_fix_on_save = 1
-let b:ale_fixers = ['prettier', 'eslint']
+let b:ale_fixers = ['prettier', 'eslint', 'autopep8']
 
 
 if has('win32')
