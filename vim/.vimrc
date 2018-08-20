@@ -1,6 +1,7 @@
 " Remove python3(3.7) importlib deprecated warning
+" It had been fixed from "patch-8.1.201"
 " https://github.com/vim/vim/issues/3117
-if has('python3')
+if has('python3') && !has('patch-8.1.201')
   silent! python3 1
 endif
 
