@@ -61,6 +61,7 @@ ZSH_THEME="agnoster"
 plugins=(
   git
   z
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh

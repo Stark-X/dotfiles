@@ -30,3 +30,11 @@ export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 # Editor for the Hexo
 export EDITOR='vim'
+
+### Completion ###
+## If running Bash 3.2 included with macOS
+# brew install bash-completion
+## or, if running Bash 4.1+
+# brew install bash-completion@2
+# kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
+### Completion ###
