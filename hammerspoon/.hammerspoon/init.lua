@@ -15,7 +15,7 @@ hs.alert.show("Config reloaded")
 
 -- Hints
 hs.hints.style="vimperator"
-hs.hotkey.bind({"cmd",}, 'escape', function()
+hs.hotkey.bind({"cmd",}, 'space', function()
     -- API: hs.hints.windowHints([windows, callback, allowNonStandard])
     hs.hints.windowHints(nil, nil, false)
 end)
