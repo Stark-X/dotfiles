@@ -12,7 +12,7 @@ Personal dotfiles, including vim, slate, .zshrc, .bashrc, etc.
 
 ### Mac
 1. Install stow with brew 
-execute `brew install brew`
+execute `brew install stow`
 2. Apply the dotfiles
 ```bash
 cd ~
