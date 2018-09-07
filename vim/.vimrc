@@ -5,8 +5,6 @@ if has('python3') && !has('patch-8.1.201')
   silent! python3 1
 endif
 
-"set nocompatible              " be iMproved, required
-filetype off                  " required
 
 " Initialize for the vim-plug
 if has('win32')
@@ -35,16 +33,13 @@ Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 " ==================== YouCompleteMe ====================
 
 Plug 'Yggdroot/indentLine'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
-map <f3> :NERDTreeToggle<CR>
-" Ignore *.pyc
-let NERDTreeIgnore = ['\.pyc$']
-autocmd! User nerdtree echom 'NERDTree is now loaded.'
 
 Plug 'scrooloose/nerdcommenter'
 " markdown syntax highlight
 Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_toc_autofit = 1
 Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
 autocmd! User markdown-preview.vim echom 'MarkdownPreview is now loaded.'
 
@@ -179,12 +174,13 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 nmap <C-P> :Files<CR>
 
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-unimpaired'
+Plug 'justinmk/vim-dirvish'
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
 "-----------------------------------------------------------------------------------
 
 " Configuration file for vim
@@ -384,7 +380,7 @@ endfunction
 let g:vue_disable_pre_processors=1
 
 
-" Vim general
+" Disable auto fold
 set nofoldenable
 
 " ==================== Easy Motion ====================
