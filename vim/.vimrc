@@ -183,6 +183,8 @@ Plug 'tpope/vim-unimpaired'
 " Browsing the files
 Plug 'justinmk/vim-dirvish'
 Plug 'dyng/ctrlsf.vim'
+" 使用 ctrlsf.vim 插件在工程内全局查找光标所在关键字，设置快捷键。快捷键速记法：search in project
+nnoremap <Leader>sp :CtrlSF<CR>
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
@@ -220,19 +222,16 @@ set softtabstop=8
 set smarttab
 set smartindent
 set expandtab
-"突出显示当前行
+" Highlight the line and th column
 set cursorline
-"开启状态栏
+set cursorcolumn
+" Enable the status line
 set laststatus=2
-"显示输入的命令
 set showcmd
-"在状态栏显示当前光标位置
+" Display the line numbe in the status line
 set ruler
-"命令模式下按tab列出补全的命令
-set wildmenu
 
 vmap <C-c> "+y
-imap jk <Esc>
 
 autocmd FileType c,cpp setlocal cindent
 autocmd FileType feature setlocal shiftwidth=2
@@ -287,13 +286,10 @@ nmap <Leader>p "+p
 vmap <Leader>P "+P
 nmap <Leader>P "+P
 
-" default width and height
-" set lines=27 columns=100
-
 " Emmet (C-y ,)
 autocmd FileType html,css,vue EmmetInstall
 
-" let the markdown files link normal
+" Show the link url explicitly
 let g:vim_markdown_conceal = 0
 
 " vertical split resize
@@ -304,7 +300,6 @@ nmap <c-w>] :vertical resize +5<CR>
 set lazyredraw
 
 " airline realted
-" let g:airline_theme="wombat"
 let g:airline_theme='badwolf'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -357,9 +352,6 @@ let g:AutoPairsFlyMode = 0
 
 " Easy search the select content
 vnoremap // y/<c-r>"<cr>
-
-" ctrlp ignore
-" let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
 " Comment with one Space
 let g:NERDSpaceDelims=1
@@ -427,4 +419,8 @@ nnoremap <silent> N Nzz
 nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
+
+
+" Disable cursor blinking 
+set gcr=a:block-blinkon0
 
