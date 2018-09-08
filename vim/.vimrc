@@ -174,9 +174,15 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 nmap <C-P> :Files<CR>
 
+" Execute linux cmd in vim
+" :SudoWrite, :SudoEdit, :Mkdirr etc.
 Plug 'tpope/vim-eunuch'
+" ']' and '[' mappings
+" '[e', ']e' exchange lines, '[<space>', ']<space>' add blank lines, etc.
 Plug 'tpope/vim-unimpaired'
+" Browsing the files
 Plug 'justinmk/vim-dirvish'
+Plug 'dyng/ctrlsf.vim'
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
