@@ -33,6 +33,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 " ==================== YouCompleteMe ====================
 
 Plug 'Yggdroot/indentLine'
+let g:indentLine_char='⎸'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'scrooloose/nerdcommenter'
@@ -185,6 +186,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'dyng/ctrlsf.vim'
 " 使用 ctrlsf.vim 插件在工程内全局查找光标所在关键字，设置快捷键。快捷键速记法：search in project
 nnoremap <Leader>sp :CtrlSF<CR>
+let g:ctrlsf_auto_focus = {"at": "start"}
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
