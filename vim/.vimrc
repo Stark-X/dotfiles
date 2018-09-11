@@ -318,12 +318,20 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_linters = {
 \   'javascript': ['standard'],
 \   'typescript': ['tslint'],
-\   'python': ['autopep8']
+\   'python': ['autopep8'],
+\   'yaml': ['yamllint', 'prettier']
 \}
 " Fix files when they are saved.
 let g:ale_fix_on_save = 1
-let b:ale_fixers = ['prettier', 'eslint', 'autopep8']
-
+" :help ale-fix (<C-]> to jump tag, <C-t> to come back)
+" NOTE: check the help document for some tools installation
+" :ALEFixSuggest to get the suggest the supported fixers
+let g:ale_fixers = {
+\   'javascript': ['standard'],
+\   'typescript': ['tslint'],
+\   'python': ['autopep8'],
+\   'yaml': ['trim_whitespace', 'remove_trailing_lines']
+\}
 
 if has('win32')
     source $VIMRUNTIME/mswin.vim
@@ -425,4 +433,5 @@ nnoremap <silent> g* g*zz
 
 " Disable cursor blinking 
 set gcr=a:block-blinkon0
-
+" Display the options for a command
+set wildmenu
