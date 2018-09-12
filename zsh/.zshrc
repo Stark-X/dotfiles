@@ -62,7 +62,11 @@ plugins=(
   git
   z
   kubectl
+  cf
 )
+# Install cf-zsh-autocomplete-plugin
+# $ cd ~/.oh-my-zsh/plugins
+# $ git clone https://github.com/dannyzen/cf-zsh-autocomplete-plugin.git cf
 
 source $ZSH/oh-my-zsh.sh
 
