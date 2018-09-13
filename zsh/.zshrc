@@ -130,3 +130,6 @@ export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 # Editor for the Hexo
 export EDITOR='vim'
+
+# Remove the prompt the shell showed
+DEFAULT_USER=$USER
