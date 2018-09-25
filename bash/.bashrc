@@ -38,3 +38,8 @@ export EDITOR='vim'
 # brew install bash-completion@2
 # kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 ### Completion ###
+
+# Change to using silver search for fzf
+export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+

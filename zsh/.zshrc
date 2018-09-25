@@ -133,3 +133,8 @@ export EDITOR='vim'
 
 # Remove the prompt the shell showed
 DEFAULT_USER=$USER
+
+# Change to using silver search for fzf
+export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
