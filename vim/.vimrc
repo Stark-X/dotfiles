@@ -174,6 +174,8 @@ nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 nmap <C-P> :Files<CR>
+let g:fzf_action = {
+  \ 'ctrl-s': 'split'}
 
 " Execute linux cmd in vim
 " :SudoWrite, :SudoEdit, :Mkdirr etc.
