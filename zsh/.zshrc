@@ -63,6 +63,10 @@ plugins=(
   z
   kubectl
   cf
+  docker
+  python
+  pip
+  forklift
 )
 # Install cf-zsh-autocomplete-plugin
 # $ cd ~/.oh-my-zsh/plugins
