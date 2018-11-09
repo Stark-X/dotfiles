@@ -25,7 +25,7 @@ function! BuildYCM(info)
   " - name:   name of the plugin
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
+  if a:info.status == 'installed' || a:info.force || a:info.status == 'updated'
     !./install.py --go-completer --js-completer --java-completer --clang-completer
   endif
 endfunction
@@ -88,7 +88,7 @@ Plug 'pseewald/vim-anyfold'
 let g:fold_cycle_default_mapping = 0 "disable default mappings
 nmap <+> <Plug>(fold-cycle-open)
 nmap <-> <Plug>(fold-cycle-close)
-autocmd Filetype python let b:anyfold_activate=1
+autocmd Filetype python let b:AnyFoldActivate=1
 set foldlevel=0
 " ==================== Code Folding ====================
 " ==================== Tags Generator ====================
