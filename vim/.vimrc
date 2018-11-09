@@ -71,8 +71,9 @@ Plug 'easymotion/vim-easymotion'
 " Themes
 Plug 'sjl/badwolf'
 " Optimization for Python
-Plug 'python-mode/python-mode', { 'for': 'python' }
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'}
 autocmd! User python-mode echom 'Python-Mode is now loaded.'
+autocmd! User python-mode let g:pymode_python = 'python3'
 
 " ==================== Auto Format ====================
 Plug 'vim-scripts/groovyindent-unix'
