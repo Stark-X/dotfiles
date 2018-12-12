@@ -38,11 +38,17 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'scrooloose/nerdcommenter'
 " markdown syntax highlight
-Plug 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 let g:vim_markdown_new_list_item_indent = 2
 let g:vim_markdown_toc_autofit = 1
+" Show the link url explicitly
+let g:vim_markdown_conceal = 0
+"markdown-setting: YAML
+let g:vim_markdown_frontmatter=1
 Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
 autocmd! User markdown-preview.vim echom 'MarkdownPreview is now loaded.'
+autocmd! User vim-markdown echom 'vim-markdown is now loaded.'
+
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -88,8 +94,23 @@ Plug 'pseewald/vim-anyfold'
 let g:fold_cycle_default_mapping = 0 "disable default mappings
 nmap <+> <Plug>(fold-cycle-open)
 nmap <-> <Plug>(fold-cycle-close)
-autocmd Filetype python let b:AnyFoldActivate=1
 set foldlevel=0
+"
+" activate anyfold by default
+augroup anyfold
+    autocmd!
+    autocmd Filetype python AnyFoldActivate
+augroup END
+
+" disable anyfold for large files
+let g:LargeFile = 1000000 " file is large if size greater than 1MB
+autocmd BufReadPre,BufRead * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+function LargeFile()
+    augroup anyfold
+        autocmd! " remove AnyFoldActivate
+        autocmd Filetype python setlocal foldmethod=indent " fall back to indent folding
+    augroup END
+endfunction
 " ==================== Code Folding ====================
 " ==================== Tags Generator ====================
 " Use ^] to jump to definiation
@@ -250,9 +271,6 @@ autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 autocmd FileType typescript :setlocal makeprg=tsc " find the tsconfig.json to compile
 
-"markdown-setting: YAML
-let g:vim_markdown_frontmatter=1
-
 "YCM_Settings
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
@@ -293,9 +311,6 @@ nmap <Leader>P "+P
 
 " Emmet (C-y ,)
 autocmd FileType html,css,vue EmmetInstall
-
-" Show the link url explicitly
-let g:vim_markdown_conceal = 0
 
 " vertical split resize
 nmap <c-w>[ :vertical resize -5<CR>
