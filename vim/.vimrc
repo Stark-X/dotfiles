@@ -26,7 +26,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force || a:info.status == 'updated'
-    !./install.py --go-completer --js-completer --java-completer --clang-completer
+    !python3 ./install.py --go-completer --js-completer --java-completer --clang-completer
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -453,3 +453,4 @@ nnoremap <silent> g* g*zz
 set gcr=a:block-blinkon0
 " Display the options for a command
 set wildmenu
+
