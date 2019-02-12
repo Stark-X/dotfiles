@@ -142,10 +142,19 @@ DEFAULT_USER=$USER
 # Change to using silver search for fzf
 export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 # fzf with preview
 function fzfp(){
     fzf --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -100'
 }
 
 export PATH="$PATH:$HOME/.rvm/bin:$HOME/Library/Python/3.7/bin"
+
+# replace using brew bottles mirror
+# cd "$(brew --repo)"
+# git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+# cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+# git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+# brew update
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
