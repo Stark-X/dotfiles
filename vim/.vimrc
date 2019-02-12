@@ -197,7 +197,9 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 nmap <C-P> :Files<CR>
 let g:fzf_action = {
-  \ 'ctrl-s': 'split'}
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-t': 'tabnew',
+  \ 'ctrl-v': 'vsplit'}
 
 " Execute linux cmd in vim
 " :SudoWrite, :SudoEdit, :Mkdirr etc.
@@ -454,3 +456,4 @@ set gcr=a:block-blinkon0
 " Display the options for a command
 set wildmenu
 
+set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
