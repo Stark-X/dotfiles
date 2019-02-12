@@ -10,6 +10,7 @@ function lll() {
 
 ### Alias ###
 alias ag='ag --hidden'
+alias twvpn='python3 ~/workspace/myprojects/twvpn/main.py'
 ### Alias ###
 
 #https://stackoverflow.com/questions/8616843/ctrl-s-is-not-working-as-a-horizontal-split-in-vim-when-using-commandt
