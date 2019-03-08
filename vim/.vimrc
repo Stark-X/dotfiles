@@ -214,6 +214,15 @@ Plug 'dyng/ctrlsf.vim'
 nnoremap <Leader>sp :CtrlSF<CR>
 let g:ctrlsf_auto_focus = {"at": "start"}
 
+" ==================== vim-expand-region ====================
+" + expand_region_expand
+" _ expand_region_shrink
+Plug 'terryma/vim-expand-region'
+" ==================== vim-expand-region ====================
+
+" git diff display on the left side
+Plug 'airblade/vim-gitgutter'
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
@@ -266,7 +275,6 @@ autocmd FileType feature setlocal shiftwidth=2
 autocmd FileType make setlocal noet
 autocmd FileType groovy setlocal cindent
 autocmd FileType yaml,conf,json,javascript,vue,markdown setlocal cindent sw=2
-autocmd Filetype markdown setlocal spell
 
 " for typescript-vim
 autocmd QuickFixCmdPost [^l]* nested cwindow
