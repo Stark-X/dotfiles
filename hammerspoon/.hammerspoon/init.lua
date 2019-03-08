@@ -1,3 +1,6 @@
+-- Logger
+local logger = hs.logger.new('eventtap', 'debug')
+
 -- Auto reload config
 function reloadConfig(files)
     doReload = false
@@ -15,6 +18,8 @@ hs.alert.show("Config reloaded")
 
 -- Hints
 hs.hints.style="vimperator"
+hs.hints.fontName="Source Code Pro Medium"
+hs.hints.fontSize=20
 hs.hotkey.bind({"cmd",}, 'space', function()
     -- API: hs.hints.windowHints([windows, callback, allowNonStandard])
     hs.hints.windowHints(nil, nil, false)
@@ -161,5 +166,61 @@ end
 hs.hotkey.bind({"cmd", "alt",}, "c", function()
   local win = hs.window.focusedWindow()
   win:setFrame(toggleFullAndCenter(win))
+end)
+
+-- move a window to other screen
+hs.hotkey.bind({"cmd", "alt",}, "left", function()
+  local win = hs.window.focusedWindow()
+  win:moveOneScreenWest()
+end) 
+hs.hotkey.bind({"cmd", "alt",}, "right", function()
+  local win = hs.window.focusedWindow()
+  win:moveOneScreenEast()
+end) 
+
+-- find the mouse
+function mouseHighlight()
+    if mouseCircle then
+        mouseCircle:delete()
+        if mouseCircleTimer then
+            mouseCircleTimer:stop()
+        end
+    end
+    mousepoint = hs.mouse.get()
+    mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
+    mouseCircle:setStrokeColor({["red"]=1,["blue"]=0,["green"]=0,["alpha"]=1})
+    mouseCircle:setFill(false)
+    mouseCircle:setStrokeWidth(5)
+    mouseCircle:show()
+
+    mouseCircleTimer = hs.timer.doAfter(0.3, function() mouseCircle:delete() end)
+end
+
+-- move mouse though windows
+eventtapOneClick = hs.eventtap.new({hs.eventtap.event.types.leftMouseDown}, function(e)
+    logger.d(e:getProperty(hs.eventtap.event.properties["mouseEventClickState"]))
+    b_fn = hs.eventtap.checkKeyboardModifiers()["fn"]
+    if b_fn and e:getProperty(hs.eventtap.event.properties["mouseEventClickState"]) == 1 then
+        local win = hs.window.focusedWindow()
+        local frame = win:frame()
+
+        local target = {}
+        target.x = frame.x + frame.w / 2
+        target.y = frame.y + frame.h / 2
+        hs.mouse.setRelativePosition(target, win:screen())
+
+        mouseHighlight()
+        return true
+    else
+        return false
+    end
+end)
+eventtapOneClick:start()
+
+-- interactive window resize
+hs.grid.setGrid('6x4', nil, nil)
+hs.grid.setMargins({0, 0})
+hs.hotkey.bind({"shift",}, 'space', function()
+    hs.grid.show()
 end)
 
