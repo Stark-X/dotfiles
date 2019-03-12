@@ -18,7 +18,14 @@ execute `brew install stow`
 cd ~
 git clone https://github.com/Stark-X/dotfiles.git
 cd dotfiles
-stow $(ls -d */)
+stow bash
+stow hammerspoon
+stow ideavim
+stow slate
+stow vim
+stow vscode
+stow zsh
+stow vscode -t ~/Library/Application\ Support/Code/User 
 ```
 3. Deactive the changes
-Unlink with command `stow -D $(ls -d */)`
+Unlink with command `stow -D <package_name>

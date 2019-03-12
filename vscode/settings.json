@@ -1,0 +1,93 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "python.pythonPath": "/usr/local/bin/python3",
+    "python.jediEnabled": false,
+    "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 14,
+    "python.linting.pylintEnabled": true,
+    "vim.statusBarColorControl": true,
+    "vim.easymotion": true,
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f"
+    },
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "vim.easymotionMarkerFontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
+    "terminal.integrated.fontSize": 14,
+    "vim.easymotionMarkerYOffset": 7,
+    "workbench.fontAliasing": "auto",
+    "emmet.excludeLanguages": [],
+    "breadcrumbs.enabled": true,
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "none",
+    "editor.multiCursorModifier": "alt",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["Z", "Z"],
+            "commands": [":wq"],
+        },
+        {
+            "before": ["[", "e"],
+            "commands": ["editor.action.moveLinesUpAction"]
+        },
+        {
+            "before": ["]", "e"],
+            "commands": ["editor.action.moveLinesDownAction"]
+        },
+        {
+            "before": ["]", "<space>"],
+            "after": ["o", "<Esc>", "k"]
+        },
+        {
+            "before": ["[", "<space>"],
+            "after": ["O", "<Esc>", "j"]
+        },
+        {
+            "before": ["[", "q"],
+            "commands": ["editor.action.marker.nextInFiles"]
+        },
+        {
+            "before": ["]", "q"],
+            "commands": ["editor.action.marker.prevInFiles"]
+        },
+        {
+            "before": ["<leader>", "j", "d"],
+            "commands": ["editor.action.revealDefinition"]
+        }
+    ],
+    "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/local/bin/im-select",
+    "vim.autoSwitchInputMethod.defaultIM": "com.apple.keylayout.ABC",
+    "todohighlight.isEnable": true,
+    "window.zoomLevel": 0,
+    "todohighlight.include": [
+        "**/*.js",
+        "**/*.jsx",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.html",
+        "**/*.php",
+        "**/*.css",
+        "**/*.scss",
+        "**/*.py"
+    ],
+    "vim.disableExtension": false,
+    "files.autoSave": "afterDelay",
+    "python.linting.flake8CategorySeverity.E": "Warning",
+    "python.linting.flake8Args": [],
+    "vim.autoSwitchInputMethod.switchIMCmd": "/usr/local/bin/im-select {im}",
+    "vsicons.dontShowNewVersionMessage": true,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "workbench.colorTheme": "One Dark Pro Bold",
+    "open-in-vim.openMethod": "macos.macvim",
+    "vim.camelCaseMotion.enable": true,
+    "vim.ignorecase": false,
+}
