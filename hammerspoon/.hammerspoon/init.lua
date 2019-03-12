@@ -198,7 +198,7 @@ end
 
 -- move mouse though windows
 eventtapOneClick = hs.eventtap.new({hs.eventtap.event.types.leftMouseDown}, function(e)
-    logger.d(e:getProperty(hs.eventtap.event.properties["mouseEventClickState"]))
+    -- logger.d(e:getProperty(hs.eventtap.event.properties["mouseEventClickState"]))
     b_fn = hs.eventtap.checkKeyboardModifiers()["fn"]
     if b_fn and e:getProperty(hs.eventtap.event.properties["mouseEventClickState"]) == 1 then
         local win = hs.window.focusedWindow()
@@ -207,7 +207,9 @@ eventtapOneClick = hs.eventtap.new({hs.eventtap.event.types.leftMouseDown}, func
         local target = {}
         target.x = frame.x + frame.w / 2
         target.y = frame.y + frame.h / 2
-        hs.mouse.setRelativePosition(target, win:screen())
+        -- logger.d(target.x, target.y)
+        -- logger.d(frame.x, frame.y)
+        hs.mouse.setAbsolutePosition(target)
 
         mouseHighlight()
         return true
