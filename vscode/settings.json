@@ -1,5 +1,5 @@
 {
-    "workbench.iconTheme": "material-icon-theme",
+    "workbench.iconTheme": "vscode-icons",
     "python.pythonPath": "/usr/local/bin/python3",
     "python.jediEnabled": false,
     "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
@@ -90,4 +90,8 @@
     "open-in-vim.openMethod": "macos.macvim",
     "vim.camelCaseMotion.enable": true,
     "vim.ignorecase": false,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "material-icon-theme.folders.theme": "specific",
+    "java.implementationsCodeLens.enabled": true,
 }
