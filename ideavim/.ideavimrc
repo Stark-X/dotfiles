@@ -1,2 +1,14 @@
 set surround
 set multiple-cursors
+
+nnoremap ]h :action GotoNextElementUnderCaretUsage<CR>
+nnoremap [h :action GotoNextElementUnderCaretUsage<CR>
+
+" naviagte errors
+nnoremap ]q :action GotoNextError<CR>
+nnoremap [q :action GotoPreviousError<CR>
+
+" exchange line
+nnoremap ]e :action MoveLineDown<CR>
+nnoremap [e :action MoveLineUp<CR>
+
