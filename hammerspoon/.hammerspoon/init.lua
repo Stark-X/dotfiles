@@ -220,7 +220,7 @@ end)
 eventtapOneClick:start()
 
 -- interactive window resize
-hs.grid.setGrid('6x4', nil, nil)
+hs.grid.setGrid('7x5', nil, nil)
 hs.grid.setMargins({0, 0})
 hs.hotkey.bind({"shift",}, 'space', function()
     hs.grid.show()
