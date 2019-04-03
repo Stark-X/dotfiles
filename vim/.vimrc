@@ -252,6 +252,9 @@ Plug 'terryma/vim-expand-region'
 " git diff display on the left side
 Plug 'airblade/vim-gitgutter'
 
+" toggle quickfix list with <learder>q and toggle location list with <leader>l
+Plug 'Valloric/ListToggle'
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
@@ -310,9 +313,13 @@ autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 autocmd FileType typescript :setlocal makeprg=tsc " find the tsconfig.json to compile
 
-"YCM_Settings
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+" ==================== YouCompleteMe ====================
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+autocmd FileType cs nnoremap <leader>ji :YcmCompleter GoToImplementation<CR>
+nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
+nnoremap <leader>gt :YcmCompleter GetType<CR>
+nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 let g:syntastic_cpp_compiler='g++' "change the compiler to 'g++' to support c++11
 let g:syntastic_cpp_compiler_options='-std=c++11 -stdlib=libc++'  "set the options of g++ to support c++11
 " YCM with TypeScript
@@ -322,6 +329,7 @@ endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_server_python_interpreter = 'python3'
+" ==================== YouCompleteMe ====================
 
 "MarkdownPreview-KeyMapping
 nmap <silent> <F8> <Plug>MarkdownPreview        " for normal mode
