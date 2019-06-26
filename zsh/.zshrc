@@ -67,6 +67,7 @@ plugins=(
   python
   pip
   forklift
+  fzf
 )
 # Install cf-zsh-autocomplete-plugin
 # $ cd ~/.oh-my-zsh/plugins
