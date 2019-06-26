@@ -77,6 +77,12 @@ Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
 autocmd! User markdown-preview.vim echom 'MarkdownPreview is now loaded.'
 autocmd! User vim-markdown echom 'vim-markdown is now loaded.'
 
+":GenTocGFM
+":GenTocGitLab
+":GenTocMarked
+":UpdateToc
+":RemoveToc
+Plug 'mzlogin/vim-markdown-toc'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
