@@ -1,6 +1,5 @@
 // Place your key bindings in this file to overwrite the defaults
-[
-    {
+[{
         "key": "f1",
         "command": "-workbench.action.showCommands"
     },
@@ -15,5 +14,16 @@
     {
         "key": "shift+cmd+t",
         "command": "workbench.action.tasks.test"
-    }
+    },
+    {
+        "key": "f2",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "list.select",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+    },
+    // cmd+k, <enter> to make the current file escape from the preview mode, so that the current tab will not be replace
 ]
