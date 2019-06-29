@@ -40,6 +40,12 @@ export EDITOR='vim'
 # kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 ### Completion ###
 
+#### fzf ####
+# ^R -> list histroy using fzf
+# ^T -> list folders/files and copy the selected to append to currect command
+# M-C -> list folders and enter the selected
+# vim ** -> list fuzzy search folders/files
+
 # Change to using silver search for fzf
 export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -48,5 +54,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 function fzfp(){
     fzf --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -100'
 }
+#### fzf ####
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.rvm/bin:$HOME/Library/Python/3.7/bin:$PATH"
