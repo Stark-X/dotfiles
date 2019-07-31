@@ -40,9 +40,6 @@ Plug 'scrooloose/nerdcommenter'
 " ==================== NERDTree ====================
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <F3> :NERDTreeToggle<CR>
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
@@ -141,7 +138,8 @@ let g:LargeFile = 1000000 " file is large if size greater than 1MB
 autocmd BufReadPre,BufRead * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
 function LargeFile()
     augroup anyfold
-        autocmd! " remove AnyFoldActivate
+        " remove AnyFoldActivate
+        autocmd!
         autocmd Filetype python setlocal foldmethod=indent " fall back to indent folding
     augroup END
 endfunction
