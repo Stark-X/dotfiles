@@ -104,4 +104,6 @@
     },
     "evermonkey.noteStoreUrl": "https://app.yinxiang.com/shard/s36/notestore",
     "evermonkey.noteReadonly": false,
+    "editor.acceptSuggestionOnEnter": "off",
+    "terminal.integrated.shell.osx": "/bin/zsh",
 }
