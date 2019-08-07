@@ -259,6 +259,8 @@ Plug 'airblade/vim-gitgutter'
 " toggle quickfix list with <learder>q and toggle location list with <leader>l
 Plug 'Valloric/ListToggle'
 
+Plug 'vim-scripts/ReplaceWithRegister'
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
