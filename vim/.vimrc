@@ -261,6 +261,11 @@ Plug 'Valloric/ListToggle'
 
 Plug 'vim-scripts/ReplaceWithRegister'
 
+
+" Automatically clears search highlight when cursor is moved
+" Improved star-search (visual-mode, highlighting without moving)
+Plug 'junegunn/vim-slash'
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
