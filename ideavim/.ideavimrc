@@ -12,3 +12,8 @@ nnoremap [q :action GotoPreviousError<CR>
 nnoremap ]e :action MoveLineDown<CR>
 nnoremap [e :action MoveLineUp<CR>
 
+" make AceJump acts like easymotion in vim
+map <space>j :action AceLineAction<CR>
+map <space>k :action AceLineAction<CR>
+map <space>s :action AceTargetAction<CR>
+
