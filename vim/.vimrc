@@ -92,7 +92,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " ==================== Snippets ====================
 
 Plug 'terryma/vim-multiple-cursors'
-Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
@@ -114,6 +114,7 @@ autocmd! User python-mode let g:pymode_python = 'python3'
 
 " ==================== Auto Format ====================
 Plug 'vim-scripts/groovyindent-unix'
+Plug 'vim-scripts/groovy.vim'
 Plug 'Chiel92/vim-autoformat'
 noremap <F4> :Autoformat<CR>
 let g:formatter_yapf_style = 'pep8'
@@ -259,6 +260,7 @@ Plug 'airblade/vim-gitgutter'
 " toggle quickfix list with <learder>q and toggle location list with <leader>l
 Plug 'Valloric/ListToggle'
 
+" select and press gr
 Plug 'vim-scripts/ReplaceWithRegister'
 
 
@@ -286,12 +288,11 @@ au BufWrite /private/etc/pw.* set nowritebackup
 
 " theme
 set background=dark
-" let g:solarized_termcolors=256
-" colorscheme solarized
+colorscheme solarized8
 "colorscheme desert
 " colorscheme gruvbox 
 " let g:gruvbox_contrast_dark="hard"
-colorscheme badwolf
+" colorscheme badwolf
 set guifont=Source_Code_Pro:h13
 
 set hls
@@ -378,7 +379,7 @@ nmap <c-w>] :vertical resize +5<CR>
 set lazyredraw
 
 " airline realted
-let g:airline_theme='badwolf'
+let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 set encoding=utf-8
@@ -406,7 +407,7 @@ let g:ale_fixers = {
 \   'javascript': ['standard'],
 \   'typescript': ['tslint'],
 \   'python': ['autopep8'],
-\   'yaml': ['trim_whitespace', 'remove_trailing_lines']
+\   'yaml': ['trim_whitespace']
 \}
 
 if has('win32')
@@ -513,3 +514,7 @@ set gcr=a:block-blinkon0
 set wildmenu
 
 set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
+
+autocmd Filetype python map <leader>tt :!pytest -v<CR>
+autocmd Filetype python map <leader>tp :!pytest -v --pdb<CR>
+
