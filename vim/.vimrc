@@ -293,7 +293,7 @@ colorscheme solarized8
 " colorscheme gruvbox 
 " let g:gruvbox_contrast_dark="hard"
 " colorscheme badwolf
-set guifont=Source_Code_Pro:h13
+set guifont=Source_Code_Pro:h14
 
 set hls
 set nu
