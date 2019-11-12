@@ -2,7 +2,7 @@
     "workbench.iconTheme": "vscode-icons",
     "python.pythonPath": "/usr/local/bin/python3",
     "python.jediEnabled": false,
-    "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "Cascadia Code, Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 14,
     "python.linting.pylintEnabled": true,
     "vim.statusBarColorControl": true,
@@ -106,4 +106,5 @@
     "evermonkey.noteReadonly": false,
     "editor.acceptSuggestionOnEnter": "off",
     "terminal.integrated.shell.osx": "/bin/zsh",
+    "editor.fontLigatures": true,
 }
