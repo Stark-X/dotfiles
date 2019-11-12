@@ -112,9 +112,13 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'}
 autocmd! User python-mode echom 'Python-Mode is now loaded.'
 autocmd! User python-mode let g:pymode_python = 'python3'
 
-" ==================== Auto Format ====================
+" ==================== groovy ====================
 Plug 'vim-scripts/groovyindent-unix'
 Plug 'vim-scripts/groovy.vim'
+autocmd Filetype groovy setlocal sw=2
+" ==================== groovy ====================
+
+" ==================== Auto Format ====================
 Plug 'Chiel92/vim-autoformat'
 noremap <F4> :Autoformat<CR>
 let g:formatter_yapf_style = 'pep8'
