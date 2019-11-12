@@ -17,3 +17,12 @@ map <space>j :action AceLineAction<CR>
 map <space>k :action AceLineAction<CR>
 map <space>s :action AceTargetAction<CR>
 
+" Add line before and after
+map [<space> :action EditorStartNewLineBefore<CR>
+map ]<space> :action EditorStartNewLine<CR>
+
+" Show usage
+map \jr :action ShowUsages<CR>
+
+" Override vim's reformat
+nnoremap gg=G :action ReformatCode<CR>
