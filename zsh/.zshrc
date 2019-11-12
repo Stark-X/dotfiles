@@ -157,3 +157,5 @@ function fzfp(){
 #### fzf ####
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.rvm/bin:$HOME/Library/Python/3.7/bin:$PATH"
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+

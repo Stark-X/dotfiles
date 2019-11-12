@@ -57,3 +57,11 @@ function fzfp(){
 #### fzf ####
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.rvm/bin:$HOME/Library/Python/3.7/bin:$PATH"
+
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+
+# >>> talisman >>>
+# Below environment variables should not be modified unless you know what you are doing
+export TALISMAN_HOME=/Users/jzxiao/.talisman/bin
+alias talisman=$TALISMAN_HOME/talisman_darwin_amd64
+# <<< talisman <<<
