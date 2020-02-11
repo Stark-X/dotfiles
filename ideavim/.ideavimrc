@@ -25,4 +25,4 @@ map ]<space> :action EditorStartNewLine<CR>
 map \jr :action ShowUsages<CR>
 
 " Override vim's reformat
-nnoremap gg=G :action ReformatCode<CR>
+nnoremap \l :action ReformatCode<CR>
