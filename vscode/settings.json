@@ -15,7 +15,6 @@
     "java.errors.incompleteClasspath.severity": "ignore",
     "vim.easymotionMarkerFontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
     "terminal.integrated.fontSize": 14,
-    "vim.easymotionMarkerYOffset": 7,
     "workbench.fontAliasing": "auto",
     "emmet.excludeLanguages": [],
     "breadcrumbs.enabled": true,
@@ -107,4 +106,8 @@
     "editor.acceptSuggestionOnEnter": "off",
     "terminal.integrated.shell.osx": "/bin/zsh",
     "editor.fontLigatures": true,
+    "editor.formatOnType": true,
+    "vim.easymotionMarkerYOffset": 5,
+    "vim.easymotionMarkerWidthPerChar": 7,
+    "editor.minimap.enabled": true,
 }
