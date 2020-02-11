@@ -272,6 +272,15 @@ Plug 'vim-scripts/ReplaceWithRegister'
 " Improved star-search (visual-mode, highlighting without moving)
 Plug 'junegunn/vim-slash'
 
+" TabNine, a AI code advisor
+Plug 'zxqfl/tabnine-vim'
+
+" ==================== ansible-vim ====================
+" Syntax plugin for Ansible
+Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
+let g:ansible_unindent_after_newline = 1
+" ==================== ansible-vim ====================
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
@@ -387,7 +396,9 @@ let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 set encoding=utf-8
-set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
+if has('win32')
+    set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
+endif
 
 " makes the % command work better
 packadd matchit
