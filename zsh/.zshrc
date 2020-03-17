@@ -117,7 +117,8 @@ function lll() {
 
 ### Alias ###
 alias ag='ag --hidden'
-alias twvpn='python3 ~/workspace/myprojects/twvpn/main.py'
+# alias twvpn='python3 ~/workspace/myprojects/twvpn/main.py'
+alias twvpn='sh ~/workspace/myprojects/twvpn/twvpn-global-protect.sh'
 ### Alias ###
 
 #https://stackoverflow.com/questions/8616843/ctrl-s-is-not-working-as-a-horizontal-split-in-vim-when-using-commandt
@@ -159,3 +160,5 @@ function fzfp(){
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.rvm/bin:$HOME/Library/Python/3.7/bin:$PATH"
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 
+alias glgp="git log --graph --oneline --decorate --all"
+alias glogp="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
