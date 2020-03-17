@@ -306,11 +306,8 @@ au BufWrite /private/etc/pw.* set nowritebackup
 " theme
 set background=dark
 colorscheme solarized8
-"colorscheme desert
-" colorscheme gruvbox 
-" let g:gruvbox_contrast_dark="hard"
-" colorscheme badwolf
-set guifont=Source_Code_Pro:h14
+" set guifont=Source_Code_Pro:h14
+set guifont=JetBrains_Mono:h14
 
 set hls
 set nu
