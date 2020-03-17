@@ -68,6 +68,8 @@ let g:vim_markdown_new_list_item_indent = 2
 let g:vim_markdown_toc_autofit = 1
 " Show the link url explicitly
 let g:vim_markdown_conceal = 0
+" Show the code block symbol explicitly
+let g:vim_markdown_conceal_code_blocks = 0
 "markdown-setting: YAML
 let g:vim_markdown_frontmatter=1
 Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
@@ -280,6 +282,8 @@ Plug 'zxqfl/tabnine-vim'
 Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
 let g:ansible_unindent_after_newline = 1
 " ==================== ansible-vim ====================
+
+Plug 'godlygeek/tabular'
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
