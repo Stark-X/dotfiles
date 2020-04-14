@@ -62,6 +62,7 @@ plugins=(
   git
   z
   kubectl
+  helm
   cf
   docker
   python
