@@ -19,7 +19,7 @@
     "emmet.excludeLanguages": [],
     "breadcrumbs.enabled": true,
     "editor.renderControlCharacters": true,
-    "editor.renderWhitespace": "none",
+    "editor.renderWhitespace": "all",
     "editor.multiCursorModifier": "alt",
     "vim.normalModeKeyBindingsNonRecursive": [
         {
@@ -110,4 +110,5 @@
     "vim.easymotionMarkerYOffset": 5,
     "vim.easymotionMarkerWidthPerChar": 7,
     "editor.minimap.enabled": true,
+    "explorer.confirmDelete": false,
 }

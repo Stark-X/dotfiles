@@ -25,5 +25,9 @@
         "command": "list.select",
         "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
     },
+    {
+        "key": "ctrl+shift+n",
+        "command": "explorer.newFolder"
+    },
     // cmd+k, <enter> to make the current file escape from the preview mode, so that the current tab will not be replace
 ]
