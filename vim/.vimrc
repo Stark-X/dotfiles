@@ -101,8 +101,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'leafgarland/typescript-vim'
 " Plug 'ctrlpvim/ctrlp.vim'
-" Asynchronous Lint Engine
-Plug 'w0rp/ale'
 Plug 'posva/vim-vue'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
@@ -285,6 +283,24 @@ let g:ansible_unindent_after_newline = 1
 
 Plug 'godlygeek/tabular'
 
+" ==================== Asynchronous Lint Engine ====================
+Plug 'dense-analysis/ale'
+nmap <silent> ]a :ALENextWrap<cr>
+nmap <silent> [a :ALEPreviousWrap<cr>
+
+" Fix files when they are saved.
+let g:ale_fix_on_save = 1
+" :help ale-fix (<C-]> to jump tag, <C-t> to come back)
+" NOTE: check the help document for some tools installation
+" :ALEFixSuggest to get the suggest the supported fixers
+let g:ale_fixers = {
+\   'javascript': ['standard'],
+\   'typescript': ['tslint'],
+\   'python': ['autopep8'],
+\   'yaml': ['trim_whitespace']
+\}
+" ==================== Asynchronous Lint Engine ====================
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
@@ -413,17 +429,6 @@ let g:ale_linters = {
 \   'typescript': ['tslint'],
 \   'python': ['autopep8'],
 \   'yaml': ['yamllint', 'prettier']
-\}
-" Fix files when they are saved.
-let g:ale_fix_on_save = 1
-" :help ale-fix (<C-]> to jump tag, <C-t> to come back)
-" NOTE: check the help document for some tools installation
-" :ALEFixSuggest to get the suggest the supported fixers
-let g:ale_fixers = {
-\   'javascript': ['standard'],
-\   'typescript': ['tslint'],
-\   'python': ['autopep8'],
-\   'yaml': ['trim_whitespace']
 \}
 
 if has('win32')
