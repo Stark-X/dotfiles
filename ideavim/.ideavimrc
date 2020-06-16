@@ -26,3 +26,7 @@ map \jr :action ShowUsages<CR>
 
 " Override vim's reformat
 nnoremap \l :action ReformatCode<CR>
+
+" https://github.com/hadix-lin/ideavim_extension
+:set keep-english-in-normal-and-restore-in-insert
+
