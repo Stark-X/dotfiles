@@ -34,3 +34,6 @@ nnoremap \l :action ReformatCode<CR>
 let g:EasyMotion_override_acejump = 0
 set easymotion
 
+" quick definition
+map gh :action QuickImplementations<CR>
+
