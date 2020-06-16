@@ -106,7 +106,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'easymotion/vim-easymotion'
 " Themes
-Plug 'sjl/badwolf'
+Plug 'patstockwell/vim-monokai-tasty'
+
 " Optimization for Python
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'}
 autocmd! User python-mode echom 'Python-Mode is now loaded.'
@@ -289,11 +290,13 @@ nmap <silent> ]a :ALENextWrap<cr>
 nmap <silent> [a :ALEPreviousWrap<cr>
 
 " Fix files when they are saved.
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
+nnoremap <silent> <leader>f :ALEFix<cr>
 " :help ale-fix (<C-]> to jump tag, <C-t> to come back)
 " NOTE: check the help document for some tools installation
 " :ALEFixSuggest to get the suggest the supported fixers
 let g:ale_fixers = {
+\   '*': ['trim_whitespace'],
 \   'javascript': ['standard'],
 \   'typescript': ['tslint'],
 \   'python': ['autopep8'],
@@ -321,7 +324,12 @@ au BufWrite /private/etc/pw.* set nowritebackup
 
 " theme
 set background=dark
-colorscheme solarized8
+" colorscheme solarized8
+
+let g:vim_monokai_tasty_italic = 1
+colorscheme vim-monokai-tasty
+let g:airline_theme='monokai_tasty'
+
 " set guifont=Source_Code_Pro:h14
 set guifont=JetBrains_Mono:h14
 
@@ -409,7 +417,7 @@ nmap <c-w>] :vertical resize +5<CR>
 set lazyredraw
 
 " airline realted
-let g:airline_theme='solarized'
+" let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 set encoding=utf-8
