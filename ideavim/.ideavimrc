@@ -30,3 +30,7 @@ nnoremap \l :action ReformatCode<CR>
 " https://github.com/hadix-lin/ideavim_extension
 :set keep-english-in-normal-and-restore-in-insert
 
+" easy motion
+let g:EasyMotion_override_acejump = 0
+set easymotion
+
