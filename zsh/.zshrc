@@ -163,3 +163,8 @@ export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 
 alias glgp="git log --graph --oneline --decorate --all"
 alias glogp="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+#### Tmux ####
+export TERM="xterm-256color"
+#### Tmux ####
+

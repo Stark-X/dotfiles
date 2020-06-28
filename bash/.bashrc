@@ -65,3 +65,8 @@ export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export TALISMAN_HOME=/Users/jzxiao/.talisman/bin
 alias talisman=$TALISMAN_HOME/talisman_darwin_amd64
 # <<< talisman <<<
+
+#### Tmux ####
+export TERM="xterm-256color"
+#### Tmux ####
+
