@@ -379,6 +379,10 @@ endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_server_python_interpreter = 'python3'
+nmap K K
+nmap K <plug>(YCMHover)
+" nmap <leader>D <plug>(YCMHover)
+let g:ycm_auto_hover=""
 " ==================== YouCompleteMe ====================
 
 "MarkdownPreview-KeyMapping
@@ -546,4 +550,8 @@ set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
 
 autocmd Filetype python map <leader>tt :!pytest -v<CR>
 autocmd Filetype python map <leader>tp :!pytest -v --pdb<CR>
+
+" compiled with python3/dyn Vim config for the correct python dll
+" comment out if it's not necessary
+set pythonthreedll=/usr/local/Cellar/python/3.7.7/bin/python3
 
