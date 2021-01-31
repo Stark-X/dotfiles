@@ -112,6 +112,7 @@ Plug 'patstockwell/vim-monokai-tasty'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'}
 autocmd! User python-mode echom 'Python-Mode is now loaded.'
 autocmd! User python-mode let g:pymode_python = 'python3'
+let g:pymode_doc_bind = '<leader>d'
 
 " ==================== groovy ====================
 Plug 'vim-scripts/groovyindent-unix'
@@ -304,6 +305,12 @@ let g:ale_fixers = {
 \}
 " ==================== Asynchronous Lint Engine ====================
 
+Plug 'tommcdo/vim-exchange'
+Plug 'machakann/vim-highlightedyank'
+
+" calcuate programming time
+Plug 'wakatime/vim-wakatime'
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
@@ -357,6 +364,7 @@ autocmd FileType feature setlocal shiftwidth=2
 autocmd FileType make setlocal noet
 autocmd FileType groovy setlocal cindent
 autocmd FileType yaml,conf,json,javascript,vue,markdown setlocal cindent sw=2
+autocmd FileType scss setlocal cindent sw=2
 
 " for typescript-vim
 autocmd QuickFixCmdPost [^l]* nested cwindow
