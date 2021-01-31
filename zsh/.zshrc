@@ -168,3 +168,6 @@ alias glogp="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)
 export TERM="xterm-256color"
 #### Tmux ####
 
+
+# Added by serverless binary installer
+export PATH="$HOME/.serverless/bin:$PATH"
