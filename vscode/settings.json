@@ -111,4 +111,6 @@
     "vim.easymotionMarkerWidthPerChar": 7,
     "editor.minimap.enabled": true,
     "explorer.confirmDelete": false,
+    "tabnine.experimentalAutoImports": true,
+    "python.languageServer": "Microsoft",
 }
