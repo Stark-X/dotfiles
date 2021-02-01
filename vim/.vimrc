@@ -558,6 +558,7 @@ set wildmenu
 set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
 
 autocmd Filetype python map <leader>tt :!pytest -v<CR>
+autocmd Filetype python map <leader>ts :!pytest -sv<CR>
 autocmd Filetype python map <leader>tp :!pytest -v --pdb<CR>
 
 " compiled with python3/dyn Vim config for the correct python dll
