@@ -132,8 +132,8 @@ Plug 'pseewald/vim-anyfold'
 let g:fold_cycle_default_mapping = 0 "disable default mappings
 nmap <+> <Plug>(fold-cycle-open)
 nmap <-> <Plug>(fold-cycle-close)
-set foldlevel=0
-"
+set foldlevel=5
+
 " activate anyfold by default
 augroup anyfold
     autocmd!
@@ -307,6 +307,7 @@ let g:ale_fixers = {
 
 Plug 'tommcdo/vim-exchange'
 Plug 'machakann/vim-highlightedyank'
+Plug 'vim-scripts/argtextobj.vim'
 
 " calcuate programming time
 Plug 'wakatime/vim-wakatime'
@@ -557,6 +558,7 @@ set wildmenu
 set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
 
 autocmd Filetype python map <leader>tt :!pytest -v<CR>
+autocmd Filetype python map <leader>ts :!pytest -sv<CR>
 autocmd Filetype python map <leader>tp :!pytest -v --pdb<CR>
 
 " compiled with python3/dyn Vim config for the correct python dll
