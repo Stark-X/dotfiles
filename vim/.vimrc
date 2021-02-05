@@ -312,6 +312,27 @@ Plug 'vim-scripts/argtextobj.vim'
 " calcuate programming time
 Plug 'wakatime/vim-wakatime'
 
+" ==================== Float Terminal ====================
+Plug 'voldikss/vim-floaterm'
+" let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_new = '<leader>ft'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F10>'
+
+autocmd Filetype python map <leader>tt :FloatermNew pytest<CR>
+autocmd Filetype python map <leader>ts :FloatermNew pytest -sv<CR>
+autocmd Filetype python map <leader>tp :FloatermNew pytest -v --pdb<CR>
+
+Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asyncrun.extra'
+Plug 'skywind3000/asynctasks.vim'
+noremap <silent><f5> :AsyncTask file-run<cr>
+let g:asyncrun_open = 6
+let g:asynctasks_term_pos = 'right'
+
+" ==================== Float Terminal ====================
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
@@ -378,7 +399,7 @@ autocmd FileType cs nnoremap <leader>ji :YcmCompleter GoToImplementation<CR>
 nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
 nnoremap <leader>gt :YcmCompleter GetType<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
 let g:syntastic_cpp_compiler='g++' "change the compiler to 'g++' to support c++11
 let g:syntastic_cpp_compiler_options='-std=c++11 -stdlib=libc++'  "set the options of g++ to support c++11
 " YCM with TypeScript
@@ -392,25 +413,29 @@ nmap K K
 nmap K <plug>(YCMHover)
 " nmap <leader>D <plug>(YCMHover)
 let g:ycm_auto_hover=""
+
+" use popup for GetDoc preview
+set previewpopup=height:10,width:60,highlight:PMenuSbar
+set completeopt+=popup
+set completepopup=height:15,width:60,border:off,highlight:PMenuSbar
+
 " ==================== YouCompleteMe ====================
 
-"MarkdownPreview-KeyMapping
-nmap <silent> <F8> <Plug>MarkdownPreview        " for normal mode
-imap <silent> <F8> <Plug>MarkdownPreview        " for insert mode
-nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
-imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
+" ==================== MarkdownPreview ====================
 if has('win32')
     let g:mkdp_path_to_chrome = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
 endif
 if has('macunix')
     let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
 endif
+let g:mkdp_auto_close = 1
+let g:mkdp_auto_open = 1
+" ==================== MarkdownPreview ====================
+
 if has("gui_macvim")
     " Only work on MacVim, the iTerm2 will use ^[
     set macmeta
 endif
-let g:mkdp_auto_close = 1
-let g:mkdp_auto_open = 1
 
 "copy and paste
 vmap <Leader>y "+y
@@ -557,11 +582,7 @@ set wildmenu
 
 set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
 
-autocmd Filetype python map <leader>tt :!pytest -v<CR>
-autocmd Filetype python map <leader>ts :!pytest -sv<CR>
-autocmd Filetype python map <leader>tp :!pytest -v --pdb<CR>
-
-" compiled with python3/dyn Vim config for the correct python dll
-" comment out if it's not necessary
-set pythonthreedll=/usr/local/Cellar/python/3.7.7/bin/python3
+" autocmd Filetype python map <leader>tt :!pytest -v<CR>
+" autocmd Filetype python map <leader>ts :!pytest -sv<CR>
+" autocmd Filetype python map <leader>tp :!pytest -v --pdb<CR>
 
