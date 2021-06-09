@@ -108,11 +108,14 @@ Plug 'easymotion/vim-easymotion'
 " Themes
 Plug 'patstockwell/vim-monokai-tasty'
 
+let py_line_max_length = 120
+
 " Optimization for Python
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'}
 autocmd! User python-mode echom 'Python-Mode is now loaded.'
 autocmd! User python-mode let g:pymode_python = 'python3'
 let g:pymode_doc_bind = '<leader>d'
+let g:pymode_options_max_line_length = py_line_max_length
 
 " ==================== groovy ====================
 Plug 'vim-scripts/groovyindent-unix'
@@ -123,7 +126,8 @@ autocmd Filetype groovy setlocal sw=2
 " ==================== Auto Format ====================
 Plug 'Chiel92/vim-autoformat'
 noremap <F4> :Autoformat<CR>
-let g:formatter_yapf_style = 'pep8'
+" let g:formatter_yapf_style = 'pep8'
+" let g:formatters_python = ['autopep8']
 " ==================== Auto Format ====================
 
 " ==================== Code Folding ====================
@@ -298,11 +302,24 @@ nnoremap <silent> <leader>f :ALEFix<cr>
 " :ALEFixSuggest to get the suggest the supported fixers
 let g:ale_fixers = {
 \   '*': ['trim_whitespace'],
-\   'javascript': ['standard'],
+\   'javascript': ['eslint'],
 \   'typescript': ['tslint'],
-\   'python': ['autopep8'],
-\   'yaml': ['trim_whitespace']
+\   'python': ['isort', 'black', 'autopep8'],
+\   'yaml': ['trim_whitespace'],
+\   'vue': ['eslint']
 \}
+
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tslint'],
+\   'python': ['pylint', 'flake8'],
+\   'yaml': ['yamllint', 'prettier']
+\}
+let b:ale_python_flake8_options = '--max-line-length='.py_line_max_length
+
 " ==================== Asynchronous Lint Engine ====================
 
 Plug 'tommcdo/vim-exchange'
@@ -330,8 +347,9 @@ Plug 'skywind3000/asynctasks.vim'
 noremap <silent><f5> :AsyncTask file-run<cr>
 let g:asyncrun_open = 6
 let g:asynctasks_term_pos = 'right'
-
 " ==================== Float Terminal ====================
+
+Plug 'christoomey/vim-tmux-navigator'
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
@@ -466,17 +484,6 @@ endif
 " makes the % command work better
 packadd matchit
 
-" ALE setting
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-let g:ale_linters = {
-\   'javascript': ['standard'],
-\   'typescript': ['tslint'],
-\   'python': ['autopep8'],
-\   'yaml': ['yamllint', 'prettier']
-\}
-
 if has('win32')
     source $VIMRUNTIME/mswin.vim
     behave mswin
@@ -509,6 +516,7 @@ vnoremap // y/<c-r>"<cr>
 
 " Comment with one Space
 let g:NERDSpaceDelims=1
+" ==================== Vue ====================
 " NERDCommenter for vue settings
 let g:ft = ''
 function! NERDCommenter_before()
@@ -530,6 +538,8 @@ function! NERDCommenter_after()
   endif
 endfunction
 let g:vue_disable_pre_processors=1
+
+" ==================== Vue ====================
 
 
 " Disable auto fold
@@ -585,4 +595,25 @@ set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
 " autocmd Filetype python map <leader>tt :!pytest -v<CR>
 " autocmd Filetype python map <leader>ts :!pytest -sv<CR>
 " autocmd Filetype python map <leader>tp :!pytest -v --pdb<CR>
+
+" ===== kite =====
+let g:kite_tab_complete=1
+set completeopt+=menuone
+set completeopt+=noselect
+" ===== kite =====
+
+" LSP
+source /home/stark/Softwares/lsp-examples/vimrc.generated
+
+" ===== Term GUI enable true Color =====
+if has("termguicolors")
+    " fix bug for vim
+    " set Vim-specific sequences for RGB colors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+    " enable true color
+    set termguicolors
+endif
+" ===== Term GUI enable true Color =====
 
