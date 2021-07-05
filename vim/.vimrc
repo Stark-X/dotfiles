@@ -233,12 +233,14 @@ Plug 'mileszs/ack.vim', { 'do': function('Install_ag') }
 let g:ackprg = 'ag --vimgrep --hidden'
 " ==================== ACK ====================
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 nmap <C-P> :Files<CR>
+nmap <C-H> :History<CR>
+nmap <C-T> :Buffers<CR>
 let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-t': 'tabnew',
@@ -308,6 +310,8 @@ let g:ale_fixers = {
 \   'yaml': ['trim_whitespace'],
 \   'vue': ['eslint']
 \}
+" Run both javascript and vue linters for vue files.
+let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -316,9 +320,12 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'typescript': ['tslint'],
 \   'python': ['pylint', 'flake8'],
-\   'yaml': ['yamllint', 'prettier']
+\   'yaml': ['yamllint', 'prettier'],
+\   'vue': ['eslint', 'vls']
 \}
 let b:ale_python_flake8_options = '--max-line-length='.py_line_max_length
+
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 
 " ==================== Asynchronous Lint Engine ====================
 
@@ -331,6 +338,7 @@ Plug 'wakatime/vim-wakatime'
 
 " ==================== Float Terminal ====================
 Plug 'voldikss/vim-floaterm'
+Plug 'voldikss/fzf-floaterm'
 " let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_new = '<leader>ft'
 let g:floaterm_keymap_prev   = '<F8>'
@@ -598,6 +606,7 @@ set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
 
 " ===== kite =====
 let g:kite_tab_complete=1
+set completeopt+=popup
 set completeopt+=menuone
 set completeopt+=noselect
 " ===== kite =====
