@@ -1,13 +1,23 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/$USER/.oh-my-zsh
+export ZSH=/home/$USER/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -61,13 +71,8 @@ ZSH_THEME="agnoster"
 plugins=(
   git
   z
-  kubectl
-  helm
-  cf
-  docker
   python
   pip
-  forklift
   fzf
 )
 # Install cf-zsh-autocomplete-plugin
@@ -126,7 +131,7 @@ alias twvpn='sh ~/workspace/myprojects/twvpn/twvpn-global-protect.sh'
 stty -ixon -ixoff
 
 export GOPATH=$HOME/workspace/go
-export PATH=$PATH:/Users/$USER/Applications/kubernetes/client/bin:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -171,3 +176,38 @@ export TERM="xterm-256color"
 
 # Added by serverless binary installer
 export PATH="$HOME/.serverless/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+#### WSL ####
+#export QT_IM_MODULE=fcitx
+#export XIM_PROGRAM=fcitx
+#export GTK_IM_MODULE=fcitx
+#export XMODIFIERS="@im=fcitx"
+#export rime_dir="$HOME/.config/fcitx/rime"
+
+# nohup fcitx-autostart  2>&1 >> /dev/null &
+
+#export HOST_IP=$(ip route | grep default | awk '{print $3}')
+#export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+#export LIBGL_ALWAYS_INDIRECT=1
+#
+## forward traffic to 127.0.0.1
+#expose_local(){
+#    sudo sysctl -w net.ipv4.conf.all.route_localnet=1 >/dev/null 2>&1
+#    sudo iptables -t nat -I PREROUTING -p tcp -j DNAT --to-destination 127.0.0.1
+#}
+#
+#export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+#
+#alias pbcopy='win32yank.exe -i'
+#alias pbpaste='win32yank.exe -o'
+#
+#sudo service mysql status >> /dev/null || sudo service mysql start
+#sudo service redis-server status >> /dev/null || sudo service redis-server start
+
+# export PYTHONSTARTUP=~/.pythonrc.py
+
+#### WSL ####
+
+
