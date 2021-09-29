@@ -319,11 +319,12 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'typescript': ['tslint'],
-\   'python': ['pylint', 'flake8'],
+\   'python': ['pylint'],
 \   'yaml': ['yamllint', 'prettier'],
 \   'vue': ['eslint', 'vls']
 \}
-let b:ale_python_flake8_options = '--max-line-length='.py_line_max_length
+let g:syntastic_python_pylint_post_args="--max-line-length=".py_line_max_length
+
 
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 
@@ -357,7 +358,16 @@ let g:asyncrun_open = 6
 let g:asynctasks_term_pos = 'right'
 " ==================== Float Terminal ====================
 
+" ==================== Tmux Naviagator ====================
 Plug 'christoomey/vim-tmux-navigator'
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+" ==================== Tmux Naviagator ====================
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
