@@ -1,5 +1,15 @@
+set highlightedyank
+set ReplaceWithRegister
+set argtextobj
+set exchange
 set surround
 set multiple-cursors
+set easymotion
+set textobj-entire
+set ideajoin
+if has('webstorm')
+    set matchit
+endif
 
 nnoremap ]h :action GotoNextElementUnderCaretUsage<CR>
 nnoremap [h :action GotoPrevElementUnderCaretUsage<CR>
@@ -23,6 +33,7 @@ map ]<space> :action EditorStartNewLine<CR>
 
 " Show usage
 map \jr :action ShowUsages<CR>
+map \jd :action GotoDeclaration<CR>
 
 " Override vim's reformat
 nnoremap \l :action ReformatCode<CR>
@@ -32,8 +43,10 @@ nnoremap \l :action ReformatCode<CR>
 
 " easy motion
 let g:EasyMotion_override_acejump = 0
-set easymotion
 
 " quick definition
 map gh :action QuickImplementations<CR>
+
+map <C-j> :action VcsShowNextChangeMarker<CR>
+map <C-k> :action VcsShowPrevChangeMarker<CR>
 
