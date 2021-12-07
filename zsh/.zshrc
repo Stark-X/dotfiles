@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/$USER/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -123,21 +123,15 @@ function lll() {
 
 ### Alias ###
 alias ag='ag --hidden'
-# alias twvpn='python3 ~/workspace/myprojects/twvpn/main.py'
-alias twvpn='sh ~/workspace/myprojects/twvpn/twvpn-global-protect.sh'
 ### Alias ###
 
 #https://stackoverflow.com/questions/8616843/ctrl-s-is-not-working-as-a-horizontal-split-in-vim-when-using-commandt
 stty -ixon -ixoff
 
 export GOPATH=$HOME/workspace/go
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-### Command Initial ###
-eval $(thefuck --alias)
-### Command Initial ###
 
 export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
@@ -178,35 +172,39 @@ export TERM="xterm-256color"
 export PATH="$HOME/.serverless/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-#### WSL ####
-#export QT_IM_MODULE=fcitx
-#export XIM_PROGRAM=fcitx
-#export GTK_IM_MODULE=fcitx
-#export XMODIFIERS="@im=fcitx"
-#export rime_dir="$HOME/.config/fcitx/rime"
+# What OS are we running?
+if uname -r |grep -iq 'Microsoft' ; then
+    #### WSL ####
+    export QT_IM_MODULE=fcitx
+    export XIM_PROGRAM=fcitx
+    export GTK_IM_MODULE=fcitx
+    export XMODIFIERS="@im=fcitx"
+    export rime_dir="$HOME/.config/fcitx/rime"
 
-# nohup fcitx-autostart  2>&1 >> /dev/null &
+    # nohup fcitx-autostart  2>&1 >> /dev/null &
 
-#export HOST_IP=$(ip route | grep default | awk '{print $3}')
-#export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
-#export LIBGL_ALWAYS_INDIRECT=1
-#
-## forward traffic to 127.0.0.1
-#expose_local(){
-#    sudo sysctl -w net.ipv4.conf.all.route_localnet=1 >/dev/null 2>&1
-#    sudo iptables -t nat -I PREROUTING -p tcp -j DNAT --to-destination 127.0.0.1
-#}
-#
-#export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-#
-#alias pbcopy='win32yank.exe -i'
-#alias pbpaste='win32yank.exe -o'
-#
-#sudo service mysql status >> /dev/null || sudo service mysql start
-#sudo service redis-server status >> /dev/null || sudo service redis-server start
+    export HOST_IP=$(ip route | grep default | awk '{print $3}')
+    export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+    export LIBGL_ALWAYS_INDIRECT=1
 
-# export PYTHONSTARTUP=~/.pythonrc.py
+    ## forward traffic to 127.0.0.1
+    expose_local(){
+       sudo sysctl -w net.ipv4.conf.all.route_localnet=1 >/dev/null 2>&1
+       sudo iptables -t nat -I PREROUTING -p tcp -j DNAT --to-destination 127.0.0.1
+    }
 
-#### WSL ####
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+    alias pbcopy='win32yank.exe -i'
+    alias pbpaste='win32yank.exe -o'
+
+    sudo service mysql status >> /dev/null || sudo service mysql start
+    sudo service redis-server status >> /dev/null || sudo service redis-server start
+    #### WSL ####
+
+elif [[ `uname` == "Darwin" ]]; then
+    # MacOs
+    # pass
+fi
 
