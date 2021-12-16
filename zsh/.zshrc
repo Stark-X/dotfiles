@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=${HOME}/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -85,18 +85,6 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
@@ -126,7 +114,7 @@ alias ag='ag --hidden'
 ### Alias ###
 
 #https://stackoverflow.com/questions/8616843/ctrl-s-is-not-working-as-a-horizontal-split-in-vim-when-using-commandt
-stty -ixon -ixoff
+# stty -ixon -ixoff
 
 export GOPATH=$HOME/workspace/go
 export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
@@ -157,8 +145,8 @@ function fzfp(){
 }
 #### fzf ####
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.rvm/bin:$HOME/Library/Python/3.7/bin:$PATH"
-export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.rvm/bin:/opt/homebrew/opt/python@3.10/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/python@3.10/lib"
 
 alias glgp="git log --graph --oneline --decorate --all"
 alias glogp="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -205,6 +193,17 @@ if uname -r |grep -iq 'Microsoft' ; then
 
 elif [[ `uname` == "Darwin" ]]; then
     # MacOs
-    # pass
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+    export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+
+    if type brew &>/dev/null; then
+        FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+        autoload -Uz compinit
+        compinit
+    fi
 fi
 
