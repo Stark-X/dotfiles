@@ -1,11 +1,10 @@
 # dotfiles
-Personal dotfiles, including vim, slate, .zshrc, .bashrc, etc.
+Personal dotfiles, including vim, .zshrc, .bashrc, etc.
 
 ## Scope
 - vimrc
 - zshrc
 - bashrc
-- ~~slate~~ [DEPRECATED]
 - HammerSpoon, https://github.com/Hammerspoon/hammerspoon
 
 ## Usage
@@ -21,11 +20,14 @@ cd dotfiles
 stow bash
 stow hammerspoon
 stow ideavim
-stow slate
 stow vim
 stow vscode
 stow zsh
 stow vscode -t ~/Library/Application\ Support/Code/User 
+
+# brew install openjdk@11
+# sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
+cd lsp-examples && python3 ./install.py --enable-bash --enable-yaml --enable-vim --enable-vue --enable-json --enable-groovy --enable-docker
 ```
 3. vscode extensions sync
 ```bash

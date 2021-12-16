@@ -622,7 +622,7 @@ set completeopt+=noselect
 " ===== kite =====
 
 " LSP
-source /home/stark/Softwares/lsp-examples/vimrc.generated
+source ${HOME}/dotfiles/lsp-examples/vimrc.generated
 
 " ===== Term GUI enable true Color =====
 if has("termguicolors")
