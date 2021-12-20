@@ -207,3 +207,6 @@ elif [[ `uname` == "Darwin" ]]; then
     fi
 fi
 
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
