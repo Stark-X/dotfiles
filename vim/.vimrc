@@ -395,8 +395,10 @@ let g:vim_monokai_tasty_italic = 1
 colorscheme vim-monokai-tasty
 let g:airline_theme='monokai_tasty'
 
-" set guifont=Source_Code_Pro:h14
-set guifont=JetBrains_Mono:h14
+if has('gui_running')
+    " set guifont=Source_Code_Pro:h14
+    set guifont=MesloLGS-NF-Regular:h13
+endif
 
 set hls
 set nu
