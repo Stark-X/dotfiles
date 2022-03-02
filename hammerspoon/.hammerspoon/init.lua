@@ -258,12 +258,9 @@ wf_vim = wf.new({'MacVim', 'iTerm2', 'PhpStorm', 'IntelliJ IDEA', 'PyCharm', 'Co
 wf_vim:subscribe(wf.windowFocused, disableBinds)
 wf_vim:subscribe(wf.windowUnfocused, enableBinds)
 
-local logger = hs.logger.new('hammerspoon','debug')
-
-caffeine = hs.loadSpoon("Caffeine")
 wf_keep_awake = wf.new({'谜底时钟'})
-wf_keep_awake:subscribe(wf.windowFocused, function() hs.alert.show('Start Caffeine'); caffeine:start() end)
-wf_keep_awake:subscribe(wf.windowUnfocused, function() hs.alert.show('Stop Caffeine'); caffeine:stop() end)
+wf_keep_awake:subscribe(wf.windowFocused, function() hs.alert.show('Start Caffeine'); hs.caffeine.set('displayIdle', true) end)
+wf_keep_awake:subscribe(wf.windowUnfocused, function() hs.alert.show('Stop Caffeine'); hs.caffeine.set('displayIdle', false) end)
 
 
 -- TODO: Check-> Warning:   wfilter: No accessibility access to app GoldenDict (no watcher pid)
