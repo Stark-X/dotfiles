@@ -258,6 +258,13 @@ wf_vim = wf.new({'MacVim', 'iTerm2', 'PhpStorm', 'IntelliJ IDEA', 'PyCharm', 'Co
 wf_vim:subscribe(wf.windowFocused, disableBinds)
 wf_vim:subscribe(wf.windowUnfocused, enableBinds)
 
+local logger = hs.logger.new('hammerspoon','debug')
+
+caffeine = hs.loadSpoon("Caffeine")
+wf_keep_awake = wf.new({'谜底时钟'})
+wf_keep_awake:subscribe(wf.windowFocused, function() hs.alert.show('Start Caffeine'); caffeine:start() end)
+wf_keep_awake:subscribe(wf.windowUnfocused, function() hs.alert.show('Stop Caffeine'); caffeine:stop() end)
+
 
 -- TODO: Check-> Warning:   wfilter: No accessibility access to app GoldenDict (no watcher pid)
 -- all_wf = wf.new(true)
@@ -295,7 +302,7 @@ bn_right = hs.hotkey.bind('{"ctrl",}', 'l', fn_right, nil, fn_right)
 -- Command-shift-move: move window under mouse
 -- Alt-Shift-move: resize window under mouse
 function get_window_under_mouse()
-   local my_pos = hs.geometry.new(hs.mouse.getAbsolutePosition())
+   local my_pos = hs.geometry.new(hs.mouse.absolutePosition())
    local my_screen = hs.mouse.getCurrentScreen()
    return hs.fnutils.find(hs.window.orderedWindows(), function(w)
                              return my_screen == w:screen() and
