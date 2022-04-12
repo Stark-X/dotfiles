@@ -32,8 +32,11 @@ map [<space> :action EditorStartNewLineBefore<CR>
 map ]<space> :action EditorStartNewLine<CR>
 
 " Show usage
-map \jr :action ShowUsages<CR>
-map \jd :action GotoDeclaration<CR>
+map gr :action ShowUsages<CR>
+map gd :action GotoDeclaration<CR>
+
+" quick definition
+map K :action QuickImplementations<CR>
 
 " Override vim's reformat
 nnoremap \l :action ReformatCode<CR>
@@ -42,10 +45,7 @@ nnoremap \l :action ReformatCode<CR>
 :set keep-english-in-normal-and-restore-in-insert
 
 " easy motion
-let g:EasyMotion_override_acejump = 0
-
-" quick definition
-map gh :action QuickImplementations<CR>
+let g:EasyMotion_override_acejump = 1
 
 map <C-j> :action VcsShowNextChangeMarker<CR>
 map <C-k> :action VcsShowPrevChangeMarker<CR>
