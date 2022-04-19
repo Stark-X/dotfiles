@@ -1,22 +1,28 @@
 # dotfiles
+
 Personal dotfiles, including vim, .zshrc, .bashrc, etc.
 
 ## Scope
+
 - vimrc
 - zshrc
 - bashrc
-- HammerSpoon, https://github.com/Hammerspoon/hammerspoon
+- HammerSpoon, <https://github.com/Hammerspoon/hammerspoon>
+- coc
 
 ## Usage
 
 ### Mac
-1. Install stow with brew 
+
+1. Install stow with brew
 execute `brew install stow`
 2. Apply the dotfiles
+
 ```bash
 cd ~
 git clone https://github.com/Stark-X/dotfiles.git
 cd dotfiles
+stow coc -t ~/.vim
 stow bash
 stow hammerspoon
 stow ideavim
@@ -29,7 +35,9 @@ stow vscode -t ~/Library/Application\ Support/Code/User
 # sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
 cd lsp-examples && python3 ./install.py --enable-bash --enable-yaml --enable-vim --enable-vue --enable-json --enable-groovy --enable-docker
 ```
+
 3. vscode extensions sync
+
 ```bash
 # code --list-extensions | xargs -L 1 echo code --install-extension
 code --install-extension akamud.vscode-javascript-snippet-pack
@@ -79,3 +87,4 @@ code --install-extension zhuangtongfa.Material-theme
 
 4. Deactive the changes
 Unlink with command `stow -D <package_name>
+
