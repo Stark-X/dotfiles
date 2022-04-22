@@ -5,7 +5,6 @@ if has('python3') && !has('patch-8.1.201')
   silent! python3 1
 endif
 
-
 " Initialize for the vim-plug
 if has('win32')
     " set rtp+=$USERPROFILE/vimfiles/bundle/Vundle.vim/
@@ -229,7 +228,7 @@ Plug 'vim-airline/vim-airline-themes'
 " ==================== Snippets ====================
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<tab><tab>"
+" let g:UltiSnipsExpandTrigger="<tab><tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " ==================== Snippets ====================
@@ -421,9 +420,6 @@ Plug 'vim-scripts/ReplaceWithRegister'
 " Improved star-search (visual-mode, highlighting without moving)
 Plug 'junegunn/vim-slash'
 
-" TabNine, a AI code advisor
-Plug 'zxqfl/tabnine-vim'
-
 " ==================== ansible-vim ====================
 " Syntax plugin for Ansible
 Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
@@ -446,7 +442,7 @@ nnoremap <silent> <leader>f :ALEFix<cr>
 let g:ale_fixers = {
 \   '*': ['trim_whitespace'],
 \   'javascript': ['eslint'],
-\   'typescript': ['tslint'],
+\   'typescript': ['prettier'],
 \   'python': ['isort', 'black', 'autopep8'],
 \   'yaml': ['trim_whitespace'],
 \   'vue': ['eslint']
@@ -564,7 +560,7 @@ autocmd FileType c,cpp setlocal cindent
 autocmd FileType feature setlocal shiftwidth=2
 autocmd FileType make setlocal noet
 autocmd FileType groovy setlocal cindent
-autocmd FileType yaml,conf,json,javascript,vue,markdown setlocal cindent sw=2
+autocmd FileType yaml,conf,json,typescript,javascript,vue,markdown setlocal cindent sw=2
 autocmd FileType scss setlocal cindent sw=2
 
 " for typescript-vim
@@ -750,4 +746,9 @@ if has("termguicolors")
     set termguicolors
 endif
 " ===== Term GUI enable true Color =====
+
+let $EXTRA_VIMRC = '~/.vim/vimrc_extra'
+if filereadable($EXTRA_VIMRC)
+    source $EXTRA_VIMRC
+endif
 
