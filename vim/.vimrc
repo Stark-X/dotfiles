@@ -508,6 +508,8 @@ nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 " nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 " ==================== Tmux Naviagator ====================
 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
