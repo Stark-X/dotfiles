@@ -15,22 +15,163 @@ else
     call plug#begin('~/.vim/bundle/')
 endif
 
-Plug 'tpope/vim-fugitive'
-Plug 'vim-scripts/L9'
+" ==================== coc ====================
 
-" Post-update hooks to compile the YCM
-" ==================== YouCompleteMe ====================
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force || a:info.status == 'updated'
-    !python3 ./install.py --go-completer --js-completer --java-completer --clang-completer
+let g:coc_global_extensions = [
+  \'coc-markdownlint',
+  \'@yaegassy/coc-ansible',
+  \'@yaegassy/coc-nginx',
+  \'@yaegassy/coc-pylsp',
+  \'@yaegassy/coc-volar',
+  \'@yaegassy/coc-volar-tools',
+  \'coc-css',
+  \'coc-docker',
+  \'coc-dot-complete',
+  \'coc-eslint',
+  \'coc-explorer',
+  \'coc-floaterm',
+  \'coc-fzf-preview',
+  \'coc-git',
+  \'coc-groovy',
+  \'coc-highlight',
+  \'coc-html',
+  \'coc-java',
+  \'coc-json',
+  \'coc-lightbulb',
+  \'coc-lists',
+  \'coc-markdown-preview-enhanced',
+  \'coc-markdownlint',
+  \'coc-markmap',
+  \'coc-prettier',
+  \'coc-pydocstring',
+  \'coc-pyright',
+  \'coc-sh',
+  \'coc-snippets',
+  \'coc-sql',
+  \'coc-tabnine',
+  \'coc-toml',
+  \'coc-tsserver',
+  \'coc-webview',
+  \'coc-xml',
+  \'coc-yaml',
+  \'coc-yank'
+  \]
+
+nnoremap <silent> <space>c :<C-u>CocFzfList commands<CR>
+nnoremap <silent> <space>a :<C-u>CocFzfList actions<CR>
+nnoremap <silent> <space>g :<C-u>CocList --normal gstatus<CR>
+nmap d <Plug>(coc-git-chunkinfo)
+"<leader>hp to open a preview widown, provided by vim-gitgutter
+
+" Use release branch (recommend)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" :CocFzfList xxx
+Plug 'antoinemadec/coc-fzf'
+
+" for jump to next placeholder
+let g:coc_snippet_next = '<c-b>'
+" for jump to previous placeholder
+let g:coc_snippet_prev = '<c-z>'
+" for convert visual selected code to snippet
+xmap <leader>x <Plug>(coc-convert-snippet)
+" for trigger snippet expand.
+imap <tab> <Plug>(coc-snippets-expand)
+
+" GoTo code navigation.
+nmap <silent> <leader>jd <Plug>(coc-definition)
+nmap <silent> <leader>jy <Plug>(coc-type-definition)
+nmap <silent> <leader>ji <Plug>(coc-implementation)
+nmap <silent> <leader>jr <Plug>(coc-references)
+
+let g:coc_fzf_preview = 'right:50%'
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-" ==================== YouCompleteMe ====================
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocActionAsync('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" grep word under cursor
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
+
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
+
+" Keymapping for grep word under cursor with interactive mode
+nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+nnoremap <silent> <Leader>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
+
+nnoremap <silent> <space>y  :<C-u>CocFzfList yank<cr>
+" ==================== coc ====================
+
+Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/L9'
 
 Plug 'Yggdroot/indentLine'
 let g:indentLine_char='⎸'
@@ -430,34 +571,6 @@ autocmd FileType scss setlocal cindent sw=2
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 autocmd FileType typescript :setlocal makeprg=tsc " find the tsconfig.json to compile
-
-" ==================== YouCompleteMe ====================
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
-autocmd FileType cs nnoremap <leader>ji :YcmCompleter GoToImplementation<CR>
-nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
-nnoremap <leader>gt :YcmCompleter GetType<CR>
-nnoremap <leader>gd :YcmCompleter GetDoc<CR>
-nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
-let g:syntastic_cpp_compiler='g++' "change the compiler to 'g++' to support c++11
-let g:syntastic_cpp_compiler_options='-std=c++11 -stdlib=libc++'  "set the options of g++ to support c++11
-" YCM with TypeScript
-if !exists("g:ycm_semantic_triggers")
-  let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers['typescript'] = ['.']
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_server_python_interpreter = 'python3'
-nmap K K
-nmap K <plug>(YCMHover)
-" nmap <leader>D <plug>(YCMHover)
-let g:ycm_auto_hover=""
-
-" use popup for GetDoc preview
-set previewpopup=height:10,width:60,highlight:PMenuSbar
-set completeopt+=popup
-set completepopup=height:15,width:60,border:off,highlight:PMenuSbar
-
-" ==================== YouCompleteMe ====================
 
 " ==================== MarkdownPreview ====================
 if has('win32')
