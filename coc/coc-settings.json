@@ -1,3 +1,8 @@
 {
-    "java.home": "/usr/lib/jvm/java-11-openjdk-amd64/"
+    "java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
+    "python.formatting.provider": "black",
+    "groovy.java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
+    "coc.preferences.formatOnSaveFiletypes": ["python", "vue", "javascript", "typescript", "css"],
+    "suggest.noselect": false,
+    "suggest.enablePreselect": false
 }
