@@ -16,6 +16,9 @@ endif
 
 " ==================== coc ====================
 
+" Use release branch (recommend)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 let g:coc_global_extensions = [
   \'coc-markdownlint',
   \'@yaegassy/coc-ansible',
@@ -59,14 +62,10 @@ let g:coc_global_extensions = [
 nnoremap <silent> <space>c :<C-u>CocFzfList commands<CR>
 nnoremap <silent> <space>a :<C-u>CocFzfList actions<CR>
 nnoremap <silent> <space>g :<C-u>CocList --normal gstatus<CR>
-nmap d <Plug>(coc-git-chunkinfo)
+
 "<leader>hp to open a preview widown, provided by vim-gitgutter
-
-" Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" :CocFzfList xxx
-Plug 'antoinemadec/coc-fzf'
+" show chunkinfo like IDEA
+nmap d <Plug>(coc-git-chunkinfo)
 
 " for jump to next placeholder
 let g:coc_snippet_next = '<c-b>'
@@ -82,8 +81,6 @@ nmap <silent> <leader>jd <Plug>(coc-definition)
 nmap <silent> <leader>jy <Plug>(coc-type-definition)
 nmap <silent> <leader>ji <Plug>(coc-implementation)
 nmap <silent> <leader>jr <Plug>(coc-references)
-
-let g:coc_fzf_preview = 'right:50%'
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -373,8 +370,12 @@ Plug 'mileszs/ack.vim', { 'do': function('Install_ag') }
 let g:ackprg = 'ag --vimgrep --hidden'
 " ==================== ACK ====================
 
+" ==================== FZF ====================
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" :CocFzfList xxx
+Plug 'antoinemadec/coc-fzf'
+let g:coc_fzf_preview = 'right:50%'
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
@@ -385,6 +386,7 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-t': 'tabnew',
   \ 'ctrl-v': 'vsplit'}
+" ==================== FZF ====================
 
 " Execute linux cmd in vim
 " :SudoWrite, :SudoEdit, :Mkdirr etc.
