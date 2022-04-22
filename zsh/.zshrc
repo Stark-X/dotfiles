@@ -74,6 +74,7 @@ plugins=(
   python
   pip
   fzf
+  poetry
 )
 # Install cf-zsh-autocomplete-plugin
 # $ cd ~/.oh-my-zsh/plugins
