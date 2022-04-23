@@ -494,7 +494,7 @@ Plug 'skywind3000/asyncrun.extra'
 Plug 'skywind3000/asynctasks.vim'
 noremap <silent><f5> :AsyncTask file-run<cr>
 let g:asyncrun_open = 6
-let g:asynctasks_term_pos = 'right'
+let g:asynctasks_term_pos = 'floaterm_reuse'
 " ==================== Float Terminal ====================
 
 " ==================== Tmux Naviagator ====================
