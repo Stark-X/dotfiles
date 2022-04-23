@@ -736,9 +736,6 @@ set completeopt+=menuone
 set completeopt+=noselect
 " ===== kite =====
 
-" LSP
-source ${HOME}/dotfiles/lsp-examples/vimrc.generated
-
 " ===== Term GUI enable true Color =====
 if has("termguicolors")
     " fix bug for vim
