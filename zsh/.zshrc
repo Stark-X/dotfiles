@@ -211,3 +211,4 @@ fi
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
+eval "$(pyenv init -)"
