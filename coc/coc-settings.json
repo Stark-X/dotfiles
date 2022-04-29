@@ -1,8 +1,23 @@
 {
-    "java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
-    "python.formatting.provider": "black",
-    "groovy.java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
-    "coc.preferences.formatOnSaveFiletypes": ["python", "vue", "javascript", "typescript", "css"],
-    "suggest.noselect": false,
-    "suggest.enablePreselect": false
+  "java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
+  "pylsp.builtin.installExtrasArgs": [
+    "flake8",
+    "mccabe",
+    "pydocstyle",
+    "pyflakes",
+    "pylint",
+    "rope"
+  ],
+  "pylsp.builtin.enableInstallPythonLspBlack": true,
+  "python.formatting.provider": "black",
+  "groovy.java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "python",
+    "vue",
+    "javascript",
+    "typescript",
+    "css"
+  ],
+  "suggest.noselect": false,
+  "suggest.enablePreselect": false
 }
