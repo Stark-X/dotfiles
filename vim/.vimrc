@@ -61,6 +61,7 @@ let g:coc_global_extensions = [
 
 nnoremap <silent> <space>c :<C-u>CocFzfList commands<CR>
 nnoremap <silent> <space>a :<C-u>CocFzfList actions<CR>
+vnoremap <silent> <space>a :<C-u>CocAction<CR>
 nnoremap <silent> <space>g :<C-u>CocList --normal gstatus<CR>
 
 "<leader>hp to open a preview widown, provided by vim-gitgutter
@@ -164,6 +165,10 @@ nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep
 nnoremap <silent> <Leader>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
 
 nnoremap <silent> <space>y  :<C-u>CocFzfList yank<cr>
+" Use <cr> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+autocmd FileType markdown let b:coc_suggest_disable = 1
 " ==================== coc ====================
 
 Plug 'tpope/vim-fugitive'
@@ -508,6 +513,7 @@ nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 " nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 " ==================== Tmux Naviagator ====================
 
+let g:go_doc_popup_window = 1
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " All of your Plugs must be added before the following line
