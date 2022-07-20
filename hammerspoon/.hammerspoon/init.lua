@@ -233,7 +233,7 @@ REPEAT_DELAY = 200
 fn_delete_a_word = function()
     hs.eventtap.keyStroke('{"alt", }', 'delete', REPEAT_DELAY)
 end
-bn_delete_a_word = hs.hotkey.bind('{"ctrl",}', 'w', fn_delete_a_word, nil, fn_delete_a_wold)
+bn_delete_a_word = hs.hotkey.bind('{"ctrl",}', 'w', fn_delete_a_word, nil, fn_delete_a_word)
 
 function enableBinds()
     bn_delete_a_word:enable()
