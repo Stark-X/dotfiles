@@ -21,5 +21,12 @@
   "python.formatting.blackPath": "${env:HOME}/.local/bin/black",
   "suggest.noselect": false,
   "suggest.enablePreselect": false,
-  "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"]
+  "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"],
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".git/"],
+      "filetypes": ["go"]
+    }
+  }
 }
