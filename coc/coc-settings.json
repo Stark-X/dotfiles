@@ -9,7 +9,6 @@
     "rope"
   ],
   "pylsp.builtin.enableInstallPythonLspBlack": true,
-  "python.formatting.provider": "black",
   "groovy.java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
   "coc.preferences.formatOnSaveFiletypes": [
     "python",
@@ -18,6 +17,9 @@
     "typescript",
     "css"
   ],
-  "suggest.noselect": true,
-  "suggest.enablePreselect": false
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "${env:HOME}/.local/bin/black",
+  "suggest.noselect": false,
+  "suggest.enablePreselect": false,
+  "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"]
 }
