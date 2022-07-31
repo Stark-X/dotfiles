@@ -516,6 +516,9 @@ nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 let g:go_doc_popup_window = 1
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+" distraction-free mode (:Goyo , :Goyo! )
+Plug 'junegunn/goyo.vim'
+
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
