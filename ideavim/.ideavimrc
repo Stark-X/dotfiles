@@ -1,3 +1,4 @@
+set NERDTree
 set highlightedyank
 set ReplaceWithRegister
 set argtextobj
