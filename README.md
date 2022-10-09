@@ -27,9 +27,7 @@ stow bash
 stow hammerspoon
 stow ideavim
 stow vim
-stow vscode
 stow zsh
-stow vscode -t ~/Library/Application\ Support/Code/User 
 
 # brew install openjdk@11
 # sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
