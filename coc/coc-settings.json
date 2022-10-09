@@ -19,8 +19,6 @@
   ],
   "python.formatting.provider": "black",
   "python.formatting.blackPath": "${env:HOME}/.local/bin/black",
-  "suggest.noselect": false,
-  "suggest.enablePreselect": false,
   "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"],
   "languageserver": {
     "golang": {
@@ -28,5 +26,9 @@
       "rootPatterns": ["go.mod", ".git/"],
       "filetypes": ["go"]
     }
-  }
+  },
+  "suggest.noselect": true,
+  "suggest.enablePreselect": false,
+  "pyright.inlayHints.enable": true,
+  "coc.preferences.extensionUpdateCheck": "daily"
 }
