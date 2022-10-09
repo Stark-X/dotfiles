@@ -502,17 +502,6 @@ let g:asyncrun_open = 6
 let g:asynctasks_term_pos = 'floaterm_reuse'
 " ==================== Float Terminal ====================
 
-" ==================== Tmux Naviagator ====================
-Plug 'christoomey/vim-tmux-navigator'
-let g:tmux_navigator_no_mappings = 1
-
-nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
-" ==================== Tmux Naviagator ====================
-
 let g:go_doc_popup_window = 1
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 autocmd FileType go setlocal tabstop=4

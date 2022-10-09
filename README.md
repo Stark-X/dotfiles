@@ -9,13 +9,12 @@ Personal dotfiles, including vim, .zshrc, .bashrc, etc.
 - bashrc
 - HammerSpoon, <https://github.com/Hammerspoon/hammerspoon>
 - coc
+- tmux
 
 ## Usage
 
-### Mac
-
 1. Install stow with brew
-execute `brew install stow`
+execute `brew install stow` on Macos, or `apt install stow` for Debian distribution
 2. Apply the dotfiles
 
 ```bash
@@ -28,8 +27,12 @@ stow hammerspoon
 stow ideavim
 stow vim
 stow zsh
+stow tmux
 ```
 
-3. Deactive the changes
+3. install [Oh my tmux!](https://github.com/gpakosz/.tmux) and [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
+
+## Disable
+
 Unlink with command `stow -D <package_name>
 
