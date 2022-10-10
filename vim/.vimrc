@@ -28,6 +28,7 @@ let g:coc_global_extensions = [
   \'@yaegassy/coc-volar-tools',
   \'coc-css',
   \'coc-docker',
+  \'coc-emmet',
   \'coc-dot-complete',
   \'coc-eslint',
   \'coc-explorer',
@@ -59,6 +60,8 @@ let g:coc_global_extensions = [
   \'coc-yank'
   \]
 
+noremap <F4> :Format<CR>
+
 nnoremap <silent> <space>c :<C-u>CocFzfList commands<CR>
 nnoremap <silent> <space>a :<C-u>CocFzfList actions<CR>
 vnoremap <silent> <space>a :<C-u>CocAction<CR>
@@ -76,6 +79,7 @@ let g:coc_snippet_prev = '<c-z>'
 xmap <leader>x <Plug>(coc-convert-snippet)
 " for trigger snippet expand.
 imap <tab> <Plug>(coc-snippets-expand)
+let g:user_emmet_leader_key='<C-j>'
 
 " GoTo code navigation.
 nmap <silent> <leader>jd <Plug>(coc-definition)
@@ -236,8 +240,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " ==================== Snippets ====================
 
 Plug 'terryma/vim-multiple-cursors'
-Plug 'lifepillar/vim-solarized8'
-Plug 'morhetz/gruvbox'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -253,11 +255,11 @@ Plug 'patstockwell/vim-monokai-tasty'
 let py_line_max_length = 120
 
 " Optimization for Python
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'}
-autocmd! User python-mode echom 'Python-Mode is now loaded.'
-autocmd! User python-mode let g:pymode_python = 'python3'
-let g:pymode_doc_bind = '<leader>d'
-let g:pymode_options_max_line_length = py_line_max_length
+" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'}
+" autocmd! User python-mode echom 'Python-Mode is now loaded.'
+" autocmd! User python-mode let g:pymode_python = 'python3'
+" let g:pymode_doc_bind = '<leader>d'
+" let g:pymode_options_max_line_length = py_line_max_length
 
 " ==================== groovy ====================
 Plug 'vim-scripts/groovyindent-unix'
@@ -266,8 +268,8 @@ autocmd Filetype groovy setlocal sw=2
 " ==================== groovy ====================
 
 " ==================== Auto Format ====================
-Plug 'Chiel92/vim-autoformat'
-noremap <F4> :Autoformat<CR>
+" Plug 'Chiel92/vim-autoformat'
+" noremap <F4> :Autoformat<CR>
 " let g:formatter_yapf_style = 'pep8'
 " let g:formatters_python = ['autopep8']
 " ==================== Auto Format ====================
@@ -306,49 +308,6 @@ Plug 'xolox/vim-misc'
 Plug 'vim-scripts/taglist.vim', { 'on': 'TlistToggle' }
 noremap <F2> :TlistToggle<CR>
 " ==================== Tag List ====================
-
-" ==================== WeChat App ====================
-Plug 'chemzqm/wxapp.vim'
-let g:neomake_wxml_enabled_makers = ['tidy', 'stylelint']
-let g:user_emmet_settings = {
-  \ 'wxss': {
-  \   'extends': 'css',
-  \ },
-  \ 'wxml': {
-  \   'extends': 'html',
-  \   'aliases': {
-  \     'div': 'view',
-  \     'span': 'text',
-  \   },
-  \  'default_attributes': {
-  \     'block': [{'wx:for-items': '{{list}}','wx:for-item': '{{item}}'}],
-  \     'navigator': [{'url': '', 'redirect': 'false'}],
-  \     'scroll-view': [{'bindscroll': ''}],
-  \     'swiper': [{'autoplay': 'false', 'current': '0'}],
-  \     'icon': [{'type': 'success', 'size': '23'}],
-  \     'progress': [{'precent': '0'}],
-  \     'button': [{'size': 'default'}],
-  \     'checkbox-group': [{'bindchange': ''}],
-  \     'checkbox': [{'value': '', 'checked': ''}],
-  \     'form': [{'bindsubmit': ''}],
-  \     'input': [{'type': 'text'}],
-  \     'label': [{'for': ''}],
-  \     'picker': [{'bindchange': ''}],
-  \     'radio-group': [{'bindchange': ''}],
-  \     'radio': [{'checked': ''}],
-  \     'switch': [{'checked': ''}],
-  \     'slider': [{'value': ''}],
-  \     'action-sheet': [{'bindchange': ''}],
-  \     'modal': [{'title': ''}],
-  \     'loading': [{'bindchange': ''}],
-  \     'toast': [{'duration': '1500'}],
-  \     'audio': [{'src': ''}],
-  \     'video': [{'src': ''}],
-  \     'image': [{'src': '', 'mode': 'scaleToFill'}],
-  \   }
-  \ },
-  \}
-" ==================== WeChat App ====================
 
 " ==================== Syntax Support  ====================
 " Plug 'martinda/Jenkinsfile-vim-syntax'
@@ -730,10 +689,10 @@ set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
 " autocmd Filetype python map <leader>tp :!pytest -v --pdb<CR>
 
 " ===== kite =====
-let g:kite_tab_complete=1
-set completeopt+=popup
-set completeopt+=menuone
-set completeopt+=noselect
+" let g:kite_tab_complete=1
+" set completeopt+=preview
+" set completeopt+=menuone
+" set completeopt+=noselect
 " ===== kite =====
 
 " ===== Term GUI enable true Color =====
