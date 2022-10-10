@@ -38,7 +38,7 @@ tmux_conf_new_pane_reconnect_ssh=false
 #   - true
 #   - false (default)
 #   - disabled (do not modify new-session bindings)
-tmux_conf_new_session_prompt=false
+tmux_conf_new_session_prompt=true
 
 
 # -- display -------------------------------------------------------------------
@@ -52,6 +52,7 @@ tmux_conf_new_session_prompt=false
 # to 'truecolor' or '24bit' or '$ tput colors' answering '16777216'
 # see https://github.com/termstandard/colors
 tmux_conf_24b_colour=auto
+set-option -a terminal-overrides ",*256col*:RGB"
 
 # default theme
 tmux_conf_theme_colour_1="#080808"    # dark gray
@@ -235,7 +236,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , #{cpu_fg_color} CPU: #{cpu_icon} #{cpu_percentage} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} #{weather} , #{cpu_fg_color} CPU: #{cpu_icon} #{cpu_percentage} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -306,14 +307,14 @@ tmux_conf_battery_hbar_palette="gradient"
 #   - gradient (default)
 #   - heat
 #   - "colour_low,colour_half,colour_full"
-tmux_conf_battery_vbar_palette="gradient"
-#tmux_conf_battery_vbar_palette="#d70000,#ff5f00,#5fff00"  # red, orange, green
+#tmux_conf_battery_vbar_palette="gradient"
+tmux_conf_battery_vbar_palette="#d70000,#ff5f00,#5fff00"  # red, orange, green
 
 # symbols used to indicate whether battery is charging or discharging
-tmux_conf_battery_status_charging="↑"       # U+2191
-tmux_conf_battery_status_discharging="↓"    # U+2193
-#tmux_conf_battery_status_charging="🔌"     # U+1F50C
-#tmux_conf_battery_status_discharging="🔋"  # U+1F50B
+#tmux_conf_battery_status_charging="↑"       # U+2191
+#tmux_conf_battery_status_discharging="↓"    # U+2193
+tmux_conf_battery_status_charging="🔌"     # U+1F50C
+tmux_conf_battery_status_discharging="🔋"  # U+1F50B
 
 # clock style (when you hit <prefix> + t)
 # you may want to use %I:%M %p in place of %R in tmux_conf_theme_status_right
@@ -421,7 +422,7 @@ set -g @continuum-restore 'on'
 # # /!\ do not "uncomment" the functions: the leading "# " characters are needed
 #
 # weather() {                                         # see https://github.com/chubin/wttr.in#one-line-output
-#   curl -f -s -m 2 'wttr.in?format=3' || printf '\n' # /!\ make sure curl is installed
+#   curl -f -s -m 2 'wttr.in?format=3' 2>/dev/null || printf '\n' # /!\ make sure curl is installed
 #   sleep 900                                         # sleep for 15 minutes, throttle network requests whatever the value of status-interval
 # }
 #
