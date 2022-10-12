@@ -28,11 +28,14 @@ stow ideavim
 stow vim
 stow zsh
 stow tmux
+# symbol link to .config
+mkdir ~/.config/
+stow -t ~/.config dot_config
 ```
 
 3. install [Oh my tmux!](https://github.com/gpakosz/.tmux) and [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
 
 ## Disable
 
-Unlink with command `stow -D <package_name>
+Unlink with command `stow -D <package_name>`
 
