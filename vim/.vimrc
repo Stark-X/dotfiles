@@ -7,10 +7,8 @@ endif
 
 " Initialize for the vim-plug
 if has('win32')
-    " set rtp+=$USERPROFILE/vimfiles/bundle/Vundle.vim/
     call plug#begin('$USERPROFILE/vimfiles/bundle/')
 else
-    " set rtp+=~/.vim/bundle/Vundle.vim/
     call plug#begin('~/.vim/bundle/')
 endif
 
@@ -20,6 +18,7 @@ endif
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 let g:coc_global_extensions = [
+  \'coc-stylua',
   \'coc-markdownlint',
   \'@yaegassy/coc-ansible',
   \'@yaegassy/coc-nginx',
@@ -572,9 +571,6 @@ set encoding=utf-8
 if has('win32')
     set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
 endif
-
-" makes the % command work better
-packadd matchit
 
 if has('win32')
     source $VIMRUNTIME/mswin.vim
