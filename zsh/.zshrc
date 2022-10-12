@@ -209,6 +209,8 @@ elif [[ `uname` == "Darwin" ]]; then
         compinit
     fi
 
+    PATH="/opt/homebrew/opt/libtool/libexec/gnubin:$PATH"
+
     # 1Password cli completion
     eval "$(op completion zsh)"; compdef _op op
 fi
@@ -220,3 +222,12 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
