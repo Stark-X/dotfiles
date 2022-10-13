@@ -105,8 +105,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -148,11 +148,8 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#hunks#coc_git = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " grep word under cursor
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
@@ -276,8 +273,8 @@ endfunction
 " ==================== Code Folding ====================
 " ==================== Tags Generator ====================
 " Use ^] to jump to definiation
-Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-misc'
 " ==================== Tags Generator ====================
 " ==================== Tag List ====================
 Plug 'vim-scripts/taglist.vim', { 'on': 'TlistToggle' }
@@ -348,7 +345,7 @@ Plug 'terryma/vim-expand-region'
 " ==================== vim-expand-region ====================
 
 " git diff display on the left side
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 " toggle quickfix list with <learder>q and toggle location list with <leader>l
 Plug 'Valloric/ListToggle'
@@ -395,6 +392,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_linters = {
+\   'lua': ['stylua'],
 \   'javascript': ['eslint'],
 \   'typescript': ['tslint'],
 \   'python': ['pylint'],
@@ -418,8 +416,6 @@ Plug 'wakatime/vim-wakatime'
 " ==================== Float Terminal ====================
 Plug 'voldikss/vim-floaterm'
 Plug 'voldikss/fzf-floaterm'
-" let g:floaterm_keymap_new    = '<F7>'
-let g:floaterm_keymap_new = '<leader>ft'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F10>'
@@ -682,4 +678,3 @@ let $EXTRA_VIMRC = '~/.vim/vimrc_extra'
 if filereadable($EXTRA_VIMRC)
     source $EXTRA_VIMRC
 endif
-
