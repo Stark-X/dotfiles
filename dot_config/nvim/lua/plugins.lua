@@ -50,41 +50,45 @@ return require("packer").startup(function(use)
     -- You can specify multiple plugins in a single call
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 
-    use({ "fgheng/winbar.nvim" })
-    require("winbar").setup({
-        enabled = true,
+    use({
+        "fgheng/winbar.nvim",
+        config = function()
+            require("winbar").setup({
+                enabled = true,
 
-        show_file_path = true,
-        show_symbols = true,
+                show_file_path = true,
+                show_symbols = true,
 
-        colors = {
-            path = "", -- You can customize colors like #c946fd
-            file_name = "",
-            symbols = "",
-        },
+                colors = {
+                    path = "", -- You can customize colors like #c946fd
+                    file_name = "",
+                    symbols = "",
+                },
 
-        icons = {
-            file_icon_default = "",
-            seperator = ">",
-            editor_state = "●",
-            lock_icon = "",
-        },
+                icons = {
+                    file_icon_default = "",
+                    seperator = ">",
+                    editor_state = "●",
+                    lock_icon = "",
+                },
 
-        exclude_filetype = {
-            "help",
-            "startify",
-            "dashboard",
-            "packer",
-            "neogitstatus",
-            "NvimTree",
-            "Trouble",
-            "alpha",
-            "lir",
-            "Outline",
-            "spectre_panel",
-            "toggleterm",
-            "qf",
-        },
+                exclude_filetype = {
+                    "help",
+                    "startify",
+                    "dashboard",
+                    "packer",
+                    "neogitstatus",
+                    "NvimTree",
+                    "Trouble",
+                    "alpha",
+                    "lir",
+                    "Outline",
+                    "spectre_panel",
+                    "toggleterm",
+                    "qf",
+                },
+            })
+        end,
     })
 
     -- replace nerdtree
@@ -92,72 +96,78 @@ return require("packer").startup(function(use)
         "nvim-tree/nvim-tree.lua",
         requires = { "nvim-tree/nvim-web-devicons" },
         tag = "nightly", -- optional, updated every week. (see issue #1193)
+        config = function()
+            require("nvim-tree").setup()
+            vim.keymap.set("", "<F3>", "<Cmd> :NvimTreeToggle<CR>")
+        end,
     })
-    require("nvim-tree").setup()
-    vim.keymap.set("", "<F3>", "<Cmd> :NvimTreeToggle<CR>")
 
     -- hirechercy like pycharm
-    use("simrat39/symbols-outline.nvim")
-    require("symbols-outline").setup({
-        highlight_hovered_item = true,
-        show_guides = true,
-        auto_preview = false,
-        position = "right",
-        relative_width = true,
-        width = 25,
-        auto_close = false,
-        show_numbers = false,
-        show_relative_numbers = false,
-        show_symbol_details = true,
-        preview_bg_highlight = "Pmenu",
-        autofold_depth = nil,
-        auto_unfold_hover = true,
-        fold_markers = { "", "" },
-        wrap = false,
-        keymaps = { -- These keymaps can be a string or a table for multiple keys
-            close = { "<Esc>", "q" },
-            goto_location = "<Cr>",
-            focus_location = "o",
-            hover_symbol = "<C-space>",
-            toggle_preview = "K",
-            rename_symbol = "r",
-            code_actions = "a",
-            fold = "h",
-            unfold = "l",
-            fold_all = "W",
-            unfold_all = "E",
-            fold_reset = "R",
-        },
-        lsp_blacklist = {},
-        symbol_blacklist = {},
-        symbols = {
-            File = { icon = "", hl = "TSURI" },
-            Module = { icon = "", hl = "TSNamespace" },
-            Namespace = { icon = "", hl = "TSNamespace" },
-            Package = { icon = "", hl = "TSNamespace" },
-            Class = { icon = "𝓒", hl = "TSType" },
-            Method = { icon = "ƒ", hl = "TSMethod" },
-            Property = { icon = "", hl = "TSMethod" },
-            Field = { icon = "", hl = "TSField" },
-            Constructor = { icon = "", hl = "TSConstructor" },
-            Enum = { icon = "ℰ", hl = "TSType" },
-            Interface = { icon = "ﰮ", hl = "TSType" },
-            Function = { icon = "", hl = "TSFunction" },
-            Variable = { icon = "", hl = "TSConstant" },
-            Constant = { icon = "", hl = "TSConstant" },
-            String = { icon = "𝓐", hl = "TSString" },
-            Number = { icon = "#", hl = "TSNumber" },
-            Boolean = { icon = "⊨", hl = "TSBoolean" },
-            Array = { icon = "", hl = "TSConstant" },
-            Object = { icon = "⦿", hl = "TSType" },
-            Key = { icon = "🔐", hl = "TSType" },
-            Null = { icon = "NULL", hl = "TSType" },
-            EnumMember = { icon = "", hl = "TSField" },
-            Struct = { icon = "𝓢", hl = "TSType" },
-            Event = { icon = "🗲", hl = "TSType" },
-            Operator = { icon = "+", hl = "TSOperator" },
-            TypeParameter = { icon = "𝙏", hl = "TSParameter" },
-        },
+    use({
+        "simrat39/symbols-outline.nvim",
+        config = function()
+            require("symbols-outline").setup({
+                highlight_hovered_item = true,
+                show_guides = true,
+                auto_preview = false,
+                position = "right",
+                relative_width = true,
+                width = 25,
+                auto_close = false,
+                show_numbers = false,
+                show_relative_numbers = false,
+                show_symbol_details = true,
+                preview_bg_highlight = "Pmenu",
+                autofold_depth = nil,
+                auto_unfold_hover = true,
+                fold_markers = { "", "" },
+                wrap = false,
+                keymaps = { -- These keymaps can be a string or a table for multiple keys
+                    close = { "<Esc>", "q" },
+                    goto_location = "<Cr>",
+                    focus_location = "o",
+                    hover_symbol = "<C-space>",
+                    toggle_preview = "K",
+                    rename_symbol = "r",
+                    code_actions = "a",
+                    fold = "h",
+                    unfold = "l",
+                    fold_all = "W",
+                    unfold_all = "E",
+                    fold_reset = "R",
+                },
+                lsp_blacklist = {},
+                symbol_blacklist = {},
+                symbols = {
+                    File = { icon = "", hl = "TSURI" },
+                    Module = { icon = "", hl = "TSNamespace" },
+                    Namespace = { icon = "", hl = "TSNamespace" },
+                    Package = { icon = "", hl = "TSNamespace" },
+                    Class = { icon = "𝓒", hl = "TSType" },
+                    Method = { icon = "ƒ", hl = "TSMethod" },
+                    Property = { icon = "", hl = "TSMethod" },
+                    Field = { icon = "", hl = "TSField" },
+                    Constructor = { icon = "", hl = "TSConstructor" },
+                    Enum = { icon = "ℰ", hl = "TSType" },
+                    Interface = { icon = "ﰮ", hl = "TSType" },
+                    Function = { icon = "", hl = "TSFunction" },
+                    Variable = { icon = "", hl = "TSConstant" },
+                    Constant = { icon = "", hl = "TSConstant" },
+                    String = { icon = "𝓐", hl = "TSString" },
+                    Number = { icon = "#", hl = "TSNumber" },
+                    Boolean = { icon = "⊨", hl = "TSBoolean" },
+                    Array = { icon = "", hl = "TSConstant" },
+                    Object = { icon = "⦿", hl = "TSType" },
+                    Key = { icon = "🔐", hl = "TSType" },
+                    Null = { icon = "NULL", hl = "TSType" },
+                    EnumMember = { icon = "", hl = "TSField" },
+                    Struct = { icon = "𝓢", hl = "TSType" },
+                    Event = { icon = "🗲", hl = "TSType" },
+                    Operator = { icon = "+", hl = "TSOperator" },
+                    TypeParameter = { icon = "𝙏", hl = "TSParameter" },
+                },
+            })
+        end,
     })
 
     use("lewis6991/impatient.nvim")
