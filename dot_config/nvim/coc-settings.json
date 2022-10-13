@@ -11,7 +11,6 @@
   ],
   "pylsp.builtin.enableInstallPythonLspBlack": true,
   "coc.preferences.formatOnSaveFiletypes": [
-    "lua",
     "python",
     "vue",
     "javascript",
