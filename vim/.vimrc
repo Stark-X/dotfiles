@@ -152,6 +152,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+let g:airline#extensions#ale#enabled = 1
 
 " grep word under cursor
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
@@ -297,7 +298,7 @@ function! Install_ag(info)
     " - force:  set on PlugInstall! or PlugUpdate!
     if a:info.status == 'installed' || a:info.force
         if has('macunix')
-            !brew install the_silver_searcher 
+            !brew install the_silver_searcher
         else
             echo 'Please access https://github.com/ggreer/the_silver_searcher for the installation'
         endif
@@ -541,7 +542,6 @@ set lazyredraw
 " airline realted
 " let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
 set encoding=utf-8
 if has('win32')
     set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
@@ -648,7 +648,7 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 
-" Disable cursor blinking 
+" Disable cursor blinking
 set gcr=a:block-blinkon0
 " Display the options for a command
 set wildmenu
