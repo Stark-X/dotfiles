@@ -18,6 +18,7 @@ endif
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 let g:coc_global_extensions = [
+  \'coc-stylua',
   \'coc-markdownlint',
   \'@yaegassy/coc-ansible',
   \'@yaegassy/coc-nginx',
