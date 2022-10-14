@@ -68,6 +68,8 @@ nnoremap <silent> <space>g :<C-u>CocList --normal gstatus<CR>
 
 " show chunkinfo like IDEA
 nmap d <Plug>(coc-git-chunkinfo)
+" show signature when editing like IDEA
+inoremap <silent> p <C-r>=CocActionAsync('showSignatureHelp')<CR>
 
 " for jump to next placeholder
 let g:coc_snippet_next = '<c-b>'
@@ -219,6 +221,7 @@ Plug 'leafgarland/typescript-vim'
 " Plug 'ctrlpvim/ctrlp.vim'
 Plug 'posva/vim-vue'
 Plug 'jiangmiao/auto-pairs'
+let g:AutoPairsShortcutToggle = ''
 Plug 'junegunn/vim-easy-align'
 Plug 'easymotion/vim-easymotion'
 " Themes
