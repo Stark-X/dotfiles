@@ -242,6 +242,18 @@ return require("packer").startup(function(use)
         end,
     })
 
+    use({
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function() require("todo-comments").setup() end,
+    })
+
+    use({
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function() require("trouble").setup() end,
+    })
+
     use({ "lewis6991/impatient.nvim", config = function() require("impatient") end })
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
