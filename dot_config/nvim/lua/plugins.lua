@@ -24,12 +24,6 @@ return require("packer").startup(function(use)
     -- Load on an autocommand event
     use({ "andymass/vim-matchup", event = "VimEnter" })
 
-    -- Use specific branch, dependency and run lua file after load
-    -- use {
-    -- 'glepnir/galaxyline.nvim', branch = 'main', config = function() require'statusline' end,
-    -- requires = {'kyazdani42/nvim-web-devicons'}
-    -- }
-
     -- Use dependency and run lua function after load
     use({
         "lewis6991/gitsigns.nvim",
