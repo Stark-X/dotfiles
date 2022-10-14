@@ -66,7 +66,6 @@ nnoremap <silent> <space>a :<C-u>CocFzfList actions<CR>
 vnoremap <silent> <space>a :<C-u>CocAction<CR>
 nnoremap <silent> <space>g :<C-u>CocList --normal gstatus<CR>
 
-"<leader>hp to open a preview widown, provided by vim-gitgutter
 " show chunkinfo like IDEA
 nmap d <Plug>(coc-git-chunkinfo)
 
@@ -344,9 +343,6 @@ let g:ctrlsf_auto_focus = {"at": "start"}
 " _ expand_region_shrink
 Plug 'terryma/vim-expand-region'
 " ==================== vim-expand-region ====================
-
-" git diff display on the left side
-" Plug 'airblade/vim-gitgutter'
 
 " toggle quickfix list with <learder>q and toggle location list with <leader>l
 Plug 'Valloric/ListToggle'
