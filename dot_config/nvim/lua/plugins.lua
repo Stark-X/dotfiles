@@ -17,6 +17,17 @@ return require("packer").startup(function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
 
+    use({ "tweekmonster/startuptime.vim", opt = true, cmd = { "StartupTime" } })
+
+    --replace the filetype.vim for speeding up
+    use({
+        "nathom/filetype.nvim",
+        config = function()
+            -- Do not source the default filetype.vim
+            vim.g.did_load_filetypes = 1
+        end,
+    })
+
     -- Lazy loading:
     -- Load on specific commands
     use({ "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } })
@@ -211,7 +222,7 @@ return require("packer").startup(function(use)
                 lsp_blacklist = {},
                 symbol_blacklist = {},
                 symbols = {
-                    File = { icon = "", hl = "TSURI" },
+                    File = { icon = "����", hl = "TSURI" },
                     Module = { icon = "", hl = "TSNamespace" },
                     Namespace = { icon = "", hl = "TSNamespace" },
                     Package = { icon = "", hl = "TSNamespace" },
