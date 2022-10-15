@@ -59,6 +59,10 @@ let g:coc_global_extensions = [
   \'coc-yank'
   \]
 
+" for coc-css
+autocmd FileType css setl iskeyword+=-
+autocmd FileType scss setl iskeyword+=@-@
+
 noremap <F4> :Format<CR>
 
 nnoremap <silent> <space>c :<C-u>CocFzfList commands<CR>
