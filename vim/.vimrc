@@ -31,16 +31,6 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 "markdown-setting: YAML
 let g:vim_markdown_frontmatter=1
-Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
-autocmd! User markdown-preview.vim echom 'MarkdownPreview is now loaded.'
-autocmd! User vim-markdown echom 'vim-markdown is now loaded.'
-
-":GenTocGFM
-":GenTocGitLab
-":GenTocMarked
-":UpdateToc
-":RemoveToc
-Plug 'mzlogin/vim-markdown-toc'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -58,7 +48,6 @@ let g:user_emmet_leader_key='<C-j>'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'leafgarland/typescript-vim'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'posva/vim-vue'
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsShortcutToggle = ''
@@ -66,8 +55,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'easymotion/vim-easymotion'
 " Themes
 Plug 'patstockwell/vim-monokai-tasty'
-
-let py_line_max_length = 120
 
 " Optimization for Python
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'}
@@ -81,13 +68,6 @@ Plug 'vim-scripts/groovyindent-unix'
 Plug 'vim-scripts/groovy.vim'
 autocmd Filetype groovy setlocal sw=2
 " ==================== groovy ====================
-
-" ==================== Auto Format ====================
-" Plug 'Chiel92/vim-autoformat'
-" noremap <F4> :Autoformat<CR>
-" let g:formatter_yapf_style = 'pep8'
-" let g:formatters_python = ['autopep8']
-" ==================== Auto Format ====================
 
 " ==================== Code Folding ====================
 Plug 'arecarn/vim-fold-cycle'
@@ -113,19 +93,13 @@ function LargeFile()
         autocmd Filetype python setlocal foldmethod=indent " fall back to indent folding
     augroup END
 endfunction
-" ==================== Code Folding ====================
-" ==================== Tags Generator ====================
-" Use ^] to jump to definiation
-" Plug 'xolox/vim-easytags'
-" Plug 'xolox/vim-misc'
-" ==================== Tags Generator ====================
+
 " ==================== Tag List ====================
 Plug 'vim-scripts/taglist.vim', { 'on': 'TlistToggle' }
 noremap <F2> :TlistToggle<CR>
 " ==================== Tag List ====================
 
 " ==================== Syntax Support  ====================
-" Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'sheerun/vim-polyglot'
 " ==================== Syntax Support  ====================
 
@@ -239,6 +213,7 @@ let g:ale_linters = {
 \   'yaml': ['yamllint', 'prettier'],
 \   'vue': ['eslint', 'vls']
 \}
+let py_line_max_length = 120
 let g:syntastic_python_pylint_post_args="--max-line-length=".py_line_max_length
 
 
