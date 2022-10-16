@@ -518,7 +518,7 @@ return require("packer").startup({
 
                 api.nvim_create_user_command(
                     "Rg",
-                    "exe 'CocList grep '.<q-args>",
+                    "exe 'FloatermNew --width=0.8 --height=0.8 rg '.<q-args>",
                     { nargs = "+", complete = "custom,_G.GrepArgs" }
                 )
 
