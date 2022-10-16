@@ -222,7 +222,7 @@ return require("packer").startup(function(use)
                 lsp_blacklist = {},
                 symbol_blacklist = {},
                 symbols = {
-                    File = { icon = "����", hl = "TSURI" },
+                    File = {icon = "", hl = "TSURI"},
                     Module = { icon = "", hl = "TSNamespace" },
                     Namespace = { icon = "", hl = "TSNamespace" },
                     Package = { icon = "", hl = "TSNamespace" },
