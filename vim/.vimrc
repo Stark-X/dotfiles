@@ -32,8 +32,6 @@ let g:vim_markdown_conceal_code_blocks = 0
 "markdown-setting: YAML
 let g:vim_markdown_frontmatter=1
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 " ==================== Snippets ====================
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -281,7 +279,6 @@ set background=dark
 
 let g:vim_monokai_tasty_italic = 1
 colorscheme vim-monokai-tasty
-let g:airline_theme='monokai_tasty'
 
 if has('gui_running')
     " set guifont=Source_Code_Pro:h14
@@ -352,9 +349,6 @@ nmap <c-w>] :vertical resize +5<CR>
 " improve performance
 set lazyredraw
 
-" airline realted
-" let g:airline_theme='solarized'
-let g:airline_powerline_fonts = 1
 set encoding=utf-8
 if has('win32')
     set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
