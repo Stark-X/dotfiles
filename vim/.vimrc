@@ -185,6 +185,8 @@ Plug 'dense-analysis/ale'
 nmap <silent> ]a :ALENextWrap<cr>
 nmap <silent> [a :ALEPreviousWrap<cr>
 
+" use coc.nvim lsp instead
+let g:ale_disable_lsp = 1
 " Fix files when they are saved.
 let g:ale_fix_on_save = 0
 nnoremap <silent> <leader>f :ALEFix<cr>
