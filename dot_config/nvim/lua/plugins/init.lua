@@ -20,14 +20,9 @@ return require("packer").startup({
 
         use({ "tweekmonster/startuptime.vim", opt = true, cmd = { "StartupTime" } })
 
-        --replace the filetype.vim for speeding up
-        use({
-            "nathom/filetype.nvim",
-            config = function()
-                -- Do not source the default filetype.vim
-                vim.g.did_load_filetypes = 1
-            end,
-        })
+        -- replace the filetype.vim for speeding up
+        -- Do not source the default filetype.vim
+        use({ "nathom/filetype.nvim", config = function() vim.g.did_load_filetypes = 1 end })
 
         -- Lazy loading:
         -- Load on specific commands
@@ -115,9 +110,7 @@ return require("packer").startup({
                             end
                         end,
                     },
-                    indent = {
-                        enable = true,
-                    },
+                    indent = { enable = true },
                     incremental_selection = {
                         enable = true,
                         keymaps = {
