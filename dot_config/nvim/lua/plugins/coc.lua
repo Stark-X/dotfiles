@@ -74,9 +74,9 @@ keyset("v", "<space>a", ":<C-u>CocAction<CR>", { noremap = true, silent = true }
 keyset("n", "<space>g", ":<C-u>CocList --normal gstatus<CR>", { noremap = true, silent = true })
 
 -- show chunkinfo like IDEA
-keyset("n", "d ", "<Plug>(coc-git-chunkinfo)")
+keyset("n", "d", "<Plug>(coc-git-chunkinfo)")
 -- show signature when editing like IDEA
-keyset("i", "p ", "<C-r>=CocActionAsync('showSignatureHelp')<CR>", { noremap = true, silent = true })
+keyset("i", "p", "<C-r>=CocActionAsync('showSignatureHelp')<CR>", { noremap = true, silent = true })
 
 -- for jump to next placeholder
 vim.g.coc_snippet_next = "<c-b>"
