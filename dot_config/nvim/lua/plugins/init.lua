@@ -270,6 +270,32 @@ return require("packer").startup({
 
         use({ "neoclide/coc.nvim", branch = "release", config = function() require("plugins.coc") end })
 
+        use({
+            "nvim-lualine/lualine.nvim",
+            requires = { "kyazdani42/nvim-web-devicons", opt = true },
+            config = function()
+                require("lualine").setup({
+                    options = { globalstatus = true, theme = "horizon" },
+                    extensions = { "fzf", "nvim-tree", "symbols-outline", "fugitive" },
+                    sections = {
+                        lualine_b = {
+                            "branch",
+                            "diff",
+                            {
+                                "diagnostics",
+                                -- Table of diagnostic sources, available sources are:
+                                --   'nvim_lsp', 'nvim_diagnostic', 'nvim_workspace_diagnostic', 'coc', 'ale', 'vim_lsp'.
+                                -- or a function that returns a table as such:
+                                --   { error=error_cnt, warn=warn_cnt, info=info_cnt, hint=hint_cnt }
+                                sources = { "nvim_diagnostic", "ale", "coc" },
+                            },
+                        },
+                        lualine_c = { "windows" },
+                    },
+                })
+            end,
+        })
+
         -- Automatically set up your configuration after cloning packer.nvim
         -- Put this at the end after all plugins
         if packer_bootstrap then
