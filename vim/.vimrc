@@ -21,11 +21,7 @@ endif
 
 
 " ==================== Code Folding ====================
-Plug 'arecarn/vim-fold-cycle'
 Plug 'pseewald/vim-anyfold'
-let g:fold_cycle_default_mapping = 0 "disable default mappings
-nmap <+> <Plug>(fold-cycle-open)
-nmap <-> <Plug>(fold-cycle-close)
 set foldlevel=5
 
 " activate anyfold by default
