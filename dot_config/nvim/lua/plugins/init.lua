@@ -248,6 +248,9 @@ return require("packer").startup({
         use({
             "nvim-tree/nvim-tree.lua",
             requires = { "nvim-tree/nvim-web-devicons" },
+            opt = true,
+            cmd = { "NvimTreeToggle" },
+            keys = { "<F3>" },
             tag = "nightly", -- optional, updated every week. (see issue #1193)
             config = function()
                 require("nvim-tree").setup()
@@ -258,6 +261,8 @@ return require("packer").startup({
         -- hirechercy like pycharm
         use({
             "simrat39/symbols-outline.nvim",
+            opt = true,
+            cmd = { "SymbolsOutlineOpen", "SymbolsOutline" },
             config = function()
                 require("symbols-outline").setup({
                     highlight_hovered_item = true,
@@ -332,6 +337,8 @@ return require("packer").startup({
         use({
             "folke/trouble.nvim",
             requires = "kyazdani42/nvim-web-devicons",
+            opt = true,
+            cmd = { "Trouble", "TroubleToggle" },
             config = function() require("trouble").setup() end,
         })
 
