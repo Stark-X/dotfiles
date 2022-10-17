@@ -372,6 +372,13 @@ return require("packer").startup({
             end,
         })
 
+        vim.api.nvim_create_augroup("packer_auto_compile", {})
+        vim.api.nvim_create_autocmd("BufWritePost", {
+            group = "packer_auto_compile",
+            command = "source <afile> | PackerCompile",
+            pattern = "*/nvim/lua/plugins/*.lua",
+        })
+
         -- Automatically set up your configuration after cloning packer.nvim
         -- Put this at the end after all plugins
         if packer_bootstrap then
