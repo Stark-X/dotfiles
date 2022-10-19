@@ -1,3 +1,17 @@
+local function try_to_use_latest_node_by_nvm()
+    local nvm_root = "~/.nvm/versions/node/"
+    local file = io.popen("ls " .. nvm_root .. " | sort -r | head -1", "r")
+    local output = file:read("*l") -- nextline of the the output, nil if command raise error
+    file:close()
+
+    local node_path
+    if output ~= nil then
+        vim.g.coc_node_path = table.concat({ nvm_root, output, "/bin/node" })
+    end
+end
+
+try_to_use_latest_node_by_nvm()
+
 -- Some servers have issues with backup files, see #649.
 vim.opt.backup = false
 vim.opt.writebackup = false
