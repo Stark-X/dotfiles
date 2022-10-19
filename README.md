@@ -17,25 +17,29 @@ Personal dotfiles, including vim, .zshrc, .bashrc, etc.
 execute `brew install stow` on Macos, or `apt install stow` for Debian distribution
 2. Apply the dotfiles
 
-```bash
-cd ~
+``` bash
+cd
 git clone https://github.com/Stark-X/dotfiles.git
+# install oh-my-tmux
+git clone --depth 1 https://github.com/gpakosz/.tmux
+ln -s -f .tmux/.tmux.conf
+
 cd dotfiles
-stow coc -t ~/.vim
+# change to use neovim for better performance and lua config convenient
+#stow coc -t ~/.vim
+#stow vim
 stow bash
 stow hammerspoon
 stow ideavim
-stow vim
 stow zsh
 stow tmux
-# symbol link to .config
+# symbol link to .config, including neovim config
 mkdir ~/.config/
 stow -t ~/.config dot_config
 ```
 
-3. install [Oh my tmux!](https://github.com/gpakosz/.tmux) and [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
+3. install [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) and [Neovim nightly](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-package)
 
 ## Disable
 
 Unlink with command `stow -D <package_name>`
-
