@@ -175,13 +175,17 @@ return require("packer").startup({
             config = function() require("gitsigns").setup(require("plugins.gitsigns")) end,
         })
 
+        local installedFt = { "lua", "cmake", "vim", "bash", "toml", "yaml" }
         -- You can specify multiple plugins in a single call
         use({
             "nvim-treesitter/nvim-treesitter",
             run = ":TSUpdate",
+            opt = true,
+            cmd = "TS*",
+            ft = installedFt,
             config = function()
                 require("nvim-treesitter.configs").setup({
-                    ensure_installed = { "lua", "cmake", "vim", "bash", "toml", "yaml" },
+                    ensure_installed = installedFt,
                     highlight = {
                         enable = true,
                         additional_vim_regex_highlighting = false,
