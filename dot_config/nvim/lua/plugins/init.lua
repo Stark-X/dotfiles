@@ -166,7 +166,7 @@ return require("packer").startup({
         use({ "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } })
 
         -- Load on an autocommand event
-        use({ "andymass/vim-matchup", event = "VimEnter" })
+        use({ "andymass/vim-matchup", config = function() vim.g.matchup_surround_enabled = 1 end })
 
         -- Use dependency and run lua function after load
         use({
