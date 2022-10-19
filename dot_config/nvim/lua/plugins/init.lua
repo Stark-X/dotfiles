@@ -88,6 +88,8 @@ return require("packer").startup({
         use("sheerun/vim-polyglot")
         use({
             "vim-scripts/taglist.vim",
+            opt = true,
+            keys = { "<F2>" },
             config = function() vim.keymap.set("", "<F2>", ":TlistToggle<CR>", { noremap = true }) end,
         })
         use({
@@ -100,7 +102,12 @@ return require("packer").startup({
                 end,
             },
         })
-        use({ "mattn/emmet-vim", config = function() vim.g.user_emmet_leader_key = "<C-j>" end })
+        use({
+            "mattn/emmet-vim",
+            opt = true,
+            ft = { "vue", "html" },
+            config = function() vim.g.user_emmet_leader_key = "<C-j>" end,
+        })
         use({
             "jiangmiao/auto-pairs",
             config = function()
@@ -110,10 +117,10 @@ return require("packer").startup({
         })
         use({
             "vim-scripts/groovy.vim",
-            {
-                "vim-scripts/groovyindent-unix",
-                config = function() vim.api.nvim_create_autocmd("Filetype", { pattern = "groovy", command = "setlocal sw=2" }) end,
-            },
+            requires = { "vim-scripts/groovyindent-unix" },
+            opt = true,
+            ft = { "groovy" },
+            config = function() vim.api.nvim_create_autocmd("Filetype", { pattern = "groovy", command = "setlocal sw=2" }) end,
         })
         use({
             "easymotion/vim-easymotion",
