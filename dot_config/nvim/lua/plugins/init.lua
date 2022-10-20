@@ -40,7 +40,10 @@ return require("packer").startup({
                 vim.keymap.set({ "x", "n" }, "ga", "<Plug>(EasyAlign)")
             end,
         })
-        use("patstockwell/vim-monokai-tasty")
+        use({
+            "patstockwell/vim-monokai-tasty",
+            config = function() vim.g.vim_monokai_tasty_italic = 1 end,
+        })
         use({ "Yggdroot/indentLine", config = function() vim.g.indentLine_char = "⎸" end })
         -- select and press gr
         use("vim-scripts/ReplaceWithRegister")
