@@ -20,27 +20,6 @@ endif
 " let g:pymode_options_max_line_length = py_line_max_length
 
 
-" ==================== Code Folding ====================
-Plug 'pseewald/vim-anyfold'
-set foldlevel=5
-
-" activate anyfold by default
-augroup anyfold
-    autocmd!
-    autocmd Filetype python,java AnyFoldActivate
-augroup END
-
-" disable anyfold for large files
-let g:LargeFile = 1000000 " file is large if size greater than 1MB
-autocmd BufReadPre,BufRead * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
-function LargeFile()
-    augroup anyfold
-        " remove AnyFoldActivate
-        autocmd!
-        autocmd Filetype python setlocal foldmethod=indent " fall back to indent folding
-    augroup END
-endfunction
-
 " ==================== ACK ====================
 " Take place the vimgrep
 function! Install_ag(info)
