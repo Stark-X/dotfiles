@@ -57,12 +57,6 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tabnew',
   \ 'ctrl-v': 'vsplit'}
 " ==================== FZF ====================
-
-Plug 'dyng/ctrlsf.vim'
-" 使用 ctrlsf.vim 插件在工程内全局查找光标所在关键字，设置快捷键。快捷键速记法：search in project
-nnoremap <Leader>sp :CtrlSF<CR>
-let g:ctrlsf_auto_focus = {"at": "start"}
-
 " ==================== Asynchronous Lint Engine ====================
 Plug 'dense-analysis/ale'
 nmap <silent> ]a :ALENextWrap<cr>
@@ -105,33 +99,6 @@ let g:syntastic_python_pylint_post_args="--max-line-length=".py_line_max_length
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 
 " ==================== Asynchronous Lint Engine ====================
-
-" ==================== Float Terminal ====================
-Plug 'voldikss/vim-floaterm'
-Plug 'voldikss/fzf-floaterm'
-let g:floaterm_keymap_prev   = '<F8>'
-let g:floaterm_keymap_next   = '<F9>'
-let g:floaterm_keymap_toggle = '<F10>'
-
-autocmd Filetype python map <leader>tt :FloatermNew pytest<CR>
-autocmd Filetype python map <leader>ts :FloatermNew pytest -sv<CR>
-autocmd Filetype python map <leader>tp :FloatermNew pytest -v --pdb<CR>
-
-Plug 'skywind3000/asyncrun.vim'
-Plug 'skywind3000/asyncrun.extra'
-Plug 'skywind3000/asynctasks.vim'
-noremap <silent><f5> :AsyncTask file-run<cr>
-let g:asyncrun_open = 6
-let g:asynctasks_term_pos = 'floaterm_reuse'
-" ==================== Float Terminal ====================
-
-let g:go_doc_popup_window = 1
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-autocmd FileType go setlocal tabstop=4
-
-" distraction-free mode (:Goyo , :Goyo! )
-Plug 'junegunn/goyo.vim'
-let g:goyo_width = "50%"
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
