@@ -119,6 +119,64 @@ return require("packer").startup({
             end,
         })
         use({
+            "dyng/ctrlsf.vim",
+            cmd = "CtrlSF",
+            config = function()
+                -- **search** word under cursor in the **project** folder
+                vim.keymap.set("n", "<leader>sp", ":CtrlSF<cr>", { noremap = true })
+                vim.g.ctrlsf_auto_focus = { at = "start" }
+            end,
+        })
+        -- distraction-free mode (:Goyo , :Goyo! )
+        use({ "junegunn/goyo.vim", cmd = "Goyo", config = function() vim.g.goyo_width = "50%" end })
+
+        use({
+            "fatih/vim-go",
+            ft = "go",
+            run = ":GoUpdateBinaries",
+            config = function()
+                vim.g.go_doc_popup_window = 1
+                vim.api.nvim_create_autocmd(
+                    "FileType",
+                    { pattern = "go", callback = function() vim.opt_local.tabstop = 4 end }
+                )
+            end,
+        })
+
+        use({
+            "voldikss/vim-floaterm",
+            cmd = "Floaterm*",
+            keys = { "<F8>", "<F9>", "<F10>" },
+            setup = function()
+                vim.g.floaterm_keymap_prev = "<F8>"
+                vim.g.floaterm_keymap_next = "<F9>"
+                vim.g.floaterm_keymap_toggle = "<F10>"
+            end,
+            config = function()
+                vim.api.nvim_create_autocmd("Filetype", {
+                    pattern = "python",
+                    callback = function()
+                        vim.keymap.set("", "<leader>tt", ":FloatermNew pytest<CR>")
+                        vim.keymap.set("", "<leader>ts", ":FloatermNew pytest -sv<CR>")
+                        vim.keymap.set("", "<leader>tp", ":FloatermNew pytest -v --pdb<CR>")
+                    end,
+                })
+            end,
+            requires = "voldikss/fzf-floaterm",
+        })
+        use({
+            "skywind3000/asyncrun.vim",
+            requires = { "skywind3000/asyncrun.extra", "skywind3000/asynctasks.vim" },
+            cmd = "Async*",
+            keys = "<F5>",
+            config = function()
+                vim.keymap.set("n", "<F5>", ":AsyncTask file-run<cr>", { noremap = true, silent = true })
+                vim.g.asyncrun_open = 6
+                vim.g.asynctasks_term_pos = "floaterm_reuse"
+            end,
+        })
+
+        use({
             "vim-scripts/groovy.vim",
             requires = { "vim-scripts/groovyindent-unix" },
             opt = true,
