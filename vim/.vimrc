@@ -174,9 +174,6 @@ au BufWrite /private/etc/pw.* set nowritebackup
 
 " theme
 set background=dark
-" colorscheme solarized8
-
-let g:vim_monokai_tasty_italic = 1
 colorscheme vim-monokai-tasty
 
 if has('gui_running')
