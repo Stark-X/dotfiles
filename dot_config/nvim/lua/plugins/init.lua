@@ -151,6 +151,7 @@ return require("packer").startup({
                 vim.g.floaterm_keymap_prev = "<F8>"
                 vim.g.floaterm_keymap_next = "<F9>"
                 vim.g.floaterm_keymap_toggle = "<F10>"
+                vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
             end,
             config = function()
                 vim.api.nvim_create_autocmd("Filetype", {
