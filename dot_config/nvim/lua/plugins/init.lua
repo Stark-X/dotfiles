@@ -279,6 +279,7 @@ return require("packer").startup({
                             },
                         },
                         lualine_c = { "windows" },
+                        lualine_z = { "searchcount", "location" },
                     },
                 })
             end,
@@ -301,16 +302,7 @@ return require("packer").startup({
         display = {
             open_fn = function()
                 local result, win, buf = require("packer.util").float({
-                    border = {
-                        { "╭", "FloatBorder" },
-                        { "─", "FloatBorder" },
-                        { "╮", "FloatBorder" },
-                        { "│", "FloatBorder" },
-                        { "╯", "FloatBorder" },
-                        { "─", "FloatBorder" },
-                        { "╰", "FloatBorder" },
-                        { "│", "FloatBorder" },
-                    },
+                    border = "rounded",
                 })
                 vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:Normal")
                 return result, win, buf
