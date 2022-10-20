@@ -108,7 +108,7 @@ return require("packer").startup({
         use({
             "mattn/emmet-vim",
             opt = true,
-            ft = { "vue", "html" },
+            ft = { "vue", "html", "xml" },
             config = function() vim.g.user_emmet_leader_key = "<C-j>" end,
         })
         use({
