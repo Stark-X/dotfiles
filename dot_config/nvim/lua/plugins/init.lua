@@ -284,7 +284,7 @@ return require("packer").startup({
             keys = { "<F3>" },
             tag = "nightly", -- optional, updated every week. (see issue #1193)
             config = function()
-                require("nvim-tree").setup()
+                require("nvim-tree").setup({ update_focused_file = { enable = true } })
                 vim.keymap.set("", "<F3>", "<Cmd> :NvimTreeToggle<CR>")
             end,
         })
