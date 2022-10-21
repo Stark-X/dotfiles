@@ -7,8 +7,10 @@ let &packpath = &runtimepath
 source ~/.vimrc
 let g:python3_host_prog="$HOME/.pyenv/versions/neovim/bin/python"
 
+colorscheme vim-monokai-tasty
+
 " neovim config in lua file
 lua require("index")
 
 " analyze the `--startuptime` output
-:command StartupAnalyze /VIM STARTING/,$ sort! f /  [^ ]*  / 
+:command StartupAnalyze /VIM STARTING/,$ sort! f /  [^ ]*  /

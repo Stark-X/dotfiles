@@ -1,10 +1,3 @@
-" Remove python3(3.7) importlib deprecated warning
-" It had been fixed from "patch-8.1.201"
-" https://github.com/vim/vim/issues/3117
-if has('python3') && !has('patch-8.1.201')
-  silent! python3 1
-endif
-
 " Initialize for the vim-plug
 if has('win32')
     call plug#begin('$USERPROFILE/vimfiles/bundle/')
@@ -34,7 +27,6 @@ au BufWrite /private/etc/pw.* set nowritebackup
 
 " theme
 set background=dark
-colorscheme vim-monokai-tasty
 
 if has('gui_running')
     " set guifont=Source_Code_Pro:h14
@@ -67,22 +59,6 @@ autocmd FileType groovy setlocal cindent
 autocmd FileType yaml,conf,json,typescript,javascript,vue,markdown setlocal cindent sw=2
 autocmd FileType scss setlocal cindent sw=2
 
-" for typescript-vim
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-autocmd FileType typescript :setlocal makeprg=tsc " find the tsconfig.json to compile
-
-" ==================== MarkdownPreview ====================
-if has('win32')
-    let g:mkdp_path_to_chrome = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
-endif
-if has('macunix')
-    let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
-endif
-let g:mkdp_auto_close = 1
-let g:mkdp_auto_open = 1
-" ==================== MarkdownPreview ====================
-
 if has("gui_macvim")
     " Only work on MacVim, the iTerm2 will use ^[
     set macmeta
@@ -94,9 +70,6 @@ vmap <Leader>p "+p
 nmap <Leader>p "+p
 vmap <Leader>P "+P
 nmap <Leader>P "+P
-
-" Emmet (C-y ,)
-autocmd FileType html,css,vue EmmetInstall
 
 " vertical split resize
 nmap <c-w>[ :vertical resize -5<CR>
@@ -130,35 +103,8 @@ endif
 " Easy search the select content
 vnoremap // y/<c-r>"<cr>
 
-" ==================== Vue ====================
-" NERDCommenter for vue settings
-" let g:ft = ''
-" function! NERDCommenter_before()
-  " if &ft == 'vue'
-    " let g:ft = 'vue'
-    " let stack = synstack(line('.'), col('.'))
-    " if len(stack) > 0
-      " let syn = synIDattr((stack)[0], 'name')
-      " if len(syn) > 0
-        " exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-      " endif
-    " endif
-  " endif
-" endfunction
-" function! NERDCommenter_after()
-  " if g:ft == 'vue'
-    " setf vue
-    " let g:ft = ''
-  " endif
-" endfunction
-" let g:vue_disable_pre_processors=1
-
-" ==================== Vue ====================
-
-
 " Disable auto fold
 set nofoldenable
-
 
 "Keep search pattern at the center of the screen."
 nnoremap <silent> n nzz
@@ -174,10 +120,6 @@ set gcr=a:block-blinkon0
 set wildmenu
 
 set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin
-
-" autocmd Filetype python map <leader>tt :!pytest -v<CR>
-" autocmd Filetype python map <leader>ts :!pytest -sv<CR>
-" autocmd Filetype python map <leader>tp :!pytest -v --pdb<CR>
 
 " ===== kite =====
 " let g:kite_tab_complete=1
@@ -197,8 +139,3 @@ if has("termguicolors")
     set termguicolors
 endif
 " ===== Term GUI enable true Color =====
-
-let $EXTRA_VIMRC = '~/.vim/vimrc_extra'
-if filereadable($EXTRA_VIMRC)
-    source $EXTRA_VIMRC
-endif
