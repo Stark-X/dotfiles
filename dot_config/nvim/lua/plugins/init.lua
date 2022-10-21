@@ -187,15 +187,19 @@ return require("packer").startup({
             end,
         })
         use({
-            "skywind3000/asyncrun.vim",
-            requires = { "skywind3000/asyncrun.extra", "skywind3000/asynctasks.vim" },
-            cmd = "Async*",
-            keys = "<F5>",
-            config = function()
-                vim.keymap.set("n", "<F5>", ":AsyncTask file-run<cr>", { noremap = true, silent = true })
-                vim.g.asyncrun_open = 6
-                vim.g.asynctasks_term_pos = "floaterm_reuse"
-            end,
+            {
+                "skywind3000/asyncrun.vim",
+                requires = { "skywind3000/asyncrun.extra", "skywind3000/asynctasks.vim" },
+                cmd = "Async*",
+                keys = "<F5>",
+                config = function()
+                    vim.keymap.set("n", "<F5>", ":AsyncTask file-run<cr>", { noremap = true, silent = true })
+                    vim.g.asyncrun_open = 6
+                    vim.g.asynctasks_term_pos = "floaterm_reuse"
+                end,
+            },
+            { "skywind3000/asyncrun.extra", cmd = "Async*", keys = "<F5>" },
+            { "skywind3000/asynctasks.vim", cmd = "Async*", keys = "<F5>" },
         })
 
         use({
