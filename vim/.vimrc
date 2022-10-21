@@ -19,27 +19,6 @@ endif
 " let g:pymode_doc_bind = '<leader>d'
 " let g:pymode_options_max_line_length = py_line_max_length
 
-
-" ==================== ACK ====================
-" Take place the vimgrep
-function! Install_ag(info)
-    " info is a dictionary with 3 fields
-    " - name:   name of the plugin
-    " - status: 'installed', 'updated', or 'unchanged'
-    " - force:  set on PlugInstall! or PlugUpdate!
-    if a:info.status == 'installed' || a:info.force
-        if has('macunix')
-            !brew install the_silver_searcher
-        else
-            echo 'Please access https://github.com/ggreer/the_silver_searcher for the installation'
-        endif
-    endif
-endfunction
-" Use ag(the_silver_searcher) as the search engine
-Plug 'mileszs/ack.vim', { 'do': function('Install_ag') }
-let g:ackprg = 'ag --vimgrep --hidden'
-" ==================== ACK ====================
-
 " ==================== FZF ====================
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
