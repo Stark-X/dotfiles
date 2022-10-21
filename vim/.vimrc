@@ -19,23 +19,6 @@ endif
 " let g:pymode_doc_bind = '<leader>d'
 " let g:pymode_options_max_line_length = py_line_max_length
 
-" ==================== FZF ====================
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-" :CocFzfList xxx
-Plug 'antoinemadec/coc-fzf'
-let g:coc_fzf_preview = 'right:50%'
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-nmap <C-P> :Files<CR>
-nmap <C-H> :History<CR>
-nmap <C-T> :Buffers<CR>
-let g:fzf_action = {
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-t': 'tabnew',
-  \ 'ctrl-v': 'vsplit'}
-" ==================== FZF ====================
 " ==================== Asynchronous Lint Engine ====================
 Plug 'dense-analysis/ale'
 nmap <silent> ]a :ALENextWrap<cr>
