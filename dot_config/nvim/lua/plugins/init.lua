@@ -20,13 +20,8 @@ return require("packer").startup({
 
         use({ "tweekmonster/startuptime.vim", opt = true, cmd = { "StartupTime" } })
         use("tpope/vim-fugitive")
-        use({
-            "scrooloose/nerdcommenter",
-            config = function()
-                -- Comment with one Space
-                vim.g.NERDSpaceDelims = 1
-            end,
-        })
+        -- Comment with one Space
+        use({ "scrooloose/nerdcommenter", config = function() vim.g.NERDSpaceDelims = 1 end })
         use("terryma/vim-multiple-cursors")
         use("tpope/vim-surround")
         use("tpope/vim-repeat")
@@ -40,10 +35,7 @@ return require("packer").startup({
                 vim.keymap.set({ "x", "n" }, "ga", "<Plug>(EasyAlign)")
             end,
         })
-        use({
-            "patstockwell/vim-monokai-tasty",
-            config = function() vim.g.vim_monokai_tasty_italic = 1 end,
-        })
+        use({ "patstockwell/vim-monokai-tasty", config = function() vim.g.vim_monokai_tasty_italic = 1 end })
         use({ "Yggdroot/indentLine", config = function() vim.g.indentLine_char = "⎸" end })
         -- select and press gr
         use("vim-scripts/ReplaceWithRegister")
@@ -144,6 +136,36 @@ return require("packer").startup({
         })
 
         use({
+            {
+                "junegunn/fzf",
+                run = ":call fzf#install()",
+                config = function()
+                    local km = vim.keymap
+                    km.set("n", "<leader><tab>", "<plug>(fzf-maps-n)")
+                    km.set("x", "<leader><tab>", "<plug>(fzf-maps-x)")
+                    km.set("o", "<leader><tab>", "<plug>(fzf-maps-o)")
+
+                    km.set("n", "<C-p>", ":Files<CR>")
+                    km.set("n", "<C-h>", ":History<CR>")
+                    km.set("n", "<C-t>", ":Buffers<CR>")
+                    local fzfActions = {}
+                    fzfActions["ctrl-s"] = "split"
+                    fzfActions["ctrl-t"] = "tabnew"
+                    fzfActions["ctrl-v"] = "vsplit"
+                    vim.g.fzf_action = fzfActions
+                end,
+            },
+            { "junegunn/fzf.vim", requires = "junegunn/fzf" },
+            { "voldikss/fzf-floaterm", requires = "junegunn/fzf" },
+            -- :CocFzfList xxx
+            {
+                "antoinemadec/coc-fzf",
+                requires = { "junegunn/fzf", "neoclide/coc.nvim" },
+                config = function() vim.g.coc_fzf_preview = "right:50%" end,
+            },
+        })
+
+        use({
             "voldikss/vim-floaterm",
             cmd = "Floaterm*",
             keys = { "<F8>", "<F9>", "<F10>" },
@@ -163,7 +185,6 @@ return require("packer").startup({
                     end,
                 })
             end,
-            requires = "voldikss/fzf-floaterm",
         })
         use({
             "skywind3000/asyncrun.vim",
@@ -319,7 +340,7 @@ return require("packer").startup({
 
         use({
             "nvim-lualine/lualine.nvim",
-            requires = { "kyazdani42/nvim-web-devicons", opt = true },
+            requires = { { "kyazdani42/nvim-web-devicons", opt = true }, "junegunn/fzf" },
             config = function()
                 require("lualine").setup({
                     options = { globalstatus = true, theme = "horizon" },
