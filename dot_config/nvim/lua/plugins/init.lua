@@ -157,8 +157,8 @@ return require("packer").startup({
             },
             { "junegunn/fzf.vim", requires = "junegunn/fzf" },
             { "voldikss/fzf-floaterm", requires = "junegunn/fzf" },
-            -- :CocFzfList xxx
             {
+                -- :CocFzfList xxx
                 "antoinemadec/coc-fzf",
                 requires = { "junegunn/fzf", "neoclide/coc.nvim" },
                 config = function() vim.g.coc_fzf_preview = "right:50%" end,
@@ -338,6 +338,47 @@ return require("packer").startup({
 
         use({ "neoclide/coc.nvim", branch = "release", config = function() require("plugins.coc") end })
 
+        use({
+            "dense-analysis/ale",
+            config = function()
+                local g = vim.g
+                local km = vim.keymap
+                km.set("n", "<leader>f", ":ALEFix<cr>", { noremap = true, silent = true })
+                km.set("n", "]a", ":ALENextWrap<cr>", { silent = true })
+                km.set("n", "[a", ":ALEPreviousWrap<cr>", { silent = true })
+                km.set("n", "<C-k>", "<Plug>(ale_previous_wrap)", { silent = true })
+                km.set("n", "<C-j>", "<Plug>(ale_next_wrap)", { silent = true })
+
+                -- use coc.nvim lsp insteadg.ale_disable_lsp = 1
+                -- Fix files when they are saved.
+                g.ale_fix_on_save = 0
+                -- :help ale-fix (<C-]> to jump tag, <C-t> to come back)
+                -- NOTE: check the help document for some tools installation
+                -- :ALEFixSuggest to get the suggest the supported fixers
+                g.ale_fixers = {
+                    ["*"] = { "trim_whitespace" },
+                    javascript = { "eslint" },
+                    typescript = { "prettier" },
+                    python = { "isort", "black", "autopep8" },
+                    yaml = { "trim_whitespace" },
+                    vue = { "eslint" },
+                }
+                -- Run both javascript and vue linters for vue files.
+                g.ale_linter_aliases = { vue = { "vue", "javascript" } }
+                g.ale_linters = {
+                    lua = { "stylua" },
+                    javascript = { "eslint" },
+                    typescript = { "tslint" },
+                    python = { "pylint" },
+                    yaml = { "yamllint", "prettier" },
+                    vue = { "eslint", "vls" },
+                }
+
+                g.ale_echo_msg_format = "[%linter%] %s [%severity%]"
+                g.syntastic_python_pylint_post_args = "--max-line-length=120"
+                g.ale_floating_window_border = { "│", "─", "╭", "╮", "╯", "╰", "│", "─" }
+            end,
+        })
         use({
             "nvim-lualine/lualine.nvim",
             requires = { { "kyazdani42/nvim-web-devicons", opt = true }, "junegunn/fzf" },
