@@ -80,7 +80,7 @@ return require("packer").startup({
         -- Browsing the files
         use("justinmk/vim-dirvish")
         -- lots of languages syntax highlighting support
-        use("sheerun/vim-polyglot")
+        use({ "sheerun/vim-polyglot", after = "filetype.nvim" })
         use({
             "vim-scripts/taglist.vim",
             opt = true,
@@ -242,7 +242,7 @@ return require("packer").startup({
 
         -- replace the filetype.vim for speeding up
         -- Do not source the default filetype.vim
-        use({ "nathom/filetype.nvim", config = function() vim.g.did_load_filetypes = 1 end })
+        use({ "nathom/filetype.nvim", setup = function() vim.g.did_load_filetypes = 1 end })
 
         -- Lazy loading:
         -- Load on specific commands
