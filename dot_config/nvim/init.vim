@@ -11,6 +11,3 @@ colorscheme vim-monokai-tasty
 
 " neovim config in lua file
 lua require("index")
-
-" analyze the `--startuptime` output
-:command StartupAnalyze /VIM STARTING/,$ sort! f /  [^ ]*  /
