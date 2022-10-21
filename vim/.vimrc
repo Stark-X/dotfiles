@@ -12,55 +12,7 @@ else
     call plug#begin('~/.vim/bundle/')
 endif
 
-" Optimization for Python
-" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'}
-" autocmd! User python-mode echom 'Python-Mode is now loaded.'
-" autocmd! User python-mode let g:pymode_python = 'python3'
-" let g:pymode_doc_bind = '<leader>d'
-" let g:pymode_options_max_line_length = py_line_max_length
-
-" ==================== Asynchronous Lint Engine ====================
-Plug 'dense-analysis/ale'
-nmap <silent> ]a :ALENextWrap<cr>
-nmap <silent> [a :ALEPreviousWrap<cr>
-
-" use coc.nvim lsp instead
-let g:ale_disable_lsp = 1
-" Fix files when they are saved.
-let g:ale_fix_on_save = 0
-nnoremap <silent> <leader>f :ALEFix<cr>
-" :help ale-fix (<C-]> to jump tag, <C-t> to come back)
-" NOTE: check the help document for some tools installation
-" :ALEFixSuggest to get the suggest the supported fixers
-let g:ale_fixers = {
-\   '*': ['trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'typescript': ['prettier'],
-\   'python': ['isort', 'black', 'autopep8'],
-\   'yaml': ['trim_whitespace'],
-\   'vue': ['eslint']
-\}
-" Run both javascript and vue linters for vue files.
-let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
-
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-let g:ale_linters = {
-\   'lua': ['stylua'],
-\   'javascript': ['eslint'],
-\   'typescript': ['tslint'],
-\   'python': ['pylint'],
-\   'yaml': ['yamllint', 'prettier'],
-\   'vue': ['eslint', 'vls']
-\}
-let py_line_max_length = 120
-let g:syntastic_python_pylint_post_args="--max-line-length=".py_line_max_length
-
-
-let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
-
-" ==================== Asynchronous Lint Engine ====================
+" TODO: drop vim-plug when all devices had execute :PlugClean
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
