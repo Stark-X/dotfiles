@@ -48,6 +48,7 @@ return require("packer").startup({
                 "Remove",
                 "Delete",
                 "Move",
+                "Rename",
                 "Chmod",
                 "Mkdir",
                 "Cfind",
