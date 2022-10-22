@@ -73,10 +73,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
   git
   z
-  python
-  pip
   fzf
   poetry
+  zsh-syntax-highlighting
+  zsh-autosuggestions
 )
 # Install cf-zsh-autocomplete-plugin
 # $ cd ~/.oh-my-zsh/plugins
