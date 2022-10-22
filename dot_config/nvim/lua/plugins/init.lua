@@ -195,11 +195,12 @@ return require("packer").startup({
                 cmd = "Async*",
                 keys = { "<F5>", "<F6>" },
                 config = function()
-                    vim.cmd([[:PackerLoad vim-floaterm]])
                     vim.keymap.set("n", "<F5>", ":AsyncTask file-run<cr>", { noremap = true, silent = true })
                     vim.keymap.set("n", "<F6>", ":AsyncTask file-build<cr>", { noremap = true, silent = true })
                     vim.g.asyncrun_open = 6
-                    vim.g.asynctasks_term_pos = "floaterm_reuse"
+                    vim.g.asyncrun_rootmarks = { ".git", ".svn", ".root", ".project", ".hg" }
+                    vim.g.asynctasks_term_pos = "bottom"
+                    -- global config file located in ~/.config/nvim/tasks.ini
                 end,
             },
             { "skywind3000/asyncrun.extra", after = "asyncrun.vim" },
