@@ -18,6 +18,7 @@ return require("packer").startup({
         -- Packer can manage itself
         use("wbthomason/packer.nvim")
 
+        use("psliwka/vim-smoothie")
         use({ "tweekmonster/startuptime.vim", opt = true, cmd = { "StartupTime" } })
         use("tpope/vim-fugitive")
         -- Comment with one Space
