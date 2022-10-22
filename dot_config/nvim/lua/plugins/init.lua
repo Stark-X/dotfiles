@@ -195,13 +195,14 @@ return require("packer").startup({
                 cmd = "Async*",
                 keys = "<F5>",
                 config = function()
+                    vim.cmd([[:PackerLoad vim-floaterm]])
                     vim.keymap.set("n", "<F5>", ":AsyncTask file-run<cr>", { noremap = true, silent = true })
                     vim.g.asyncrun_open = 6
                     vim.g.asynctasks_term_pos = "floaterm_reuse"
                 end,
             },
-            { "skywind3000/asyncrun.extra", cmd = "Async*", keys = "<F5>" },
-            { "skywind3000/asynctasks.vim", cmd = "Async*", keys = "<F5>" },
+            { "skywind3000/asyncrun.extra", after = "asyncrun.vim" },
+            { "skywind3000/asynctasks.vim", after = "asyncrun.vim" },
         })
 
         use({
