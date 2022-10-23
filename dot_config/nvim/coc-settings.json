@@ -1,15 +1,6 @@
 {
   "java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
   "groovy.java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
-  "pylsp.builtin.installExtrasArgs": [
-    "flake8",
-    "mccabe",
-    "pydocstyle",
-    "pyflakes",
-    "pylint",
-    "rope"
-  ],
-  "pylsp.builtin.enableInstallPythonLspBlack": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "lua",
     "python",
@@ -20,6 +11,7 @@
   ],
   "python.formatting.provider": "black",
   "python.formatting.blackPath": "${env:HOME}/.local/bin/black",
+  "python.linting.enabled": false,
   "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"],
   "languageserver": {
     "golang": {

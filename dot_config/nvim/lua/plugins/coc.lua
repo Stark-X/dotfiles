@@ -34,7 +34,6 @@ vim.g.coc_global_extensions = {
     "coc-markdownlint",
     "@yaegassy/coc-ansible",
     "@yaegassy/coc-nginx",
-    "@yaegassy/coc-pylsp",
     "@yaegassy/coc-volar",
     "@yaegassy/coc-volar-tools",
     "coc-css",

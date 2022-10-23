@@ -367,7 +367,7 @@ return require("packer").startup({
                     ["*"] = { "trim_whitespace" },
                     javascript = { "eslint" },
                     typescript = { "prettier" },
-                    python = { "isort", "black", "autopep8" },
+                    python = { "black", "isort" },
                     yaml = { "trim_whitespace" },
                     vue = { "eslint" },
                 }
@@ -377,7 +377,7 @@ return require("packer").startup({
                     lua = { "stylua" },
                     javascript = { "eslint" },
                     typescript = { "tslint" },
-                    python = { "pylint" },
+                    python = { "pyright", "pydocstyle", "flake8" },
                     yaml = { "yamllint", "prettier" },
                     vue = { "eslint", "vls" },
                 }
