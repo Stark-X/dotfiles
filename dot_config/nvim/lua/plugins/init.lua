@@ -348,23 +348,13 @@ return require("packer").startup({
 
         use({
             "dense-analysis/ale",
-            config = function()
+            setup = function()
                 local g = vim.g
-                local km = vim.keymap
-                km.set("n", "<leader>f", ":ALEFix<cr>", { noremap = true, silent = true })
-                km.set("n", "]a", ":ALENextWrap<cr>", { silent = true })
-                km.set("n", "[a", ":ALEPreviousWrap<cr>", { silent = true })
-                km.set("n", "<C-k>", "<Plug>(ale_previous_wrap)", { silent = true })
-                km.set("n", "<C-j>", "<Plug>(ale_next_wrap)", { silent = true })
-
-                -- use coc.nvim lsp insteadg.ale_disable_lsp = 1
-                -- Fix files when they are saved.
-                g.ale_fix_on_save = 0
                 -- :help ale-fix (<C-]> to jump tag, <C-t> to come back)
                 -- NOTE: check the help document for some tools installation
                 -- :ALEFixSuggest to get the suggest the supported fixers
                 g.ale_fixers = {
-                    ["*"] = { "trim_whitespace" },
+                    ["*"] = { "trim_whitespace", "remove_trailing_lines" },
                     javascript = { "eslint" },
                     typescript = { "prettier" },
                     python = { "black", "isort" },
@@ -381,8 +371,24 @@ return require("packer").startup({
                     yaml = { "yamllint", "prettier" },
                     vue = { "eslint", "vls" },
                 }
+                -- use coc.nvim lsp instead
+                g.ale_disable_lsp = 1
+            end,
+            config = function()
+                local g = vim.g
+                local km = vim.keymap
+                km.set("n", "<leader>f", ":ALEFix<cr>", { noremap = true, silent = true })
+                km.set("n", "]a", ":ALENextWrap<cr>", { silent = true })
+                km.set("n", "[a", ":ALEPreviousWrap<cr>", { silent = true })
+                km.set("n", "<C-k>", "<Plug>(ale_previous_wrap)", { silent = true })
+                km.set("n", "<C-j>", "<Plug>(ale_next_wrap)", { silent = true })
+
+                -- Fix files when they are saved.
+                g.ale_fix_on_save = 0
 
                 g.ale_echo_msg_format = "[%linter%] %s [%severity%]"
+                g.ale_echo_msg_error_str = ""
+                g.ale_echo_msg_warning_str = ""
                 g.ale_floating_window_border = { "│", "─", "╭", "╮", "╯", "╰", "│", "─" }
             end,
         })
