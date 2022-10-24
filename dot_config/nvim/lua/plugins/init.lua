@@ -375,20 +375,23 @@ return require("packer").startup({
                 g.ale_disable_lsp = 1
             end,
             config = function()
-                local g = vim.g
                 local km = vim.keymap
                 km.set("n", "<leader>f", ":ALEFix<cr>", { noremap = true, silent = true })
                 km.set("n", "]a", ":ALENextWrap<cr>", { silent = true })
                 km.set("n", "[a", ":ALEPreviousWrap<cr>", { silent = true })
-                km.set("n", "<C-k>", "<Plug>(ale_previous_wrap)", { silent = true })
-                km.set("n", "<C-j>", "<Plug>(ale_next_wrap)", { silent = true })
+                -- equals to <C-F1>. insert mode, then press <c-k><ctrl><f1>, it'll print <F25>. (WSL neovim)
+                km.set("n", "<F25>", ":ALEDetail<cr>", { silent = true })
 
+                local g = vim.g
+                g.ale_floating_preview = 1
                 -- Fix files when they are saved.
                 g.ale_fix_on_save = 0
 
                 g.ale_echo_msg_format = "[%linter%] %s [%severity%]"
                 g.ale_echo_msg_error_str = ""
+                g.ale_sign_error = ""
                 g.ale_echo_msg_warning_str = ""
+                g.ale_sign_warning = ""
                 g.ale_floating_window_border = { "│", "─", "╭", "╮", "╯", "╰", "│", "─" }
             end,
         })
