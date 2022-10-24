@@ -383,7 +383,6 @@ return require("packer").startup({
                 }
 
                 g.ale_echo_msg_format = "[%linter%] %s [%severity%]"
-                g.syntastic_python_pylint_post_args = "--max-line-length=120"
                 g.ale_floating_window_border = { "│", "─", "╭", "╮", "╯", "╰", "│", "─" }
             end,
         })
