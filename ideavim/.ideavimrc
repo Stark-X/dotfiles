@@ -50,6 +50,5 @@ nnoremap \l :action ReformatCode<CR>
 " easy motion
 let g:EasyMotion_override_acejump = 1
 
-map <C-j> :action VcsShowNextChangeMarker<CR>
-map <C-k> :action VcsShowPrevChangeMarker<CR>
-
+map ]c :action VcsShowNextChangeMarker<CR>
+map [c :action VcsShowPrevChangeMarker<CR>
