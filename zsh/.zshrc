@@ -119,8 +119,11 @@ alias ag='ag --hidden'
 #https://stackoverflow.com/questions/8616843/ctrl-s-is-not-working-as-a-horizontal-split-in-vim-when-using-commandt
 # stty -ixon -ixoff
 
+### golang ###
 export GOPATH=$HOME/workspace/go
 export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
+export GOPROXY=https://goproxy.cn
+### golang ###
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
