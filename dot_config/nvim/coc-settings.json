@@ -1,7 +1,7 @@
 {
   "java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
   "groovy.java.home": "/usr/lib/jvm/java-11-openjdk-amd64/",
-  "coc.preferences.formatOnSaveFiletypes": [
+  "coc.preferences.formatOnSave": [
     "lua",
     "python",
     "vue",
