@@ -212,7 +212,9 @@ return require("packer").startup({
             requires = { "vim-scripts/groovyindent-unix" },
             opt = true,
             ft = { "groovy" },
-            config = function() vim.api.nvim_create_autocmd("Filetype", { pattern = "groovy", command = "setlocal sw=2" }) end,
+            config = function()
+                vim.api.nvim_create_autocmd("Filetype", { pattern = "groovy", command = "setlocal sw=2" })
+            end,
         })
         use({
             "easymotion/vim-easymotion",
@@ -322,8 +324,7 @@ return require("packer").startup({
 
         -- hirechercy like pycharm
         use({
-            "geekifan/symbols-outline.nvim",
-            -- "simrat39/symbols-outline.nvim",
+            "simrat39/symbols-outline.nvim",
             opt = true,
             cmd = { "SymbolsOutlineOpen", "SymbolsOutline" },
             config = function() require("symbols-outline").setup() end,
