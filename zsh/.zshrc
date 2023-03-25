@@ -212,7 +212,6 @@ elif [[ `uname` == "Darwin" ]]; then
         compinit
     fi
 
-    PATH="/opt/homebrew/opt/libtool/libexec/gnubin:$PATH"
 
     # 1Password cli completion
     eval "$(op completion zsh)"; compdef _op op
