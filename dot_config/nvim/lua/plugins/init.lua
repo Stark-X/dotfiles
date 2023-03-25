@@ -248,6 +248,8 @@ return require("packer").startup({
                 vim.g.vim_markdown_conceal_code_blocks = 0
                 -- markdown-setting: YAML
                 vim.g.vim_markdown_frontmatter = 1
+                -- disable incorrect autofold
+                vim.g.vim_markdown_folding_disabled = 1
             end,
         })
 
