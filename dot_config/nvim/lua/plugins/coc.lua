@@ -30,6 +30,8 @@ function _G.check_back_space()
 end
 
 vim.g.coc_global_extensions = {
+    "coc-symbol-line",
+    -- need to create dir ~/.config/coc/extensions/coc-stylua-data/ if stylua bin not found error occured
     "coc-stylua",
     "coc-markdownlint",
     "@yaegassy/coc-ansible",
@@ -249,3 +251,16 @@ api.nvim_create_user_command(
     "exe 'FloatermNew --width=0.8 --height=0.8 rg '.<q-args>",
     { nargs = "+", complete = "custom,_G.GrepArgs" }
 )
+
+-- coc-symbol-line https://github.com/xiyaowong/coc-symbol-line
+function _G.symbol_line()
+  local curwin = vim.g.statusline_winid or 0
+  local curbuf = vim.api.nvim_win_get_buf(curwin)
+  local ok, line = pcall(vim.api.nvim_buf_get_var, curbuf, 'coc_symbol_line')
+  return ok and line or ''
+end
+
+vim.o.tabline = '%!v:lua.symbol_line()'
+vim.o.statusline = '%!v:lua.symbol_line()'
+vim.o.winbar = '%!v:lua.symbol_line()'
+
