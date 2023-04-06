@@ -191,7 +191,7 @@ return require("packer").startup({
         use({
             {
                 "skywind3000/asyncrun.vim",
-                requires = { "skywind3000/asyncrun.extra", "skywind3000/asynctasks.vim" },
+                requires = { "voldikss/vim-floaterm", "skywind3000/asyncrun.extra", "skywind3000/asynctasks.vim" },
                 cmd = "Async*",
                 keys = { "<F5>", "<F6>" },
                 config = function()
