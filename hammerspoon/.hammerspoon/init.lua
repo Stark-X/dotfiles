@@ -145,6 +145,8 @@ function getCenterFrame(currentWin)
     return centerFrame
 end
 
+_GState = {}
+_GState["tipsId"] = nil
 function toggleFullAndCenter(currentWin)
     local frame = currentWin:frame()
     local fullScreenFrame = getFullscreenFrame(currentWin)
@@ -156,8 +158,12 @@ function toggleFullAndCenter(currentWin)
             or (frame.y == fullScreenFrame.y)
         )
     then
-        return getFullscreenFrame(currentWin)
+        hs.alert.closeSpecific(tipsId)
+        _GState["tipsId"] = hs.alert.show("toggle to fullscreen", _, _, 1)
+        return fullScreenFrame
     else
+        hs.alert.closeSpecific(tipsId)
+        _GState["tipsId"] = hs.alert.show("toggle to center", _, _, 1)
         return getCenterFrame(currentWin)
     end
 end
