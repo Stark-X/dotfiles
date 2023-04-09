@@ -4,6 +4,25 @@ local logger = hs.logger.new("eventtap", "debug")
 _GState = {}
 _GState["tipsId"] = nil
 
+_GUtils = {}
+_GUtils.tips = function(message)
+    hs.alert.closeSpecific(_GState["tipsId"])
+    _GState["tipsId"] = hs.alert.show(message, _, _, 1)
+end
+
+_GUtils.setFrame = function(pointerStore)
+    -- win:setFrame(targetFrame, 0)
+    -- setFrame is broken for some app's windows
+    -- related issue: https://github.com/Hammerspoon/hammerspoon/issues/3224
+    local win = pointerStore["win"]
+    local frame = pointerStore["frame"]
+    win:setTopLeft(frame.x, frame.y)
+    -- Waiting 0.2 seconds to make the two step transition work
+    -- You might need to adjust this.
+    hs.timer.usleep(0.2 * 1000 * 1000)
+    win:setSize(frame.w, frame.h)
+end
+
 -- Auto reload config
 function reloadConfig(files)
     doReload = false
@@ -39,7 +58,7 @@ hs.hotkey.bind({ "cmd", "alt" }, "h", function()
     f.y = max.y
     f.w = max.w / 2
     f.h = max.h
-    win:setFrame(f)
+    _GUtils.setFrame({ win = win, frame = f })
 end)
 
 hs.hotkey.bind({ "cmd", "alt" }, "l", function()
@@ -52,7 +71,7 @@ hs.hotkey.bind({ "cmd", "alt" }, "l", function()
     f.y = max.y
     f.w = max.w / 2
     f.h = max.h
-    win:setFrame(f)
+    _GUtils.setFrame({ win = win, frame = f })
 end)
 
 hs.hotkey.bind({ "cmd", "alt" }, "k", function()
@@ -65,7 +84,7 @@ hs.hotkey.bind({ "cmd", "alt" }, "k", function()
     f.y = max.y
     f.w = max.w
     f.h = max.h / 2
-    win:setFrame(f)
+    _GUtils.setFrame({ win = win, frame = f })
 end)
 
 hs.hotkey.bind({ "cmd", "alt" }, "j", function()
@@ -78,7 +97,7 @@ hs.hotkey.bind({ "cmd", "alt" }, "j", function()
     f.y = max.y + max.h / 2
     f.w = max.w
     f.h = max.h / 2
-    win:setFrame(f)
+    _GUtils.setFrame({ win = win, frame = f })
 end)
 
 hs.hotkey.bind({ "cmd", "alt" }, "f9", function()
@@ -91,7 +110,7 @@ hs.hotkey.bind({ "cmd", "alt" }, "f9", function()
     f.y = max.y
     f.w = max.w * 2 / 3
     f.h = max.h
-    win:setFrame(f)
+    _GUtils.setFrame({ win = win, frame = f })
 end)
 
 hs.hotkey.bind({ "cmd", "alt" }, "f10", function()
@@ -105,7 +124,7 @@ hs.hotkey.bind({ "cmd", "alt" }, "f10", function()
     f.y = max.y
     f.w = width
     f.h = max.h
-    win:setFrame(f)
+    _GUtils.setFrame({ win = win, frame = f })
 end)
 
 hs.hotkey.bind({ "cmd", "alt" }, "f11", function()
@@ -118,7 +137,7 @@ hs.hotkey.bind({ "cmd", "alt" }, "f11", function()
     f.y = max.y
     f.w = max.w / 3
     f.h = max.h
-    win:setFrame(f)
+    _GUtils.setFrame({ win = win, frame = f })
 end)
 
 hs.hotkey.bind({ "cmd", "alt" }, "f12", function()
@@ -132,7 +151,7 @@ hs.hotkey.bind({ "cmd", "alt" }, "f12", function()
     f.y = max.y
     f.w = width
     f.h = max.h
-    win:setFrame(f)
+    _GUtils.setFrame({ win = win, frame = f })
 end)
 
 function getFullscreenFrame(currentWin) return currentWin:screen():frame() end
@@ -159,10 +178,10 @@ function toggleFullAndCenter(currentWin)
             or (frame.y == fullScreenFrame.y)
         )
     then
-        gTips("toggle to fullscreen", _, _, 1)
+        _GUtils.tips("toggle to fullscreen", _, _, 1)
         return fullScreenFrame
     else
-        gTips("toggle to center", _, _, 1)
+        _GUtils.tips("toggle to center", _, _, 1)
         return getCenterFrame(currentWin)
     end
 end
@@ -171,14 +190,7 @@ end
 hs.hotkey.bind({ "cmd", "alt" }, "c", function()
     local win = hs.window.focusedWindow()
     local targetFrame = toggleFullAndCenter(win)
-    -- win:setFrame(targetFrame, 0)
-    -- setFrame is broken for some app's windows
-    -- related issue: https://github.com/Hammerspoon/hammerspoon/issues/3224
-    win:setTopLeft(targetFrame.x, targetFrame.y)
-    -- Waiting 0.4 seconds to make the two step transition work
-    -- You might need to adjust this.
-    hs.timer.usleep(0.1 * 1000 * 1000)
-    win:setSize(targetFrame.w, targetFrame.h)
+    _GUtils.setFrame({ win = win, frame = targetFrame })
 end)
 
 -- move a window to other screen
@@ -260,11 +272,6 @@ function disableBinds()
     bn_esc:disable()
 end
 
-function gTips(message)
-    hs.alert.closeSpecific(_GState["tipsId"])
-    _GState["tipsId"] = hs.alert.show(message, _, _, 1)
-end
-
 local wf = hs.window.filter
 
 wf_vim = wf.new({ "MacVim", "iTerm2", "PhpStorm", "IntelliJ IDEA", "PyCharm", "WebStorm", "Code", "tmux", "neovide" })
@@ -273,11 +280,11 @@ wf_vim:subscribe(wf.windowUnfocused, enableBinds)
 
 wf_keep_awake = wf.new({ "谜底时钟" })
 wf_keep_awake:subscribe(wf.windowFocused, function()
-    gTips("Start Caffeine")
+    _GUtils.tips("Start Caffeine")
     hs.caffeine.set("displayIdle", true)
 end)
 wf_keep_awake:subscribe(wf.windowUnfocused, function()
-    gTips("Stop Caffeine")
+    _GUtils.tips("Stop Caffeine")
     hs.caffeine.set("displayIdle", false)
 end)
 
