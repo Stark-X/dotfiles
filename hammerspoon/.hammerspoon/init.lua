@@ -171,7 +171,15 @@ end
 -- Toggle full screen between window-center
 hs.hotkey.bind({ "cmd", "alt" }, "c", function()
     local win = hs.window.focusedWindow()
-    win:setFrame(toggleFullAndCenter(win))
+    local targetFrame = toggleFullAndCenter(win)
+    -- win:setFrame(targetFrame, 0)
+    -- setFrame is broken for some app's windows
+    -- related issue: https://github.com/Hammerspoon/hammerspoon/issues/3224
+    win:setTopLeft(targetFrame.x, targetFrame.y)
+    -- Waiting 0.4 seconds to make the two step transition work
+    -- You might need to adjust this.
+    hs.timer.usleep(0.1 * 1000 * 1000)
+    win:setSize(targetFrame.w, targetFrame.h)
 end)
 
 -- move a window to other screen
