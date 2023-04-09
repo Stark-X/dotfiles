@@ -22,6 +22,16 @@ _GUtils.setFrame = function(pointerStore)
     hs.timer.usleep(0.2 * 1000 * 1000)
     win:setSize(frame.w, frame.h)
 end
+_GUtils.cutCenterFrame = function(refRect)
+    local w = refRect.w * 4 / 5
+    local h = refRect.h * 4 / 5
+    return {
+        w = w,
+        h = h,
+        x = refRect.x + (refRect.w - w) / 2,
+        y = refRect.y + (refRect.h - h) / 2,
+    }
+end
 
 -- Auto reload config
 function reloadConfig(files)
@@ -47,144 +57,94 @@ hs.hotkey.bind({ "cmd" }, "space", function()
     hs.hints.windowHints(nil, nil, false)
 end)
 
--- Window resizing
-hs.hotkey.bind({ "cmd", "alt" }, "h", function()
-    local win = hs.window.focusedWindow()
-    local f = win:frame()
-    local max = win:screen():frame()
-
-    f.x = max.x
-    f.y = max.y
-    f.w = max.w / 2
-    f.h = max.h
-    _GUtils.setFrame({ win = win, frame = f })
-end)
-
-hs.hotkey.bind({ "cmd", "alt" }, "l", function()
-    local win = hs.window.focusedWindow()
-    local f = win:frame()
-    local max = win:screen():frame()
-
-    f.x = max.x + (max.w / 2)
-    f.y = max.y
-    f.w = max.w / 2
-    f.h = max.h
-    _GUtils.setFrame({ win = win, frame = f })
-end)
-
-hs.hotkey.bind({ "cmd", "alt" }, "k", function()
-    local win = hs.window.focusedWindow()
-    local f = win:frame()
-    local screen = win:screen()
-    local max = screen:frame()
-
-    f.x = max.x
-    f.y = max.y
-    f.w = max.w
-    f.h = max.h / 2
-    _GUtils.setFrame({ win = win, frame = f })
-end)
-
-hs.hotkey.bind({ "cmd", "alt" }, "j", function()
-    local win = hs.window.focusedWindow()
-    local f = win:frame()
-    local max = win:screen():frame()
-
-    f.x = max.x
-    f.y = max.y + max.h / 2
-    f.w = max.w
-    f.h = max.h / 2
-    _GUtils.setFrame({ win = win, frame = f })
-end)
-
-hs.hotkey.bind({ "cmd", "alt" }, "f9", function()
-    local win = hs.window.focusedWindow()
-    local f = win:frame()
-    local max = win:screen():frame()
-
-    f.x = max.x
-    f.y = max.y
-    f.w = max.w * 2 / 3
-    f.h = max.h
-    _GUtils.setFrame({ win = win, frame = f })
-end)
-
-hs.hotkey.bind({ "cmd", "alt" }, "f10", function()
-    local win = hs.window.focusedWindow()
-    local f = win:frame()
-    local max = win:screen():frame()
-
-    local width = max.w * 2 / 3
-    f.x = max.x + (max.w - width)
-    f.y = max.y
-    f.w = width
-    f.h = max.h
-    _GUtils.setFrame({ win = win, frame = f })
-end)
-
-hs.hotkey.bind({ "cmd", "alt" }, "f11", function()
-    local win = hs.window.focusedWindow()
-    local f = win:frame()
-    local max = win:screen():frame()
-
-    f.x = max.x
-    f.y = max.y
-    f.w = max.w / 3
-    f.h = max.h
-    _GUtils.setFrame({ win = win, frame = f })
-end)
-
-hs.hotkey.bind({ "cmd", "alt" }, "f12", function()
-    local win = hs.window.focusedWindow()
-    local f = win:frame()
-    local max = win:screen():frame()
-
-    local width = max.w / 3
-    f.x = max.x + (max.w - width)
-    f.y = max.y
-    f.w = width
-    f.h = max.h
-    _GUtils.setFrame({ win = win, frame = f })
-end)
-
-function getFullscreenFrame(currentWin) return currentWin:screen():frame() end
-
-function getCenterFrame(currentWin)
-    local centerFrame = currentWin:frame()
-
-    local fullscreenFrame = getFullscreenFrame(currentWin)
-    centerFrame.w = fullscreenFrame.w * 4 / 5
-    centerFrame.h = fullscreenFrame.h * 4 / 5
-    centerFrame.x = fullscreenFrame.x + (fullscreenFrame.w - centerFrame.w) / 2
-    centerFrame.y = fullscreenFrame.y + (fullscreenFrame.h - centerFrame.h) / 2
-    return centerFrame
-end
-
-function toggleFullAndCenter(currentWin)
-    local frame = currentWin:frame()
-    local fullScreenFrame = getFullscreenFrame(currentWin)
-    if
-        not (
-            (frame.w < fullScreenFrame.w + 10 and frame.w >= fullScreenFrame.w - 10)
-            or (frame.h < fullScreenFrame.h + 10 and frame.h >= fullScreenFrame.h - 10)
-            or (frame.x == fullScreenFrame.x)
-            or (frame.y == fullScreenFrame.y)
-        )
-    then
-        _GUtils.tips("toggle to fullscreen", _, _, 1)
-        return fullScreenFrame
-    else
-        _GUtils.tips("toggle to center", _, _, 1)
-        return getCenterFrame(currentWin)
+function resizer(buildFrameFn)
+    return function()
+        local win = hs.window.focusedWindow()
+        if not win then
+            return
+        end
+        local newFrame = buildFrameFn(win:screen():frame())
+        _GUtils.setFrame({ win = win, frame = newFrame })
     end
 end
 
--- Toggle full screen between window-center
-hs.hotkey.bind({ "cmd", "alt" }, "c", function()
-    local win = hs.window.focusedWindow()
-    local targetFrame = toggleFullAndCenter(win)
-    _GUtils.setFrame({ win = win, frame = targetFrame })
-end)
+function bindResizing()
+    local bindings = {
+        {
+            modifiers = { "cmd", "alt" },
+            key = "h",
+            newFrameFn = function(ref) return { x = ref.x, y = ref.y, w = ref.w / 2, h = ref.h } end,
+        },
+        {
+            modifiers = { "cmd", "alt" },
+            key = "l",
+            newFrameFn = function(ref) return { x = ref.x + (ref.w / 2), y = ref.y, w = ref.w / 2, h = ref.h } end,
+        },
+        {
+            modifiers = { "cmd", "alt" },
+            key = "k",
+            newFrameFn = function(ref) return { x = ref.x, y = ref.y, w = ref.w, h = ref.h / 2 } end,
+        },
+        {
+            modifiers = { "cmd", "alt" },
+            key = "j",
+            newFrameFn = function(ref) return { x = ref.x, y = ref.y + ref.h / 2, w = ref.w, h = ref.h / 2 } end,
+        },
+        {
+            modifiers = { "cmd", "alt" },
+            key = "f9",
+            newFrameFn = function(ref) return { x = ref.x, y = ref.y, w = ref.w * 2 / 3, h = ref.h } end,
+        },
+        {
+            modifiers = { "cmd", "alt" },
+            key = "f10",
+            newFrameFn = function(ref)
+                local width = ref.w * 2 / 3
+                return { x = ref.x + (ref.w - width), y = ref.y, w = width, h = ref.h }
+            end,
+        },
+        {
+            modifiers = { "cmd", "alt" },
+            key = "f11",
+            newFrameFn = function(ref) return { x = ref.x, y = ref.y, w = ref.w / 3, h = ref.h } end,
+        },
+        {
+            modifiers = { "cmd", "alt" },
+            key = "f12",
+            newFrameFn = function(ref)
+                local width = ref.w / 3
+                return { x = ref.x + (ref.w - width), y = ref.y, w = width, h = ref.h }
+            end,
+        },
+        {
+            modifiers = { "cmd", "alt" },
+            key = "c",
+            -- Toggle full screen between window-center
+            newFrameFn = function(ref)
+                local curFrame = hs.window.focusedWindow():frame()
+                if
+                    not (
+                        (curFrame.w < ref.w + 10 and curFrame.w >= ref.w - 10)
+                        or (curFrame.h < ref.h + 10 and curFrame.h >= ref.h - 10)
+                        or (curFrame.x == ref.x)
+                        or (curFrame.y == ref.y)
+                    )
+                then
+                    _GUtils.tips("toggle to fullscreen", _, _, 1)
+                    return ref
+                else
+                    _GUtils.tips("toggle to center", _, _, 1)
+                    return _GUtils.cutCenterFrame(ref)
+                end
+            end,
+        },
+    }
+    -- Window resizing register
+    for _, binding in ipairs(bindings) do
+        hs.hotkey.bind(binding.modifiers, binding.key, resizer(binding.newFrameFn))
+    end
+end
+bindResizing()
 
 -- move a window to other screen
 hs.hotkey.bind({ "cmd", "alt" }, "left", function()
