@@ -263,7 +263,7 @@ end
 
 local wf = hs.window.filter
 
-wf_vim = wf.new({ "MacVim", "iTerm2", "PhpStorm", "IntelliJ IDEA", "PyCharm", "Code", "tmux", "neovide" })
+wf_vim = wf.new({ "MacVim", "iTerm2", "PhpStorm", "IntelliJ IDEA", "PyCharm", "WebStorm", "Code", "tmux", "neovide" })
 wf_vim:subscribe(wf.windowFocused, disableBinds)
 wf_vim:subscribe(wf.windowUnfocused, enableBinds)
 
