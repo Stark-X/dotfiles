@@ -307,7 +307,9 @@ function get_window_under_mouse()
     local my_screen = hs.mouse.getCurrentScreen()
     return hs.fnutils.find(
         hs.window.orderedWindows(),
-        function(w) return my_screen == w:screen() and w:isStandard() and (not w:isFullScreen()) and my_pos:inside(w:frame()) end
+        function(w)
+            return my_screen == w:screen() and w:isStandard() and (not w:isFullScreen()) and my_pos:inside(w:frame())
+        end
     )
 end
 
