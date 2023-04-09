@@ -29,7 +29,7 @@ eventtapOneClick = hs.eventtap.new({ hs.eventtap.event.types.leftMouseDown }, fu
         }
         -- logger.d(target.x, target.y)
         -- logger.d(frame.x, frame.y)
-        hs.mouse.setAbsolutePosition(target)
+        hs.mouse.absolutePosition(target)
 
         mouseHighlight()
         return true
