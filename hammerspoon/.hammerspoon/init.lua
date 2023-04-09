@@ -158,7 +158,7 @@ end)
 
 -- find the mouse
 function mouseHighlight()
-    if mouseCircle then
+    if not mouseCircle == nil then
         mouseCircle:delete()
         if mouseCircleTimer then
             mouseCircleTimer:stop()
@@ -182,9 +182,10 @@ eventtapOneClick = hs.eventtap.new({ hs.eventtap.event.types.leftMouseDown }, fu
         local win = hs.window.focusedWindow()
         local frame = win:frame()
 
-        local target = {}
-        target.x = frame.x + frame.w / 2
-        target.y = frame.y + frame.h / 2
+        local target = {
+            x = frame.x + frame.w / 2,
+            y = frame.y + frame.h / 2,
+        }
         -- logger.d(target.x, target.y)
         -- logger.d(frame.x, frame.y)
         hs.mouse.setAbsolutePosition(target)
