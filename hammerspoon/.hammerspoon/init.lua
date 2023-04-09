@@ -1,6 +1,9 @@
 -- Logger
 local logger = hs.logger.new("eventtap", "debug")
 
+_GState = {}
+_GState["tipsId"] = nil
+
 -- Auto reload config
 function reloadConfig(files)
     doReload = false
@@ -145,8 +148,6 @@ function getCenterFrame(currentWin)
     return centerFrame
 end
 
-_GState = {}
-_GState["tipsId"] = nil
 function toggleFullAndCenter(currentWin)
     local frame = currentWin:frame()
     local fullScreenFrame = getFullscreenFrame(currentWin)
@@ -158,12 +159,10 @@ function toggleFullAndCenter(currentWin)
             or (frame.y == fullScreenFrame.y)
         )
     then
-        hs.alert.closeSpecific(tipsId)
-        _GState["tipsId"] = hs.alert.show("toggle to fullscreen", _, _, 1)
+        gTips("toggle to fullscreen", _, _, 1)
         return fullScreenFrame
     else
-        hs.alert.closeSpecific(tipsId)
-        _GState["tipsId"] = hs.alert.show("toggle to center", _, _, 1)
+        gTips("toggle to center", _, _, 1)
         return getCenterFrame(currentWin)
     end
 end
@@ -261,6 +260,11 @@ function disableBinds()
     bn_esc:disable()
 end
 
+function gTips(message)
+    hs.alert.closeSpecific(_GState["tipsId"])
+    _GState["tipsId"] = hs.alert.show(message, _, _, 1)
+end
+
 local wf = hs.window.filter
 
 wf_vim = wf.new({ "MacVim", "iTerm2", "PhpStorm", "IntelliJ IDEA", "PyCharm", "WebStorm", "Code", "tmux", "neovide" })
@@ -269,11 +273,11 @@ wf_vim:subscribe(wf.windowUnfocused, enableBinds)
 
 wf_keep_awake = wf.new({ "谜底时钟" })
 wf_keep_awake:subscribe(wf.windowFocused, function()
-    hs.alert.show("Start Caffeine")
+    gTips("Start Caffeine")
     hs.caffeine.set("displayIdle", true)
 end)
 wf_keep_awake:subscribe(wf.windowUnfocused, function()
-    hs.alert.show("Stop Caffeine")
+    gTips("Stop Caffeine")
     hs.caffeine.set("displayIdle", false)
 end)
 
