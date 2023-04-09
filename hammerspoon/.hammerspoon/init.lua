@@ -51,8 +51,7 @@ end)
 hs.hotkey.bind({ "cmd", "alt" }, "h", function()
     local win = hs.window.focusedWindow()
     local f = win:frame()
-    local screen = win:screen()
-    local max = screen:frame()
+    local max = win:screen():frame()
 
     f.x = max.x
     f.y = max.y
@@ -64,8 +63,7 @@ end)
 hs.hotkey.bind({ "cmd", "alt" }, "l", function()
     local win = hs.window.focusedWindow()
     local f = win:frame()
-    local screen = win:screen()
-    local max = screen:frame()
+    local max = win:screen():frame()
 
     f.x = max.x + (max.w / 2)
     f.y = max.y
@@ -90,8 +88,7 @@ end)
 hs.hotkey.bind({ "cmd", "alt" }, "j", function()
     local win = hs.window.focusedWindow()
     local f = win:frame()
-    local screen = win:screen()
-    local max = screen:frame()
+    local max = win:screen():frame()
 
     f.x = max.x
     f.y = max.y + max.h / 2
@@ -103,8 +100,7 @@ end)
 hs.hotkey.bind({ "cmd", "alt" }, "f9", function()
     local win = hs.window.focusedWindow()
     local f = win:frame()
-    local screen = win:screen()
-    local max = screen:frame()
+    local max = win:screen():frame()
 
     f.x = max.x
     f.y = max.y
@@ -116,8 +112,7 @@ end)
 hs.hotkey.bind({ "cmd", "alt" }, "f10", function()
     local win = hs.window.focusedWindow()
     local f = win:frame()
-    local screen = win:screen()
-    local max = screen:frame()
+    local max = win:screen():frame()
 
     local width = max.w * 2 / 3
     f.x = max.x + (max.w - width)
@@ -130,8 +125,7 @@ end)
 hs.hotkey.bind({ "cmd", "alt" }, "f11", function()
     local win = hs.window.focusedWindow()
     local f = win:frame()
-    local screen = win:screen()
-    local max = screen:frame()
+    local max = win:screen():frame()
 
     f.x = max.x
     f.y = max.y
@@ -143,8 +137,7 @@ end)
 hs.hotkey.bind({ "cmd", "alt" }, "f12", function()
     local win = hs.window.focusedWindow()
     local f = win:frame()
-    local screen = win:screen()
-    local max = screen:frame()
+    local max = win:screen():frame()
 
     local width = max.w / 3
     f.x = max.x + (max.w - width)
