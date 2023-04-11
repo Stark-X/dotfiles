@@ -1,3 +1,13 @@
+utils = {
+    -- cond helper to keep both version plugin between vscode-neovim and neovim
+    Cond = function(cond, ...)
+        local opts = select(1, ...) or {}
+        if cond then
+            return opts
+        end
+        return vim.tbl_extend("keep", opts, { requires = {}, rocks = {}, cmd = {}, ft = {} })
+    end,
+}
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 local ensure_packer = function()
@@ -216,25 +226,13 @@ return require("packer").startup({
                 vim.api.nvim_create_autocmd("Filetype", { pattern = "groovy", command = "setlocal sw=2" })
             end,
         })
-        use({
-            "easymotion/vim-easymotion",
-            config = function()
-                vim.g.EasyMotion_do_mapping = 0 -- Disable default mappings
-                -- <space>s{char}{char} to move to {char}{char}
-                vim.keymap.set("n", "<space>s", "<Plug>(easymotion-overwin-f2)")
-                -- <space>f{char} to move to {char}
-                vim.keymap.set({ "", "n" }, "<space>f", "<Plug>(easymotion-overwin-f)")
-                -- Move to line
-                vim.keymap.set({ "", "n" }, "<space>L", "<Plug>(easymotion-overwin-line)")
-                -- Move to word
-                vim.keymap.set({ "", "n" }, "<space>w", "<Plug>(easymotion-overwin-w)")
-                -- Turn on case insensitive feature
-                vim.g.EasyMotion_smartcase = 1
-                -- JK motions: Line motions
-                vim.keymap.set("", "<space>j", "<Plug>(easymotion-j)")
-                vim.keymap.set("", "<space>k", "<Plug>(easymotion-k)")
-            end,
-        })
+        use(utils.Cond(not vim.g.vscode, { "easymotion/vim-easymotion", config = require("plugins.easy-motion") }))
+        use(
+            utils.Cond(
+                vim.g.vscode,
+                { "asvetliakov/vim-easymotion", config = require("plugins.easy-motion"), as = "vsc-easymotion" }
+            )
+        )
         use({
             "plasticboy/vim-markdown",
             opt = true,
