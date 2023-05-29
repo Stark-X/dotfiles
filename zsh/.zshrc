@@ -77,6 +77,7 @@ plugins=(
   poetry
   zsh-syntax-highlighting
   zsh-autosuggestions
+  kubectl
 )
 # Install cf-zsh-autocomplete-plugin
 # $ cd ~/.oh-my-zsh/plugins
