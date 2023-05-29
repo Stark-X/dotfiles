@@ -212,12 +212,10 @@ elif [[ `uname` == "Darwin" ]]; then
         autoload -Uz compinit
         compinit
     fi
-
-
-    # 1Password cli completion
-    eval "$(op completion zsh)"; compdef _op op
 fi
 
+# 1Password cli completion
+command -v op > /dev/null || eval "$(op completion zsh)"; compdef _op op
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
