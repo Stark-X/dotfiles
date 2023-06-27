@@ -72,7 +72,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  z
   fzf
   python
   pip
@@ -85,10 +84,17 @@ plugins=(
   kubectl
   # git clone https://github.com/chitoku-k/fzf-zsh-completions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-zsh-completions
   fzf-zsh-completions
+  # git clone https://github.com/skywind3000/z.lua ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/z.lua
+  z.lua
 )
-# Install cf-zsh-autocomplete-plugin
-# $ cd ~/.oh-my-zsh/plugins
-# $ git clone https://github.com/dannyzen/cf-zsh-autocomplete-plugin.git cf
+
+eval "$(lua ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/z.lua/z.lua --init zsh enhanced once fzf)"
+alias zc='z -c'      # 严格匹配当前路径的子路径
+alias zz='z -i'      # 使用交互式选择模式
+alias zf='z -I'      # 使用 fzf 对多个结果进行选择
+alias zb='z -b'      # 快速回到父目录
+# https://github.com/skywind3000/z.lua/wiki/FAQ#how-to-input-a-hyphen---in-the-keyword-
+export _ZL_HYPHEN=1 # disable hyphen regex
 
 source $ZSH/oh-my-zsh.sh
 
