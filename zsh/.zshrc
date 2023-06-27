@@ -77,7 +77,7 @@ plugins=(
   python
   pip
   poetry
-  zsh-syntax-highlighting
+  F-Sy-H
   zsh-autosuggestions
   auto-login
   kubectl
