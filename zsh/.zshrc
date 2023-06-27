@@ -77,10 +77,14 @@ plugins=(
   python
   pip
   poetry
+  # git clone https://github.com/z-shell/F-Sy-H.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/F-Sy-H
   F-Sy-H
+  # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   zsh-autosuggestions
   auto-login
   kubectl
+  # git clone https://github.com/chitoku-k/fzf-zsh-completions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-zsh-completions
+  fzf-zsh-completions
 )
 # Install cf-zsh-autocomplete-plugin
 # $ cd ~/.oh-my-zsh/plugins
