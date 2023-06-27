@@ -74,9 +74,12 @@ plugins=(
   git
   z
   fzf
+  python
+  pip
   poetry
   zsh-syntax-highlighting
   zsh-autosuggestions
+  auto-login
   kubectl
 )
 # Install cf-zsh-autocomplete-plugin
@@ -160,12 +163,17 @@ alias glogp="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)
 
 #### Tmux ####
 export TERM="xterm-256color"
+alias ssh='TERM=xterm-256color \ssh'
 #### Tmux ####
 
 
 # Added by serverless binary installer
 export PATH="$HOME/.serverless/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+
+# Default PNPM_HOME
+export PNPM_HOME="${HOME}/.local/share/pnpm"
 
 # What OS are we running?
 if uname -r |grep -iq 'Microsoft' ; then
@@ -182,11 +190,6 @@ if uname -r |grep -iq 'Microsoft' ; then
     export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
     export LIBGL_ALWAYS_INDIRECT=1
 
-    ## forward traffic to 127.0.0.1
-    expose_local(){
-       sudo sysctl -w net.ipv4.conf.all.route_localnet=1 >/dev/null 2>&1
-       sudo iptables -t nat -I PREROUTING -p tcp -j DNAT --to-destination 127.0.0.1
-    }
 
     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -194,8 +197,9 @@ if uname -r |grep -iq 'Microsoft' ; then
     alias pbcopy='win32yank.exe -i'
     alias pbpaste='win32yank.exe -o'
 
-    sudo service mysql status >> /dev/null || sudo service mysql start
-    sudo service redis-server status >> /dev/null || sudo service redis-server start
+    # disable due to latest WSL support systemd
+    # sudo service mysql status >> /dev/null || sudo service mysql start
+    # sudo service redis-server status >> /dev/null || sudo service redis-server start
     #### WSL ####
 
 elif [[ `uname` == "Darwin" ]]; then
@@ -212,6 +216,8 @@ elif [[ `uname` == "Darwin" ]]; then
         autoload -Uz compinit
         compinit
     fi
+
+    export PNPM_HOME="$HOME/Library/pnpm"
 fi
 
 # 1Password cli completion
@@ -224,8 +230,9 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 
+export COLORTERM=truecolor
+
 # pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
