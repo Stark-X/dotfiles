@@ -210,7 +210,7 @@ if uname -r |grep -iq 'Microsoft' ; then
     # disable due to latest WSL support systemd
     # sudo service mysql status >> /dev/null || sudo service mysql start
     # sudo service redis-server status >> /dev/null || sudo service redis-server start
-    #### WSL ####
+    alias freecachemem='sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null'
 
 elif [[ `uname` == "Darwin" ]]; then
     # MacOs
