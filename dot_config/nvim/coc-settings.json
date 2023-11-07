@@ -19,8 +19,9 @@
   "[lua][python][vue][javascript][typescript][css]": {
     "coc.preferences.formatOnSave": true
   },
-  "python.formatting.provider": "black",
-  "python.formatting.blackPath": "${env:HOME}/.local/bin/black",
+  // use ruff-lsp instead
+  // "python.formatting.provider": "black",
+  // "python.formatting.blackPath": "${env:HOME}/.local/bin/black",
   "python.linting.enabled": false,
   "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"],
   "languageserver": {
