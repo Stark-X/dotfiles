@@ -28,6 +28,24 @@ return require("packer").startup({
         -- Packer can manage itself
         use("wbthomason/packer.nvim")
 
+        use({
+            "github/copilot.vim",
+            config = function()
+                -- Execute 'nvm which 18' and trim the result
+                local handle = io.popen("bash -c 'n which 18'")
+                local result = handle:read("*a"):gsub("^%s*(.-)%s*$", "%1")
+                handle:close()
+
+                -- Check if 'nvm which 18' succeeded
+                if result ~= "" and result ~= nil then
+                    -- Set the result of 'n which 18' to the global 'copilot_node_command'
+                    vim.g.copilot_node_command = result
+                    -- print("copilot_node_command set to: " .. result)
+                else
+                    error("Command 'n which 18' failed.")
+                end
+            end,
+        })
         use("ryanoasis/vim-devicons")
         use("psliwka/vim-smoothie")
         use({ "tweekmonster/startuptime.vim", opt = true, cmd = { "StartupTime" } })
