@@ -10,6 +10,7 @@ Personal dotfiles, including vim, .zshrc, .bashrc, etc.
 - HammerSpoon, <https://github.com/Hammerspoon/hammerspoon>
 - coc
 - tmux
+- sheldon
 
 ## Usage
 
@@ -33,12 +34,12 @@ stow hammerspoon
 stow ideavim
 stow zsh
 stow tmux
-# symbol link to .config, including neovim config
+# symbol link to .config, including neovim and sheldon config
 mkdir ~/.config/
 stow -t ~/.config dot_config
 ```
 
-3. install [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) and [Neovim nightly](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-package)
+3. install [sheldon](https://github.com/rossmacarthur/sheldon) and [Neovim nightly](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-package)
 
 ## Disable
 

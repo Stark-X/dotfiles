@@ -1,12 +1,14 @@
 local function try_to_use_latest_node_by_nvm()
-    local nvm_root = "~/.nvm/versions/node/"
-    local file = io.popen("ls " .. nvm_root .. " | sort -r | head -1", "r")
-    local output = file:read("*l") -- nextline of the the output, nil if command raise error
-    file:close()
+    -- Execute 'nvm which 18' and trim the result
+    local handle = io.popen("bash -c 'n which 18'")
+    local result = handle:read("*a"):gsub("^%s*(.-)%s*$", "%1")
+    handle:close()
 
-    local node_path
-    if output ~= nil then
-        vim.g.coc_node_path = table.concat({ nvm_root, output, "/bin/node" })
+    -- Check if 'nvm which 18' succeeded
+    if result ~= "" and result ~= nil then
+        vim.g.coc_node_path = result
+    else
+        error("Command 'n which 18' failed.")
     end
 end
 
