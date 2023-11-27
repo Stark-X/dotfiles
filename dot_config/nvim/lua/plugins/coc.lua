@@ -36,6 +36,7 @@ vim.g.coc_global_extensions = {
     -- need to create dir ~/.config/coc/extensions/coc-stylua-data/ if stylua bin not found error occured
     "coc-stylua",
     "coc-markdownlint",
+    "@yaegassy/coc-astro",
     "@yaegassy/coc-ansible",
     "@yaegassy/coc-nginx",
     "@yaegassy/coc-volar",
