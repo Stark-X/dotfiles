@@ -28,6 +28,7 @@ return require("packer").startup({
         -- Packer can manage itself
         use("wbthomason/packer.nvim")
 
+        use({ "wuelnerdotexe/vim-astro", config = function() vim.g.astro_typescript = "enable" end })
         use({
             "github/copilot.vim",
             config = function()
