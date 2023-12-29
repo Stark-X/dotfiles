@@ -128,8 +128,9 @@ export GOPROXY=https://goproxy.cn
 
 export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
-# Editor for the Hexo
+
 export EDITOR='vim'
+command -v nvim >/dev/null && export EDITOR='nvim' && alias vim="nvim"
 
 # Remove the prompt the shell showed
 DEFAULT_USER=$USER
