@@ -103,8 +103,8 @@ vim.g.coc_snippet_next = "<c-b>"
 vim.g.coc_snippet_prev = "<c-z>"
 -- for convert visual selected code to snippet
 keyset("x", "<leader>x", "<Plug>(coc-convert-snippet)")
--- for trigger snippet expand.
-keyset("i", "<tab>", "<Plug>(coc-snippets-expand)")
+-- for trigger snippet expand. <tab> not works as expected
+keyset("i", "<C-j>", "<Plug>(coc-snippets-expand)")
 
 -- GoTo code navigation.
 keyset("n", "<leader>jd", "<Plug>(coc-definition)", { silent = true })
