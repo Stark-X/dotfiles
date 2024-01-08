@@ -151,9 +151,8 @@ return require("packer").startup({
                 vim.g.ctrlsf_auto_focus = { at = "start" }
             end,
         })
-        -- distraction-free mode (:Goyo , :Goyo! )
-        use({ "junegunn/goyo.vim", cmd = "Goyo", config = function() vim.g.goyo_width = "50%" end })
-
+        -- distraction-free mode (:ZenMode)
+        use({ "folke/zen-mode.nvim", cmd = "ZenMode" })
         use({
             "fatih/vim-go",
             ft = "go",
