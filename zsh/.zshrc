@@ -151,9 +151,6 @@ function fzfp(){
 }
 #### fzf ####
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.rvm/bin:/opt/homebrew/opt/python@3.10/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/python@3.10/lib"
-
 alias glgp="git log --graph --oneline --decorate --all"
 alias glogp="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
@@ -205,6 +202,10 @@ elif [[ `uname` == "Darwin" ]]; then
         autoload -Uz compinit
         compinit
     fi
+
+    # FIXME: check if necessary
+    export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.rvm/bin:/opt/homebrew/opt/python@3.10/bin:$PATH"
+    export LDFLAGS="-L/opt/homebrew/opt/python@3.10/lib"
 
     export PNPM_HOME="$HOME/Library/pnpm"
 fi
