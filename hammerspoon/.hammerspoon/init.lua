@@ -8,6 +8,8 @@ require("./Spoons/vimEmulation").init({
     "IntelliJ IDEA",
     "PyCharm",
     "WebStorm",
+    "GoLand",
+    "JetBrains Client",
     "Code",
     "tmux",
     "neovide",
