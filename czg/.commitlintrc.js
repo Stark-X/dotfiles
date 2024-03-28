@@ -8,7 +8,7 @@ module.exports = {
     alias: { fd: "docs: fix typos" },
     useEmoji: true,
     emojiAlign: "left",
-    useAI: false,
+    useAI: true,
     aiNumber: 1,
     themeColorCode: "",
     allowCustomScopes: true,
