@@ -33,7 +33,7 @@ return require("packer").startup({
             "github/copilot.vim",
             config = function()
                 -- Execute 'nvm which 18' and trim the result
-                local handle = io.popen("bash -c 'n which 18'")
+                local handle = io.popen("bash -c 'n which 18 --offline -q'")
                 local result = handle:read("*a"):gsub("^%s*(.-)%s*$", "%1")
                 handle:close()
 
