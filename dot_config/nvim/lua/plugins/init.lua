@@ -29,28 +29,39 @@ return require("packer").startup({
         use("wbthomason/packer.nvim")
 
         use({ "wuelnerdotexe/vim-astro", config = function() vim.g.astro_typescript = "enable" end })
-        if vim.fn.has("mac") == 1 then
-            use({ "codota/tabnine-nvim", run = "./dl_binaries.sh" })
-        else
-            use({
-                "github/copilot.vim",
-                config = function()
-                    -- Execute 'nvm which 18' and trim the result
-                    local handle = io.popen("bash -c 'n which 18 --offline -q'")
-                    local result = handle:read("*a"):gsub("^%s*(.-)%s*$", "%1")
-                    handle:close()
+        use(utils.Cond(vim.fn.has("mac") == 1, {
+            "codota/tabnine-nvim",
+            run = "./dl_binaries.sh",
+            config = function()
+                require("tabnine").setup({
+                    disable_auto_comment = true,
+                    accept_keymap = "<Tab>",
+                    dismiss_keymap = "<C-]>",
+                    debounce_ms = 800,
+                    suggestion_color = { gui = "#808080", cterm = 244 },
+                    exclude_filetypes = { "TelescopePrompt", "NvimTree" },
+                    log_file_path = nil, -- absolute path to Tabnine log file
+                })
+            end,
+        }))
+        use(utils.Cond(not vim.fn.has("mac") == 1, {
+            "github/copilot.vim",
+            config = function()
+                -- Execute 'nvm which 18' and trim the result
+                local handle = io.popen("bash -c 'n which 18 --offline -q'")
+                local result = handle:read("*a"):gsub("^%s*(.-)%s*$", "%1")
+                handle:close()
 
-                    -- Check if 'nvm which 18' succeeded
-                    if result ~= "" and result ~= nil then
-                        -- Set the result of 'n which 18' to the global 'copilot_node_command'
-                        vim.g.copilot_node_command = result
+                -- Check if 'nvm which 18' succeeded
+                if result ~= "" and result ~= nil then
+                    -- Set the result of 'n which 18' to the global 'copilot_node_command'
+                    vim.g.copilot_node_command = result
                     -- print("copilot_node_command set to: " .. result)
-                    else
-                        error("Command 'n which 18' failed.")
-                    end
-                end,
-            })
-        end
+                else
+                    error("Command 'n which 18' failed.")
+                end
+            end,
+        }))
 
         use("ryanoasis/vim-devicons")
         use("psliwka/vim-smoothie")
@@ -450,6 +461,7 @@ return require("packer").startup({
                             },
                         },
                         lualine_c = { "windows" },
+                        lualine_y = { "tabnine" },
                         lualine_z = { "searchcount", "location" },
                     },
                 })
