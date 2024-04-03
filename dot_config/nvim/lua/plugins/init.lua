@@ -29,24 +29,29 @@ return require("packer").startup({
         use("wbthomason/packer.nvim")
 
         use({ "wuelnerdotexe/vim-astro", config = function() vim.g.astro_typescript = "enable" end })
-        use({
-            "github/copilot.vim",
-            config = function()
-                -- Execute 'nvm which 18' and trim the result
-                local handle = io.popen("bash -c 'n which 18 --offline -q'")
-                local result = handle:read("*a"):gsub("^%s*(.-)%s*$", "%1")
-                handle:close()
+        if vim.fn.has("mac") == 1 then
+            use({ "codota/tabnine-nvim", run = "./dl_binaries.sh" })
+        else
+            use({
+                "github/copilot.vim",
+                config = function()
+                    -- Execute 'nvm which 18' and trim the result
+                    local handle = io.popen("bash -c 'n which 18 --offline -q'")
+                    local result = handle:read("*a"):gsub("^%s*(.-)%s*$", "%1")
+                    handle:close()
 
-                -- Check if 'nvm which 18' succeeded
-                if result ~= "" and result ~= nil then
-                    -- Set the result of 'n which 18' to the global 'copilot_node_command'
-                    vim.g.copilot_node_command = result
+                    -- Check if 'nvm which 18' succeeded
+                    if result ~= "" and result ~= nil then
+                        -- Set the result of 'n which 18' to the global 'copilot_node_command'
+                        vim.g.copilot_node_command = result
                     -- print("copilot_node_command set to: " .. result)
-                else
-                    error("Command 'n which 18' failed.")
-                end
-            end,
-        })
+                    else
+                        error("Command 'n which 18' failed.")
+                    end
+                end,
+            })
+        end
+
         use("ryanoasis/vim-devicons")
         use("psliwka/vim-smoothie")
         use({ "tweekmonster/startuptime.vim", opt = true, cmd = { "StartupTime" } })
@@ -423,6 +428,14 @@ return require("packer").startup({
                 require("lualine").setup({
                     options = { globalstatus = true, theme = "horizon" },
                     extensions = { "fzf", "nvim-tree", "symbols-outline", "fugitive" },
+                    tabline = {
+                        lualine_a = { "buffers" },
+                        lualine_b = { "branch" },
+                        lualine_c = { "filename" },
+                        lualine_x = {},
+                        lualine_y = {},
+                        lualine_z = { "tabs" },
+                    },
                     sections = {
                         lualine_b = {
                             "branch",
