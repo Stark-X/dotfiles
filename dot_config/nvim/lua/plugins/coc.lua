@@ -41,7 +41,6 @@ vim.g.coc_global_extensions = {
     "@yaegassy/coc-nginx",
     "@yaegassy/coc-volar",
     "@yaegassy/coc-volar-tools",
-    "@yaegassy/coc-ruff",
     "coc-css",
     "coc-docker",
     "coc-emmet",
