@@ -42,6 +42,16 @@ return require("packer").startup({
                     exclude_filetypes = { "TelescopePrompt", "NvimTree" },
                     log_file_path = nil, -- absolute path to Tabnine log file
                 })
+                --- falling back to inserting tab if neither has a completion
+                vim.keymap.set("i", "<tab>", function()
+                    if require("tabnine.keymaps").has_suggestion() then
+                        return require("tabnine.keymaps").accept_suggestion()
+                    elseif vim.fn["coc#expandable"]() then
+                        return "<plug>(coc-snippets-expand)"
+                    else
+                        return "<tab>"
+                    end
+                end, { expr = true })
             end,
         }))
         use(utils.Cond(not vim.fn.has("mac") == 1, {
@@ -142,6 +152,9 @@ return require("packer").startup({
                 config = function()
                     vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
                     vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
+                    -- use coc-snippets to expand the trigger so that TabNine '<tab>' works as expected
+                    -- ctrl-tab usually not work as it captured by the terminal emulator
+                    vim.g.UltiSnipsExpandTrigger = "<c-tab>"
                 end,
             },
         })
