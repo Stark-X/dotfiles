@@ -394,7 +394,7 @@ return require("packer").startup({
                     ["*"] = { "trim_whitespace", "remove_trailing_lines" },
                     javascript = { "eslint" },
                     typescript = { "prettier" },
-                    python = { "black", "isort" },
+                    python = { "ruff", "isort" },
                     yaml = { "trim_whitespace" },
                     vue = { "eslint" },
                 }
