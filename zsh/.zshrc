@@ -143,6 +143,14 @@ DEFAULT_USER=$USER
 
 # Change to using silver search for fzf
 export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
+# setting theme via https://vitormv.github.io/fzf-themes#eyJib3JkZXJTdHlsZSI6InJvdW5kZWQiLCJib3JkZXJMYWJlbCI6IiIsImJvcmRlckxhYmVsUG9zaXRpb24iOjAsInByZXZpZXdCb3JkZXJTdHlsZSI6InJvdW5kZWQiLCJwYWRkaW5nIjoiMCIsIm1hcmdpbiI6IjAiLCJwcm9tcHQiOiI+ICIsIm1hcmtlciI6Ij4iLCJwb2ludGVyIjoi4peGIiwic2VwYXJhdG9yIjoi4pSAIiwic2Nyb2xsYmFyIjoi4pSCIiwibGF5b3V0IjoiZGVmYXVsdCIsImluZm8iOiJkZWZhdWx0IiwiY29sb3JzIjoiZmcrOiNkMGQwZDAsYmcrOiMyNjI2MjYsaGw6I2JhNjI4MCxobCs6I2ZmNWU3YyxpbmZvOiNhZmFmODcsbWFya2VyOiM4N2ZmMDAscHJvbXB0OiNkNzAwNWYsc3Bpbm5lcjojYWY1ZmZmLHBvaW50ZXI6I2FmNWZmZixoZWFkZXI6Izg3YWZhZixib3JkZXI6IzU3N2Y0MCxsYWJlbDojYWVhZWFlLHF1ZXJ5OiNkOWQ5ZDkifQ==
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+  --color=fg:-1,fg+:#d0d0d0,bg:-1,bg+:#262626
+  --color=hl:#ba6280,hl+:#ff5e7c,info:#afaf87,marker:#87ff00
+  --color=prompt:#d7005f,spinner:#af5fff,pointer:#af5fff,header:#87afaf
+  --color=border:#577f40,label:#aeaeae,query:#d9d9d9
+  --border="rounded" --border-label="" --preview-window="border-rounded" --prompt="> "
+  --marker=">" --pointer="◆" --separator="─" --scrollbar="│"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Preview file content using bat (https://github.com/sharkdp/bat)
 # 'walker-skip' is added after 0.48.0+
@@ -150,6 +158,8 @@ export FZF_CTRL_T_OPTS="
   --walker-skip .git,node_modules,target
   --preview 'bat -n --color=always {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+# use tmux popup window
+export FZF_TMUX_OPTS='-p80%,60%'
 
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
