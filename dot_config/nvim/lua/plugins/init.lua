@@ -54,7 +54,7 @@ return require("packer").startup({
                 end, { expr = true })
             end,
         }))
-        use(utils.Cond(not vim.fn.has("mac") == 1, {
+        use(utils.Cond(vim.fn.has("mac") == 0, {
             "github/copilot.vim",
             config = function()
                 -- Execute 'nvm which 18' and trim the result
