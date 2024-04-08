@@ -167,7 +167,8 @@ is_in_git_repo() {
 fgv() {
   # "Nothing to see here, move along"
   is_in_git_repo || return
-  git diff --name-only | fzf --multi | xargs nvim -p
+  command -v nvim >/dev/null && vim_cmd="nvim" || vim_cmd="vim"
+  git diff --name-only | fzf --multi --bind "enter:become(${vim_cmd} -p {+})"
 }
 
 # Advanced customization of fzf options via _fzf_comprun function
