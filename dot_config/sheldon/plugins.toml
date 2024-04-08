@@ -33,6 +33,10 @@ apply = ["defer"]
 github = 'skywind3000/z.lua'
 apply = ["load-z-Lua"]
 
+[plugins.forgit]
+github = 'wfxr/forgit'
+apply = ["defer"]
+
 [plugins.powerlevel10k]
 github = 'romkatv/powerlevel10k'
 
