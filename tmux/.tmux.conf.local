@@ -68,7 +68,6 @@ tmux_conf_new_pane_reconnect_ssh=false
 # to 'truecolor' or '24bit' or '$ tput colors' answering '16777216'
 # see https://github.com/termstandard/colors
 tmux_conf_24b_colour=auto
-set-option -a terminal-overrides ",*256col*:RGB"
 
 # -- theming -------------------------------------------------------------------
 
@@ -389,6 +388,8 @@ unbind C-c
 # bind C-a send-prefix
 set-option -g prefix 'M-;'
 
+# alt-g to open a session in the floating popup window, <prefix>+d to detach
+bind -n M-g display-popup -E "tmux new-session -A -s scratch"
 
 # if you don't want Oh my tmux! to alter a binding, use #!important
 # bind c new-window -c '#{pane_current_path}' #!important
@@ -396,6 +397,7 @@ set-option -g prefix 'M-;'
 # move status line to top
 #set -g status-position top
 
+set-option -a terminal-overrides ",*256col*:RGB"
 
 # -- tpm -----------------------------------------------------------------------
 
