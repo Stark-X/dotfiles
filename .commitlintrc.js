@@ -11,6 +11,14 @@ const scopes = fileItems
 module.exports = {
   prompt: {
     useEmoji: true,
+    useAI: true,
+    aiNumber: 2,
+    aiDiffIgnore: [
+      "package-lock.json",
+      "yarn.lock",
+      "pnpm-lock.yaml",
+      "poetry.lock",
+    ],
     emojiAlign: "left",
     allowCustomScopes: false,
     allowBreakingChanges: [],
