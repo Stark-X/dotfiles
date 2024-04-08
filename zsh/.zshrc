@@ -161,6 +161,15 @@ export FZF_CTRL_T_OPTS="
 # use tmux popup window
 export FZF_TMUX_OPTS='-p80%,60%'
 
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+fgv() {
+  # "Nothing to see here, move along"
+  is_in_git_repo || return
+  git diff --name-only | fzf --multi | xargs nvim -p
+}
+
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
 # - You should make sure to pass the rest of the arguments to fzf.
