@@ -158,8 +158,6 @@ export FZF_CTRL_T_OPTS="
   --walker-skip .git,node_modules,target
   --preview 'bat -n --color=always {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-# use tmux popup window
-export FZF_TMUX_OPTS='-p80%,60%'
 
 is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
