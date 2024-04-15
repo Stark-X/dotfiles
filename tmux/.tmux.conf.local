@@ -439,10 +439,22 @@ set -g @plugin 'tmux-plugins/tmux-open'
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'
+
+set -g @plugin 'wfxr/tmux-power'
+set -g @tmux_power_theme 'coral'
+
+set -g @plugin 'wfxr/tmux-net-speed'
+set -g @tmux_power_show_upload_speed true
+set -g @tmux_power_show_download_speed true
+
 # fzf find url
 set -g @plugin 'wfxr/tmux-fzf-url'
 set -g @fzf-url-bind 'x'
-set -g @continuum-restore 'on'
+# use wslview to open url in WSL
+if-shell -b 'command -v wslview' {
+  set -g @fzf-url-open "wslview"
+}
 
 
 # -- custom variables ----------------------------------------------------------
