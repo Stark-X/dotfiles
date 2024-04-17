@@ -31,6 +31,23 @@ function _G.check_back_space()
     return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
 end
 
+function _G.smoothie_scrool(key)
+    local smoothie_mapping = {
+        ["f"] = function() vim.cmd([[call smoothie#do("\<C-F>")]]) end,
+        ["b"] = function() vim.cmd([[call smoothie#do("\<C-B>")]]) end,
+    }
+    local original_mapping = {
+        ["f"] = function() vim.cmd([[ exe "norm! \<c-f>" ]]) end,
+        ["b"] = function() vim.cmd([[ exe "norm! \<c-b>" ]]) end,
+    }
+
+    if packer_plugins["vim-smoothie"] and packer_plugins["vim-smoothie"].loaded then
+        smoothie_mapping[key]()
+    else
+        original_mapping[key]()
+    end
+end
+
 vim.g.coc_global_extensions = {
     "coc-symbol-line",
     -- need to create dir ~/.config/coc/extensions/coc-stylua-data/ if stylua bin not found error occured
@@ -169,13 +186,13 @@ keyset("n", "<leader>cl", "<Plug>(coc-codelens-action)")
 keyset(
     "n",
     "<C-f>",
-    'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"',
+    'coc#float#has_scroll() ? coc#float#scroll(1) : ":lua _G.smoothie_scrool(\\"f\\")<CR>"',
     { silent = true, nowait = true, expr = true }
 )
 keyset(
     "n",
     "<C-b>",
-    'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"',
+    'coc#float#has_scroll() ? coc#float#scroll(0) :":lua _G.smoothie_scrool(\\"b\\")<CR>"',
     { silent = true, nowait = true, expr = true }
 )
 keyset(
