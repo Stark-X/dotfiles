@@ -220,8 +220,16 @@ keyset(
     { silent = true, nowait = true, expr = true }
 )
 
+function _format_notify()
+    vim.cmd([[call CocAction('format')]])
+
+    if packer_plugins["nvim-notify"] and packer_plugins["nvim-notify"].loaded then
+        require("notify")("Formatted", "info", { title = "Coc" })
+    end
+end
+
 -- Add `:Format` command to format current buffer.
-api.nvim_create_user_command("Format", "call CocAction('format')", {})
+api.nvim_create_user_command("Format", ":lua _format_notify()<CR>", {})
 
 -- " Add `:Fold` command to fold current buffer.
 api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", { nargs = "?" })

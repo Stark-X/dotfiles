@@ -27,6 +27,10 @@ return require("packer").startup({
     function(use)
         -- Packer can manage itself
         use("wbthomason/packer.nvim")
+        use({
+            "rcarriga/nvim-notify",
+            config = function() require("notify").setup({ timeout = 500, render = "compact" }) end,
+        })
 
         use({ "wuelnerdotexe/vim-astro", config = function() vim.g.astro_typescript = "enable" end })
         use(utils.Cond(vim.fn.has("mac") == 1, {
@@ -52,6 +56,7 @@ return require("packer").startup({
                         return "<tab>"
                     end
                 end, { expr = true })
+                require("notify")("Using TabNine", "info")
             end,
         }))
         use(utils.Cond(vim.fn.has("mac") == 0, {
@@ -67,8 +72,10 @@ return require("packer").startup({
                     -- Set the result of 'n which 18' to the global 'copilot_node_command'
                     vim.g.copilot_node_command = result
                     -- print("copilot_node_command set to: " .. result)
+                    require("notify")("Using GitHub Copilot", "info")
                 else
-                    error("Command 'n which 18' failed.")
+                    -- error("Command 'n which 18' failed.")
+                    require("notify")("Command 'n which 18' failed.", "error", { title = "GitHub Copilot" })
                 end
             end,
         }))
