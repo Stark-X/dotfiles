@@ -399,6 +399,9 @@ bind -n M-g display-popup -E "tmux new-session -A -s scratch"
 
 set-option -a terminal-overrides ",*256col*:RGB"
 
+set -g popup-border-lines rounded
+set -g pane-border-lines heavy
+
 # -- tpm -----------------------------------------------------------------------
 
 # while I don't use tpm myself, many people requested official support so here
