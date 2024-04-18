@@ -251,7 +251,7 @@ elif [[ `uname` == "Darwin" ]]; then
 fi
 
 # 1Password cli completion
-command -v op > /dev/null || eval "$(op completion zsh)"; compdef _op op
+command -v op > /dev/null && eval "$(op completion zsh)"; compdef _op op
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
