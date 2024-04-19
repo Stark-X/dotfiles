@@ -328,6 +328,7 @@ return require("packer").startup({
         -- You can specify multiple plugins in a single call
         use({
             "nvim-treesitter/nvim-treesitter",
+            requires = { { "yorickpeterse/nvim-tree-pairs", config = function() require("tree-pairs").setup() end } },
             run = ":TSUpdate",
             opt = true,
             cmd = "TS*",
