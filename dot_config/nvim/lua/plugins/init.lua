@@ -328,7 +328,12 @@ return require("packer").startup({
         -- You can specify multiple plugins in a single call
         use({
             "nvim-treesitter/nvim-treesitter",
-            requires = { { "yorickpeterse/nvim-tree-pairs", config = function() require("tree-pairs").setup() end } },
+            requires = {
+                -- % jump between begin and end of a word, jump between pairs when cursor in the block
+                { "yorickpeterse/nvim-tree-pairs", config = function() require("tree-pairs").setup() end },
+                -- add rainbow delimiters
+                "HiPhish/rainbow-delimiters.nvim",
+            },
             run = ":TSUpdate",
             opt = true,
             cmd = "TS*",
