@@ -485,12 +485,12 @@ return require("packer").startup({
                     options = { globalstatus = true, theme = "cyberdream" },
                     extensions = { "fzf", "nvim-tree", "symbols-outline", "fugitive" },
                     tabline = {
-                        lualine_a = { "buffers" },
-                        lualine_b = { "branch" },
-                        lualine_c = { "filename" },
+                        lualine_a = { "filename" },
+                        lualine_b = {},
+                        lualine_c = { "tabs" },
                         lualine_x = {},
                         lualine_y = {},
-                        lualine_z = { "tabs" },
+                        lualine_z = { "buffers" },
                     },
                     sections = {
                         lualine_b = {
