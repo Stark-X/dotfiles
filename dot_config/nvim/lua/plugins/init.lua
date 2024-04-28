@@ -28,8 +28,26 @@ return require("packer").startup({
         -- Packer can manage itself
         use("wbthomason/packer.nvim")
         use({
+            "scottmckendry/cyberdream.nvim",
+            config = function()
+                require("cyberdream").setup({
+                    -- Enable transparent background
+                    transparent = true, -- Default: false
+                    -- Enable italics comments
+                    italic_comments = true, -- Default: false
+                    -- Replace all fillchars with ' ' for the ultimate clean look
+                    hide_fillchars = true, -- Default: false
+                    -- Set terminal colors used in `:terminal`
+                    terminal_colors = true, -- Default: true
+                })
+                vim.cmd([[colorscheme cyberdream]])
+            end,
+        })
+        use({
             "rcarriga/nvim-notify",
-            config = function() require("notify").setup({ timeout = 500, render = "compact" }) end,
+            config = function()
+                require("notify").setup({ timeout = 500, render = "compact", background_colour = "#9b5a10" })
+            end,
         })
 
         use({ "wuelnerdotexe/vim-astro", config = function() vim.g.astro_typescript = "enable" end })
@@ -463,7 +481,8 @@ return require("packer").startup({
             requires = { { "kyazdani42/nvim-web-devicons", opt = true }, "junegunn/fzf" },
             config = function()
                 require("lualine").setup({
-                    options = { globalstatus = true, theme = "horizon" },
+                    -- options = { globalstatus = true, theme = "horizon" },
+                    options = { globalstatus = true, theme = "cyberdream" },
                     extensions = { "fzf", "nvim-tree", "symbols-outline", "fugitive" },
                     tabline = {
                         lualine_a = { "buffers" },
