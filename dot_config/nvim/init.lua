@@ -7,7 +7,8 @@ vim.opt.runtimepath:append("~/.vim/after")
 
 vim.cmd([[let &packpath = &runtimepath]])
 vim.cmd([[source ~/.vimrc]])
-vim.cmd([[colorscheme vim-monokai-tasty]])
+-- use cyberdream in the packer section
+-- vim.cmd([[colorscheme vim-monokai-tasty]])
 
 vim.o.lazyredraw = true
 vim.g.python3_host_prog = "$HOME/.pyenv/versions/neovim/bin/python"
