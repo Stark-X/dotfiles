@@ -13,4 +13,8 @@ return function()
     -- JK motions: Line motions
     vim.keymap.set("", "<space>j", "<Plug>(easymotion-j)")
     vim.keymap.set("", "<space>k", "<Plug>(easymotion-k)")
+
+    -- n-characters motions, use <tab> and <s-tab> to scrool up/down a page
+    vim.keymap.set("", "/", "<Plug>(easymotion-sn)")
+    vim.keymap.set("o", "/", "<Plug>(easymotion-tn)")
 end
