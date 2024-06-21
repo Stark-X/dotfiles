@@ -1,4 +1,8 @@
 {
+  "hover.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
   "java.jdt.ls.java.home": "${env:HOME}/.sdkman/candidates/java/17.0.6-amzn",
   "java.configuration.runtimes": [
     {
