@@ -151,16 +151,17 @@ return {
         keys = { "<F2>" },
         config = function() vim.keymap.set("", "<F2>", ":TlistToggle<CR>", { noremap = true }) end,
     },
-    "honza/vim-snippets",
     {
         "SirVer/ultisnips",
-        config = function()
+        init = function()
+            -- keymaping only effect before loading this plugin
             vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
             vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
             -- use coc-snippets to expand the trigger so that TabNine '<tab>' works as expected
             -- ctrl-tab usually not work as it captured by the terminal emulator
             vim.g.UltiSnipsExpandTrigger = "<c-tab>"
         end,
+        dependencies = { "honza/vim-snippets" },
     },
     {
         "mattn/emmet-vim",
