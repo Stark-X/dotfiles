@@ -308,7 +308,7 @@ return {
         ft = { "lua", "cmake", "vim", "bash", "toml", "yaml" },
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "lua", "cmake", "vim", "bash", "toml", "yaml" },
+                ensure_installed = { "lua", "cmake", "vim", "bash", "toml", "yaml", "vimdoc" },
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
