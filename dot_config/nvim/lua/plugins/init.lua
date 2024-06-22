@@ -35,6 +35,7 @@ return {
         "codota/tabnine-nvim",
         build = "./dl_binaries.sh",
         cond = vim.fn.has("mac") == 1,
+        event = "VeryLazy",
         config = function()
             require("tabnine").setup({
                 disable_auto_comment = true,
@@ -42,7 +43,7 @@ return {
                 dismiss_keymap = "<C-]>",
                 debounce_ms = 800,
                 suggestion_color = { gui = "#808080", cterm = 244 },
-                exclude_filetypes = { "TelescopePrompt", "NvimTree" },
+                exclude_filetypes = { "TelescopePrompt", "NvimTree", "neo-tree" },
                 log_file_path = nil, -- absolute path to Tabnine log file
             })
             --- falling back to inserting tab if neither has a completion
