@@ -206,6 +206,8 @@ return {
             km.set("n", "<leader><tab>", "<plug>(fzf-maps-n)")
             km.set("x", "<leader><tab>", "<plug>(fzf-maps-x)")
             km.set("o", "<leader><tab>", "<plug>(fzf-maps-o)")
+            -- 设置命令映射 MapsI 执行 <plug>(fzf-maps-i) `<c-o>:call fzf#vim#maps('i', 0)<cr>`
+            vim.api.nvim_create_user_command("MapsI", ":call fzf#vim#maps('i', 0)", {})
 
             km.set("n", "<C-p>", ":Files<CR>")
             km.set("n", "<C-h>", ":History<CR>")
