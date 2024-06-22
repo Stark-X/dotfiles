@@ -30,7 +30,7 @@ return {
         end,
     },
 
-    { "wuelnerdotexe/vim-astro", config = function() vim.g.astro_typescript = "enable" end },
+    { "wuelnerdotexe/vim-astro", ft = { "astro" }, config = function() vim.g.astro_typescript = "enable" end },
     {
         "codota/tabnine-nvim",
         build = "./dl_binaries.sh",
