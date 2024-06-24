@@ -2,6 +2,18 @@
 -- vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
 
 return {
+    {
+        "danymat/neogen",
+        event = "VeryLazy",
+        config = function()
+            local opts = { noremap = true, silent = true }
+            vim.api.nvim_set_keymap("n", "<leader>nf", ":lua require('neogen').generate({type='func'})<CR>", opts)
+            vim.api.nvim_set_keymap("n", "<leader>nc", ":lua require('neogen').generate({type='class'})<CR>", opts)
+            vim.api.nvim_set_keymap("n", "<leader>nt", ":lua require('neogen').generate({type='type'})<CR>", opts)
+        end,
+        -- Uncomment next line if you want to follow only stable versions
+        -- version = "*"
+    },
     { "folke/which-key.nvim", event = "VeryLazy" },
     -- load later and are not important for the initial UI
     { "stevearc/dressing.nvim", event = "VeryLazy" },
