@@ -1,6 +1,6 @@
 function is_loaded(plugin_name) return vim.tbl_get(require("lazy.core.config"), "plugins", plugin_name, "_", "loaded") end
 
-return {
+foo = {
     "neoclide/coc.nvim",
     branch = "release",
     event = "VeryLazy",
@@ -302,3 +302,4 @@ return {
         vim.o.winbar = "%!v:lua.symbol_line()"
     end,
 }
+return {}

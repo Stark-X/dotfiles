@@ -62,8 +62,6 @@ return {
             vim.keymap.set("i", "<tab>", function()
                 if require("tabnine.keymaps").has_suggestion() then
                     return require("tabnine.keymaps").accept_suggestion()
-                elseif vim.fn["coc#expandable"]() then
-                    return "<plug>(coc-snippets-expand)"
                 else
                     return "<tab>"
                 end
@@ -199,18 +197,6 @@ return {
     },
     -- distraction-free mode (:ZenMode)
     { "folke/zen-mode.nvim", cmd = "ZenMode" },
-    {
-        "fatih/vim-go",
-        ft = "go",
-        build = ":GoUpdateBinaries",
-        config = function()
-            vim.g.go_doc_popup_window = 1
-            vim.api.nvim_create_autocmd(
-                "FileType",
-                { pattern = "go", callback = function() vim.opt_local.tabstop = 4 end }
-            )
-        end,
-    },
 
     {
         "junegunn/fzf",
@@ -235,14 +221,6 @@ return {
     },
     { "junegunn/fzf.vim", dependencies = "junegunn/fzf" },
     { "voldikss/fzf-floaterm", dependencies = "junegunn/fzf" },
-    {
-        -- :CocFzfList xxx
-        "antoinemadec/coc-fzf",
-        cmd = { "CocFzfList" },
-        dependencies = { "junegunn/fzf", "neoclide/coc.nvim" },
-        config = function() vim.g.coc_fzf_preview = "right:50%" end,
-    },
-
     {
         "voldikss/vim-floaterm",
         cmd = "Floaterms",
@@ -411,8 +389,9 @@ return {
                 yaml = { "yamllint", "prettier" },
                 vue = { "eslint", "vls" },
             }
-            -- use coc.nvim lsp instead
-            g.ale_disable_lsp = 1
+
+            g.ale_disable_lsp = "auto"
+            g.ale_use_neovim_diagnostics_api = 1
         end,
         config = function()
             local km = vim.keymap
@@ -461,7 +440,7 @@ return {
                             --   'nvim_lsp', 'nvim_diagnostic', 'nvim_workspace_diagnostic', 'coc', 'ale', 'vim_lsp'.
                             -- or a function that returns a table as such:
                             --   { error=error_cnt, warn=warn_cnt, info=info_cnt, hint=hint_cnt }
-                            sources = { "nvim_diagnostic", "ale", "coc" },
+                            sources = { "nvim_diagnostic", "ale" },
                         },
                     },
                     lualine_c = { "windows" },
