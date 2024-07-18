@@ -39,7 +39,7 @@ return {
                 map("n", "<leader>hS", gitsigns.stage_buffer)
                 map("n", "<leader>hu", gitsigns.undo_stage_hunk)
                 map("n", "<leader>hR", gitsigns.reset_buffer)
-                map("n", "<leader>hp", gitsigns.preview_hunk)
+                map("n", "d", gitsigns.preview_hunk)
                 map("n", "<leader>hb", function() gitsigns.blame_line({ full = true }) end)
                 map("n", "<leader>tb", gitsigns.toggle_current_line_blame)
                 map("n", "<leader>hd", gitsigns.diffthis)

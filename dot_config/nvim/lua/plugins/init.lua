@@ -28,7 +28,7 @@ return {
                 -- Enable italics comments
                 italic_comments = true, -- Default: false
                 -- Replace all fillchars with ' ' for the ultimate clean look
-                hide_fillchars = true, -- Default: false
+                hide_fillchars = false, -- Default: false
                 -- Set terminal colors used in `:terminal`
                 terminal_colors = true, -- Default: true
             })
@@ -112,7 +112,15 @@ return {
         end,
     },
     -- { "patstockwell/vim-monokai-tasty", config = function() vim.g.vim_monokai_tasty_italic = 1 end },
-    { "Yggdroot/indentLine", config = function() vim.g.indentLine_char = "⎸" end },
+    {
+        "nvimdev/indentmini.nvim",
+        config = function()
+            require("indentmini").setup({ exclude = { "markdown" } })
+            vim.cmd.highlight("IndentLine guifg=#5d626b")
+            -- Current indent line highlight
+            vim.cmd.highlight("IndentLineCurrent guifg=#f1ff5e")
+        end,
+    },
     -- select and press gr
     "vim-scripts/ReplaceWithRegister",
     -- Execute linux cmd in vim :SudoWrite, :SudoEdit, :Mkdirr etc.
@@ -302,7 +310,18 @@ return {
         ft = { "lua", "cmake", "vim", "bash", "toml", "yaml" },
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "lua", "cmake", "vim", "bash", "toml", "yaml", "vimdoc" },
+                ensure_installed = {
+                    "lua",
+                    "cmake",
+                    "vim",
+                    "bash",
+                    "toml",
+                    "yaml",
+                    "vimdoc",
+                    "go",
+                    "markdown_inline",
+                    "markdown",
+                },
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
