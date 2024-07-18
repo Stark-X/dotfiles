@@ -166,11 +166,6 @@ return {
     -- lots of languages syntax highlighting support
     { "sheerun/vim-polyglot", event = "VeryLazy", dependencies = "filetype.nvim" },
     {
-        "vim-scripts/taglist.vim",
-        keys = { "<F2>" },
-        config = function() vim.keymap.set("", "<F2>", ":TlistToggle<CR>", { noremap = true }) end,
-    },
-    {
         "SirVer/ultisnips",
         init = function()
             -- keymaping only effect before loading this plugin
