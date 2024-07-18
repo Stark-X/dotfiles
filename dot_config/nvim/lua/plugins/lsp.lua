@@ -108,7 +108,7 @@ return {
         "nvimdev/lspsaga.nvim",
         config = function()
             vim.diagnostic.config({
-                virtual_text = false,
+                virtual_text = false, -- disable default diagnostic virtual text
             })
             require("lspsaga").setup({
                 code_action = {
@@ -133,6 +133,9 @@ return {
                 lightbulb = {
                     virtual_text = false,
                 },
+                outline = {
+                    layout = "float",
+                },
             })
         end,
         init = function()
@@ -150,12 +153,14 @@ return {
             -- peek definition
             km("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", opt)
             -- find all usages of the symbol
-            km("n", "<c-m-f7>", "<cmd>Lspsaga finder<CR>", opt)
+            km("n", "<M-C-F7>", "<cmd>Lspsaga finder<CR>", opt)
             -- show hover
             -- km("n", "K", ":lua vim.lsp.buf.hover()<CR>", opt)
             km("n", "K", "<cmd>Lspsaga hover_doc<CR>", opt)
             -- format
             km("n", "<leader>=", ":lua vim.lsp.buf.format { async = true }<CR>", opt)
+            -- show tag / outline, F60 == alt + F12
+            km("n", "<F60>", "<cmd>Lspsaga outline<CR>", opt)
         end,
         event = "LspAttach",
         dependencies = {
