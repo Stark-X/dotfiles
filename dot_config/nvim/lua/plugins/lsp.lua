@@ -61,7 +61,37 @@ return {
                 automatic_installation = true,
             })
 
-            require("lspconfig").lua_ls.setup({})
+            require("lspconfig").lua_ls.setup({
+                on_init = function(client)
+                    local path = client.workspace_folders[1].name
+                    if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+                        return
+                    end
+
+                    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using
+                            -- (most likely LuaJIT in the case of Neovim)
+                            version = "LuaJIT",
+                        },
+                        -- Make the server aware of Neovim runtime files
+                        workspace = {
+                            checkThirdParty = false,
+                            library = {
+                                vim.env.VIMRUNTIME,
+                                -- Depending on the usage, you might want to add additional paths here.
+                                -- "${3rd}/luv/library"
+                                -- "${3rd}/busted/library",
+                            },
+                            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                            -- library = vim.api.nvim_get_runtime_file("", true)
+                        },
+                    })
+                end,
+                settings = {
+                    Lua = {},
+                },
+            })
             require("lspconfig").typos_lsp.setup({})
             require("lspconfig").ansiblels.setup({})
             require("lspconfig").bashls.setup({})
@@ -122,6 +152,9 @@ return {
                         tabe = "<C-t>",
                     },
                 },
+                diagnostic = {
+                    diagnostic_only_current = true,
+                },
                 findler = {
                     default = "tyd+ref+imp+def",
                     silent = true,
@@ -158,7 +191,7 @@ return {
             -- km("n", "K", ":lua vim.lsp.buf.hover()<CR>", opt)
             km("n", "K", "<cmd>Lspsaga hover_doc<CR>", opt)
             -- format
-            km("n", "<leader>=", ":lua vim.lsp.buf.format { async = true }<CR>", opt)
+            km("n", "<F4>", ":lua vim.lsp.buf.format { async = true }<CR>", opt)
             -- show tag / outline, F60 == alt + F12
             km("n", "<F60>", "<cmd>Lspsaga outline<CR>", opt)
         end,
