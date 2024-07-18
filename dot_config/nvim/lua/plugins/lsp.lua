@@ -1,19 +1,6 @@
 return {
     {
         "williamboman/mason.nvim",
-        init = function()
-            local km = vim.keymap.set
-            -- rename
-            km("n", "<leader>r", ":lua vim.lsp.buf.rename<CR>")
-            -- code action
-            km("n", "<space>ca", ":lua vim.lsp.buf.code_action()<CR>")
-            -- go to definition
-            km("n", "<leader>jd", ":lua vim.lsp.buf.definition()<CR>")
-            -- show hover
-            km("n", "K", ":lua vim.lsp.buf.hover()<CR>")
-            -- format
-            km("n", "<leader>=", ":lua vim.lsp.buf.format { async = true }<CR>")
-        end,
         config = function()
             require("mason").setup({
                 github = {
@@ -30,6 +17,7 @@ return {
                 },
             })
         end,
+        dependencies = { "nvimdev/lspsaga.nvim" },
     },
     {
         "ray-x/go.nvim",
@@ -38,11 +26,7 @@ return {
             "neovim/nvim-lspconfig",
             "nvim-treesitter/nvim-treesitter",
         },
-        config = function()
-            require("go").setup()
-            require("go.format").gofmt() -- gofmt only
-            require("go.format").goimports() -- goimports + gofmt
-        end,
+        config = function() require("go").setup() end,
         event = { "CmdlineEnter" },
         ft = { "go", "gomod" },
         build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
@@ -78,7 +62,6 @@ return {
             })
 
             require("lspconfig").lua_ls.setup({})
-            require("lspconfig").lua_ls.setup({})
             require("lspconfig").typos_lsp.setup({})
             require("lspconfig").ansiblels.setup({})
             require("lspconfig").bashls.setup({})
@@ -88,6 +71,15 @@ return {
             require("lspconfig").dockerls.setup({})
             require("lspconfig").eslint.setup({})
 
+            local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                pattern = "*.go",
+                callback = function()
+                    require("go.format").gofmt() -- gofmt only
+                    require("go.format").goimports() -- goimports + gofmt
+                end,
+                group = format_sync_grp,
+            })
             require("go").setup({
                 lsp_cfg = false,
             })
@@ -110,5 +102,65 @@ return {
     },
     "nvimtools/none-ls.nvim",
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+    { "theHamsta/nvim-dap-virtual-text", config = function() require("nvim-dap-virtual-text").setup() end },
     "neovim/nvim-lspconfig",
+    {
+        "nvimdev/lspsaga.nvim",
+        config = function()
+            vim.diagnostic.config({
+                virtual_text = false,
+            })
+            require("lspsaga").setup({
+                code_action = {
+                    extend_gitsigns = true,
+                },
+                definition = {
+                    keys = {
+                        edit = "<C-o>",
+                        vsplit = "<C-v>",
+                        split = "<C-s>",
+                        tabe = "<C-t>",
+                    },
+                },
+                findler = {
+                    default = "tyd+ref+imp+def",
+                    silent = true,
+                    keys = {
+                        vsplit = "v",
+                        split = "s",
+                    },
+                },
+                lightbulb = {
+                    virtual_text = false,
+                },
+            })
+        end,
+        init = function()
+            local km = vim.keymap.set
+            local opt = { silent = true, noremap = true }
+            -- rename
+            -- km("n", "<leader>r", ":lua vim.lsp.buf.rename<CR>", opt)
+            km("n", "<leader>r", "<cmd>Lspsaga rename<CR>", opt)
+            -- code action
+            --[[ km("n", "<space>a", ":lua vim.lsp.buf.code_action()<CR>", opt) ]]
+            km("n", "<space>a", "<cmd>Lspsaga code_action<CR>", opt)
+            -- go to definition
+            -- km("n", "<leader>jd", ":lua vim.lsp.buf.definition()<CR>", opt)
+            km("n", "<leader>jd", "<cmd>Lspsaga goto_definition<CR>", opt)
+            -- peek definition
+            km("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", opt)
+            -- find all usages of the symbol
+            km("n", "<c-m-f7>", "<cmd>Lspsaga finder<CR>", opt)
+            -- show hover
+            -- km("n", "K", ":lua vim.lsp.buf.hover()<CR>", opt)
+            km("n", "K", "<cmd>Lspsaga hover_doc<CR>", opt)
+            -- format
+            km("n", "<leader>=", ":lua vim.lsp.buf.format { async = true }<CR>", opt)
+        end,
+        event = "LspAttach",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter", -- optional
+            "nvim-tree/nvim-web-devicons", -- optional
+        },
+    },
 }
