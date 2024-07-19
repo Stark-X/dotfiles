@@ -232,11 +232,59 @@ return {
             km("n", "<F4>", ":lua vim.lsp.buf.format { async = true }<CR>", opt)
             -- show tag / outline, F60 == alt + F12
             km("n", "<F60>", "<cmd>Lspsaga outline<CR>", opt)
+            km(
+                { "n" },
+                "p",
+                function() vim.lsp.buf.signature_help() end,
+                { silent = true, noremap = true, desc = "toggle signature" }
+            )
         end,
         event = "LspAttach",
         dependencies = {
             "nvim-treesitter/nvim-treesitter", -- optional
             "nvim-tree/nvim-web-devicons", -- optional
         },
+    },
+    {
+        "ray-x/lsp_signature.nvim",
+        event = "VeryLazy",
+        opts = {
+            bind = true, -- This is mandatory, otherwise border config won't get registered.
+            handler_opts = {
+                border = "rounded",
+            },
+            toggle_key = "p", -- toggle signature on and off in insert mode
+            floating_window_off_x = 5, -- adjust float windows x position.
+            floating_window_off_y = function() -- adjust float windows y position. e.g. set to -2 can make floating window move up 2 lines
+                local linenr = vim.api.nvim_win_get_cursor(0)[1] -- buf line number
+                local pumheight = vim.o.pumheight
+                local winline = vim.fn.winline() -- line number in the window
+                local winheight = vim.fn.winheight(0)
+
+                -- window top
+                if winline - 1 < pumheight then
+                    return pumheight
+                end
+
+                -- window bottom
+                if winheight - winline < pumheight then
+                    return -pumheight
+                end
+                return 0
+            end,
+        },
+        config = function(_, opts)
+            -- require("lsp_signature").setup(opts)
+            vim.api.nvim_create_autocmd("LspAttach", {
+                callback = function(args)
+                    local bufnr = args.buf
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    if vim.tbl_contains({ "null-ls" }, client.name) then -- blacklist lsp
+                        return
+                    end
+                    require("lsp_signature").on_attach(opts, bufnr)
+                end,
+            })
+        end,
     },
 }
