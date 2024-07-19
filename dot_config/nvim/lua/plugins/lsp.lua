@@ -159,8 +159,8 @@ return {
                     default = "tyd+ref+imp+def",
                     silent = true,
                     keys = {
-                        vsplit = "v",
-                        split = "s",
+                        vsplit = "<c-v>",
+                        split = "<c-s>",
                     },
                 },
                 lightbulb = {
