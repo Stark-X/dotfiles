@@ -205,16 +205,16 @@ return {
         "junegunn/fzf",
         build = ":call fzf#install()",
         config = function()
-            local km = vim.keymap
-            km.set("n", "<leader><tab>", "<plug>(fzf-maps-n)")
-            km.set("x", "<leader><tab>", "<plug>(fzf-maps-x)")
-            km.set("o", "<leader><tab>", "<plug>(fzf-maps-o)")
+            local km = vim.keymap.set
+            km("n", "<leader><tab>", "<plug>(fzf-maps-n)")
+            km("x", "<leader><tab>", "<plug>(fzf-maps-x)")
+            km("o", "<leader><tab>", "<plug>(fzf-maps-o)")
             -- 设置命令映射 MapsI 执行 <plug>(fzf-maps-i) `<c-o>:call fzf#vim#maps('i', 0)<cr>`
             vim.api.nvim_create_user_command("MapsI", ":call fzf#vim#maps('i', 0)", {})
 
-            km.set("n", "<C-p>", ":Files<CR>")
-            km.set("n", "<C-h>", ":History<CR>")
-            km.set("n", "<C-t>", ":Buffers<CR>")
+            km("n", "<C-p>", ":Files<CR>")
+            km("n", "<C-h>", ":History<CR>")
+            km("n", "<C-t>", ":Buffers<CR>")
             local fzfActions = {}
             fzfActions["ctrl-s"] = "split"
             fzfActions["ctrl-t"] = "tabnew"
@@ -223,6 +223,11 @@ return {
         end,
     },
     { "junegunn/fzf.vim", dependencies = "junegunn/fzf" },
+    {
+        "gfanto/fzf-lsp.nvim",
+        config = function() require("fzf_lsp").setup({ override_ui_select = true }) end,
+        dependencies = "junegunn/fzf.vim",
+    },
     { "voldikss/fzf-floaterm", dependencies = "junegunn/fzf" },
     {
         "voldikss/vim-floaterm",
