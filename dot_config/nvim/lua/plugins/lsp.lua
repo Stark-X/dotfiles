@@ -89,7 +89,12 @@ return {
                     })
                 end,
                 settings = {
-                    Lua = {},
+                    Lua = {
+                        format = {
+                            -- use stylua by guard.nvim instead
+                            enable = false,
+                        },
+                    },
                 },
             })
             require("lspconfig").typos_lsp.setup({})
@@ -130,7 +135,37 @@ return {
         end,
         dependencies = { "williamboman/mason.nvim" },
     },
-    "nvimtools/none-ls.nvim",
+    {
+        -- a formatter that replace the null-ls
+        "nvimdev/guard.nvim",
+        -- Builtin configuration, optional
+        dependencies = {
+            "nvimdev/guard-collection",
+        },
+        config = function()
+            local ft = require("guard.filetype")
+
+            -- Assuming you have guard-collection
+            -- ft('lang'):fmt('format-tool-1')
+            -- :append('format-tool-2')
+            -- :env(env_table)
+            -- :lint('lint-tool-1')
+            -- :extra(extra_args)
+
+            ft("lua"):fmt("stylua")
+
+            -- Call setup() LAST!
+            require("guard").setup({
+                -- Choose to format on every write to a buffer
+                fmt_on_save = true,
+                -- Use lsp if no formatter was defined for this filetype
+                lsp_as_default_formatter = true,
+                -- By default, Guard writes the buffer on every format
+                -- You can disable this by setting:
+                -- save_on_fmt = false,
+            })
+        end,
+    },
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
     { "theHamsta/nvim-dap-virtual-text", config = function() require("nvim-dap-virtual-text").setup() end },
     "neovim/nvim-lspconfig",
