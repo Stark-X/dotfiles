@@ -378,7 +378,7 @@ return {
 
     {
         "folke/trouble.nvim",
-        dependencies = "kyazdani42/nvim-web-devicons",
+        dependencies = "nvim-tree/nvim-web-devicons",
         cmd = { "Trouble", "TroubleToggle" },
         config = function() require("trouble").setup() end,
     },
@@ -435,7 +435,7 @@ return {
     },
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "kyazdani42/nvim-web-devicons", "junegunn/fzf" },
+        dependencies = { "nvim-tree/nvim-web-devicons", "junegunn/fzf" },
         config = function()
             require("lualine").setup({
                 -- options = { globalstatus = true, theme = "horizon" },
