@@ -17,7 +17,6 @@ return {
                 },
             })
         end,
-        dependencies = { "nvimdev/lspsaga.nvim" },
     },
     {
         "ray-x/go.nvim",
@@ -170,6 +169,7 @@ return {
     { "theHamsta/nvim-dap-virtual-text", config = function() require("nvim-dap-virtual-text").setup() end },
     "neovim/nvim-lspconfig",
     {
+        -- maybe I can use ray-x/navigator.lua as replacement
         "nvimdev/lspsaga.nvim",
         config = function()
             vim.diagnostic.config({
