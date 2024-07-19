@@ -168,6 +168,9 @@ return {
                 },
                 outline = {
                     layout = "float",
+                    keys = {
+                        jump = "<enter>",
+                    },
                 },
             })
         end,
