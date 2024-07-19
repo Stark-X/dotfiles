@@ -31,7 +31,6 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        event = "LspAttach",
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
@@ -59,7 +58,68 @@ return {
                 },
                 automatic_installation = true,
             })
+        end,
+        dependencies = { "williamboman/mason.nvim" },
+    },
+    {
+        -- a formatter that replace the null-ls
+        "nvimdev/guard.nvim",
+        -- Builtin configuration, optional
+        dependencies = {
+            "nvimdev/guard-collection",
+        },
+        config = function()
+            local ft = require("guard.filetype")
 
+            -- Assuming you have guard-collection
+            -- ft('lang'):fmt('format-tool-1')
+            -- :append('format-tool-2')
+            -- :env(env_table)
+            -- :lint('lint-tool-1')
+            -- :extra(extra_args)
+
+            ft("lua"):fmt("stylua")
+
+            -- Call setup() LAST!
+            require("guard").setup({
+                -- Choose to format on every write to a buffer
+                fmt_on_save = true,
+                -- Use lsp if no formatter was defined for this filetype
+                lsp_as_default_formatter = true,
+                -- By default, Guard writes the buffer on every format
+                -- You can disable this by setting:
+                -- save_on_fmt = false,
+            })
+        end,
+    },
+    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+    { "theHamsta/nvim-dap-virtual-text", config = function() require("nvim-dap-virtual-text").setup() end },
+    {
+        "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
+        lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+        dependencies = {
+            -- main one
+            { "ms-jpq/coq_nvim", branch = "coq" },
+            -- 9000+ Snippets
+            { "ms-jpq/coq.artifacts", branch = "artifacts" },
+
+            -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+            -- Need to **configure separately**
+            { "ms-jpq/coq.thirdparty", branch = "3p" },
+            "williamboman/mason-lspconfig.nvim",
+            -- - shell repl
+            -- - nvim lua api
+            -- - scientific calculator
+            -- - comment banner
+            -- - etc
+        },
+        init = function()
+            vim.g.coq_settings = {
+                auto_start = true, -- if you want to start COQ at startup
+                -- Your COQ settings here
+            }
+        end,
+        config = function()
             require("lspconfig").lua_ls.setup({
                 on_init = function(client)
                     local path = client.workspace_folders[1].name
@@ -132,42 +192,7 @@ return {
             require("lspconfig").volar.setup({})
             require("lspconfig").yamlls.setup({})
         end,
-        dependencies = { "williamboman/mason.nvim" },
     },
-    {
-        -- a formatter that replace the null-ls
-        "nvimdev/guard.nvim",
-        -- Builtin configuration, optional
-        dependencies = {
-            "nvimdev/guard-collection",
-        },
-        config = function()
-            local ft = require("guard.filetype")
-
-            -- Assuming you have guard-collection
-            -- ft('lang'):fmt('format-tool-1')
-            -- :append('format-tool-2')
-            -- :env(env_table)
-            -- :lint('lint-tool-1')
-            -- :extra(extra_args)
-
-            ft("lua"):fmt("stylua")
-
-            -- Call setup() LAST!
-            require("guard").setup({
-                -- Choose to format on every write to a buffer
-                fmt_on_save = true,
-                -- Use lsp if no formatter was defined for this filetype
-                lsp_as_default_formatter = true,
-                -- By default, Guard writes the buffer on every format
-                -- You can disable this by setting:
-                -- save_on_fmt = false,
-            })
-        end,
-    },
-    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
-    { "theHamsta/nvim-dap-virtual-text", config = function() require("nvim-dap-virtual-text").setup() end },
-    "neovim/nvim-lspconfig",
     {
         -- maybe I can use ray-x/navigator.lua as replacement
         "nvimdev/lspsaga.nvim",
