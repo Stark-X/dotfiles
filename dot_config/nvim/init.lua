@@ -11,7 +11,7 @@ vim.cmd([[source ~/.vimrc]])
 -- vim.cmd([[colorscheme vim-monokai-tasty]])
 
 vim.o.lazyredraw = true
-vim.g.python3_host_prog = "$HOME/.pyenv/versions/neovim/bin/python"
+vim.g.python3_host_prog = vim.env.HOME .. "/.pyenv/versions/neovim/bin/python"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
