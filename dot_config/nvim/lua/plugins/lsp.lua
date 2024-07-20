@@ -159,18 +159,18 @@ return {
                     }),
                 },
             })
-            -- Use buffer source for `/`.
-            cmp.setup.cmdline("/", {
-                completion = { autocomplete = false },
+            -- Use buffer source for `/` and `?`.
+            cmp.setup.cmdline({ "/", "?" }, {
+                mapping = cmp.mapping.preset.cmdline(),
                 sources = {
-                    -- { name = 'buffer' }
-                    { name = "buffer", opts = { keyword_pattern = [=[[^[:blank:]].*]=] } },
+                    { name = "buffer" },
                 },
             })
 
             -- Use cmdline & path source for ':'.
             cmp.setup.cmdline(":", {
                 completion = { autocomplete = false },
+                mapping = cmp.mapping.preset.cmdline(), -- do not delete this line
                 sources = cmp.config.sources({
                     { name = "path" },
                 }, {
