@@ -21,7 +21,7 @@ return {
     {
         "ray-x/go.nvim",
         dependencies = { -- optional packages
-            "ray-x/guihua.lua",
+            { "ray-x/guihua.lua", build = "cd lua/fzy && make", opts = { border = "rounded" } },
             "neovim/nvim-lspconfig",
             "nvim-treesitter/nvim-treesitter",
         },
@@ -37,6 +37,8 @@ return {
             })
             require("go").setup({
                 lsp_cfg = false,
+                -- disable lsp keymaps, if true, the lspsaga keymaps will be ignored
+                lsp_keymaps = false,
             })
             local cfg = require("go.lsp").config() -- config() return the go.nvim gopls setup
 
@@ -397,6 +399,8 @@ return {
             -- go to definition
             -- km("n", "<leader>jd", ":lua vim.lsp.buf.definition()<CR>", opt)
             km("n", "<leader>jd", "<cmd>Lspsaga goto_definition<CR>", opt)
+            -- find references
+            km("n", "<leader>jr", "<cmd>Lspsaga finder def+ref<CR>", opt)
             -- peek definition
             km("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", opt)
             -- find all usages of the symbol
@@ -410,7 +414,7 @@ return {
             km("n", "<F60>", "<cmd>Lspsaga outline<CR>", opt)
             km(
                 { "n" },
-                "p",
+                "<M-p>",
                 function() vim.lsp.buf.signature_help() end,
                 { silent = true, noremap = true, desc = "toggle signature" }
             )
@@ -429,7 +433,7 @@ return {
             handler_opts = {
                 border = "rounded",
             },
-            toggle_key = "p", -- toggle signature on and off in insert mode
+            toggle_key = "<M-p>", -- toggle signature on and off in insert mode
             floating_window_off_x = 5, -- adjust float windows x position.
             floating_window_off_y = function() -- adjust float windows y position. e.g. set to -2 can make floating window move up 2 lines
                 local linenr = vim.api.nvim_win_get_cursor(0)[1] -- buf line number
