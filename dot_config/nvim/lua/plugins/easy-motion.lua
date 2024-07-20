@@ -15,8 +15,8 @@ local function _setKeyMaps()
     vim.keymap.set("", "<space>k", "<Plug>(easymotion-k)")
 
     -- n-characters motions, use <tab> and <s-tab> to scrool up/down a page
-    vim.keymap.set("", "/", "<Plug>(easymotion-sn)")
-    vim.keymap.set("o", "/", "<Plug>(easymotion-tn)")
+    -- vim.keymap.set("", "/", "<Plug>(easymotion-sn)")
+    -- vim.keymap.set("o", "/", "<Plug>(easymotion-tn)")
 end
 return {
     { "easymotion/vim-easymotion", cond = not vim.g.vscode, config = function() _setKeyMaps() end },

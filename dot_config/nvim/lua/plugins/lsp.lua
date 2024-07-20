@@ -25,7 +25,25 @@ return {
             "neovim/nvim-lspconfig",
             "nvim-treesitter/nvim-treesitter",
         },
-        config = function() require("go").setup() end,
+        config = function()
+            local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                pattern = "*.go",
+                callback = function()
+                    require("go.format").gofmt() -- gofmt only
+                    require("go.format").goimports() -- goimports + gofmt
+                end,
+                group = format_sync_grp,
+            })
+            require("go").setup({
+                lsp_cfg = false,
+            })
+            local cfg = require("go.lsp").config() -- config() return the go.nvim gopls setup
+
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            cfg["capabilities"] = capabilities
+            require("lspconfig").gopls.setup(cfg)
+        end,
         ft = { "go", "gomod" },
         build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     },
@@ -95,29 +113,183 @@ return {
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
     { "theHamsta/nvim-dap-virtual-text", config = function() require("nvim-dap-virtual-text").setup() end },
     {
-        "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
-        lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp",
         dependencies = {
-            -- main one
-            { "ms-jpq/coq_nvim", branch = "coq" },
-            -- 9000+ Snippets
-            { "ms-jpq/coq.artifacts", branch = "artifacts" },
-
-            -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-            -- Need to **configure separately**
-            { "ms-jpq/coq.thirdparty", branch = "3p" },
-            "williamboman/mason-lspconfig.nvim",
-            -- - shell repl
-            -- - nvim lua api
-            -- - scientific calculator
-            -- - comment banner
-            -- - etc
+            "rafamadriz/friendly-snippets",
         },
+        config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
+    },
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
+            "onsails/lspkind.nvim",
+
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
+        },
+        config = function()
+            local cmp = require("cmp")
+            local lspkind = require("lspkind")
+            cmp.setup({
+                formatting = {
+                    format = lspkind.cmp_format({
+                        mode = "symbol", -- show only symbol annotations
+                        maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                        -- can also be a function to dynamically calculate max width such as
+                        -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+                        ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+                        show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+
+                        symbol_map = { Copilot = "" },
+
+                        -- The function below will be called before any actual modifications from lspkind
+                        -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+                        before = function(entry, vim_item) return vim_item end,
+                    }),
+                },
+            })
+            -- Use buffer source for `/`.
+            cmp.setup.cmdline("/", {
+                completion = { autocomplete = false },
+                sources = {
+                    -- { name = 'buffer' }
+                    { name = "buffer", opts = { keyword_pattern = [=[[^[:blank:]].*]=] } },
+                },
+            })
+
+            -- Use cmdline & path source for ':'.
+            cmp.setup.cmdline(":", {
+                completion = { autocomplete = false },
+                sources = cmp.config.sources({
+                    { name = "path" },
+                }, {
+                    { name = "cmdline" },
+                }),
+            })
+
+            local luasnip = require("luasnip")
+            local t = function(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
+            local copilot_sug = require("copilot.suggestion")
+            cmp.setup({
+                snippet = {
+                    expand = function(args)
+                        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+                    end,
+                },
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
+                sources = cmp.config.sources({
+                    -- Copilot Source
+                    -- { name = "copilot" },
+                    { name = "luasnip" }, -- For luasnip users.
+                    { name = "nvim_lsp" },
+                }, { { name = "buffer" } }),
+                mapping = {
+                    ["<CR>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            local entry = cmp.get_selected_entry()
+                            if luasnip.expandable() then
+                                luasnip.expand()
+                            else
+                                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                            end
+                        else
+                            fallback()
+                        end
+                    end),
+
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        -- if cmp.visible() then
+                        -- cmp.select_next_item()
+                        -- elseif luasnip.locally_jumpable(1) then
+                        if copilot_sug.is_visible() then
+                            copilot_sug.accept()
+                        elseif cmp.visible() then
+                            -- acts like IDEA
+                            local entry = cmp.get_selected_entry()
+                            if not entry then
+                                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                            end
+                            cmp.confirm()
+                        elseif luasnip.locally_jumpable(1) then
+                            luasnip.jump(1)
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        -- if cmp.visible() then
+                        -- cmp.select_prev_item()
+                        -- elseif luasnip.locally_jumpable(-1) then
+                        if luasnip.locally_jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+                    ["<Down>"] = cmp.mapping(
+                        cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+                        { "i" }
+                    ),
+                    ["<Up>"] = cmp.mapping(
+                        cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+                        { "i" }
+                    ),
+                    ["<C-n>"] = cmp.mapping({
+                        c = function()
+                            if cmp.visible() then
+                                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                            else
+                                vim.api.nvim_feedkeys(t("<Down>"), "n", true)
+                            end
+                        end,
+                        i = function(fallback)
+                            if cmp.visible() then
+                                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                            else
+                                fallback()
+                            end
+                        end,
+                    }),
+                    ["<C-p>"] = cmp.mapping({
+                        c = function()
+                            if cmp.visible() then
+                                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                            else
+                                vim.api.nvim_feedkeys(t("<Up>"), "n", true)
+                            end
+                        end,
+                        i = function(fallback)
+                            if cmp.visible() then
+                                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                            else
+                                fallback()
+                            end
+                        end,
+                    }),
+                },
+            })
+        end,
+    },
+    {
+        "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
+        -- lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
         init = function()
-            vim.g.coq_settings = {
-                auto_start = true, -- if you want to start COQ at startup
-                -- Your COQ settings here
-            }
+            -- vim.g.coq_settings = {
+            -- auto_start = true, -- if you want to start COQ at startup
+            -- -- Your COQ settings here
+            -- }
         end,
         config = function()
             require("lspconfig").lua_ls.setup({
@@ -165,21 +337,6 @@ return {
             require("lspconfig").dockerls.setup({})
             require("lspconfig").eslint.setup({})
 
-            local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                pattern = "*.go",
-                callback = function()
-                    require("go.format").gofmt() -- gofmt only
-                    require("go.format").goimports() -- goimports + gofmt
-                end,
-                group = format_sync_grp,
-            })
-            require("go").setup({
-                lsp_cfg = false,
-            })
-            local cfg = require("go.lsp").config() -- config() return the go.nvim gopls setup
-            require("lspconfig").gopls.setup(cfg)
-
             require("lspconfig").groovyls.setup({})
             require("lspconfig").graphql.setup({})
             require("lspconfig").helm_ls.setup({})
@@ -189,6 +346,10 @@ return {
             require("lspconfig").mesonlsp.setup({})
             require("lspconfig").ruff_lsp.setup({})
             require("lspconfig").jedi_language_server.setup({})
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            require("lspconfig")["jedi_language_server"].setup({
+                capabilities = capabilities,
+            })
             require("lspconfig").volar.setup({})
             require("lspconfig").yamlls.setup({})
         end,
