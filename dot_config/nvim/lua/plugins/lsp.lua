@@ -125,6 +125,7 @@ return {
     },
     {
         "hrsh7th/nvim-cmp",
+        event = "VeryLazy",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -209,9 +210,6 @@ return {
                     end),
 
                     ["<Tab>"] = cmp.mapping(function(fallback)
-                        -- if cmp.visible() then
-                        -- cmp.select_next_item()
-                        -- elseif luasnip.locally_jumpable(1) then
                         if copilot_sug.is_visible() then
                             copilot_sug.accept()
                         elseif cmp.visible() then
@@ -229,9 +227,6 @@ return {
                     end, { "i", "s" }),
 
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        -- if cmp.visible() then
-                        -- cmp.select_prev_item()
-                        -- elseif luasnip.locally_jumpable(-1) then
                         if luasnip.locally_jumpable(-1) then
                             luasnip.jump(-1)
                         else
@@ -285,12 +280,7 @@ return {
     {
         "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
         -- lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
-        init = function()
-            -- vim.g.coq_settings = {
-            -- auto_start = true, -- if you want to start COQ at startup
-            -- -- Your COQ settings here
-            -- }
-        end,
+        event = "VeryLazy",
         config = function()
             require("lspconfig").lua_ls.setup({
                 on_init = function(client)

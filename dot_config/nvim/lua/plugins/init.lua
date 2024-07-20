@@ -87,7 +87,7 @@ return {
                     -- suggestion = { enabled = false },
                     -- panel = { enabled = false },
                     suggestion = {
-                        debounce = 100,
+                        debounce = 150,
                         auto_trigger = true,
                         hide_during_completion = false,
                     },
@@ -99,12 +99,6 @@ return {
                 require("notify")("Command 'n which 18' failed.", "error", { title = "GitHub Copilot" })
             end
         end,
-        dependencies = {
-            -- {
-            -- "zbirenbaum/copilot-cmp",
-            -- config = function() require("copilot_cmp").setup() end,
-            -- },
-        },
     },
 
     "ryanoasis/vim-devicons",
