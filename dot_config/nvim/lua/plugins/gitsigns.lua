@@ -3,8 +3,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         require("gitsigns").setup({
-            -- disable due to not work with coc, using coc-git blame line instead
-            current_line_blame = false,
+            current_line_blame = true,
             on_attach = function(bufnr)
                 local gitsigns = require("gitsigns")
 
