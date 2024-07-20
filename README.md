@@ -8,7 +8,6 @@ Personal dotfiles, including vim, .zshrc, .bashrc, etc.
 - zshrc
 - bashrc
 - HammerSpoon, <https://github.com/Hammerspoon/hammerspoon>
-- coc
 - tmux
 - sheldon
 
@@ -27,7 +26,6 @@ ln -s -f .tmux/.tmux.conf
 
 cd dotfiles
 # change to use neovim for better performance and lua config convenient
-#stow coc -t ~/.vim
 #stow vim
 stow bash
 stow hammerspoon
