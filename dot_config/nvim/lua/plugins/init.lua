@@ -14,6 +14,22 @@ return {
         -- Uncomment next line if you want to follow only stable versions
         -- version = "*"
     },
+    {
+        "kevinhwang91/nvim-ufo",
+        dependencies = { "kevinhwang91/promise-async" },
+        config = function()
+            vim.o.foldcolumn = "0"
+            vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+            vim.o.foldlevelstart = 99
+            vim.o.foldenable = true
+
+            -- Using ufo provider need remap `zR` and `zM`.
+            vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+            vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+            require("ufo").setup()
+        end,
+    },
+    "rhysd/conflict-marker.vim",
     -- load later and are not important for the initial UI
     { "stevearc/dressing.nvim", event = "VeryLazy" },
     {
