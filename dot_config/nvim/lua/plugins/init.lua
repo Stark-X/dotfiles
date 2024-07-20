@@ -14,7 +14,6 @@ return {
         -- Uncomment next line if you want to follow only stable versions
         -- version = "*"
     },
-    { "folke/which-key.nvim", event = "VeryLazy" },
     -- load later and are not important for the initial UI
     { "stevearc/dressing.nvim", event = "VeryLazy" },
     {
@@ -70,7 +69,7 @@ return {
         end,
     },
     {
-        "github/copilot.vim",
+        "zbirenbaum/copilot.lua",
         cond = vim.fn.has("mac") == 0,
         event = "VeryLazy",
         config = function()
@@ -82,7 +81,17 @@ return {
             -- Check if 'nvm which 18' succeeded
             if result ~= "" and result ~= nil then
                 -- Set the result of 'n which 18' to the global 'copilot_node_command'
-                vim.g.copilot_node_command = result
+
+                require("copilot").setup({
+                    copilot_node_command = result,
+                    -- suggestion = { enabled = false },
+                    -- panel = { enabled = false },
+                    suggestion = {
+                        debounce = 100,
+                        auto_trigger = true,
+                        hide_during_completion = false,
+                    },
+                })
                 -- print("copilot_node_command set to: " .. result)
                 require("notify")("Using GitHub Copilot", "info")
             else
@@ -90,6 +99,12 @@ return {
                 require("notify")("Command 'n which 18' failed.", "error", { title = "GitHub Copilot" })
             end
         end,
+        dependencies = {
+            -- {
+            -- "zbirenbaum/copilot-cmp",
+            -- config = function() require("copilot_cmp").setup() end,
+            -- },
+        },
     },
 
     "ryanoasis/vim-devicons",
@@ -165,18 +180,6 @@ return {
     "justinmk/vim-dirvish",
     -- lots of languages syntax highlighting support
     { "sheerun/vim-polyglot", event = "VeryLazy", dependencies = "filetype.nvim" },
-    {
-        "SirVer/ultisnips",
-        init = function()
-            -- keymaping only effect before loading this plugin
-            vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
-            vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
-            -- use coc-snippets to expand the trigger so that TabNine '<tab>' works as expected
-            -- ctrl-tab usually not work as it captured by the terminal emulator
-            vim.g.UltiSnipsExpandTrigger = "<c-tab>"
-        end,
-        dependencies = { "honza/vim-snippets" },
-    },
     {
         "mattn/emmet-vim",
         ft = { "vue", "html", "xml" },
