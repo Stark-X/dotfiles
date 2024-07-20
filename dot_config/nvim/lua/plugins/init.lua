@@ -30,7 +30,6 @@ return {
         end,
     },
     "rhysd/conflict-marker.vim",
-    { "folke/which-key.nvim", event = "VeryLazy" },
     -- load later and are not important for the initial UI
     { "stevearc/dressing.nvim", event = "VeryLazy" },
     {
@@ -44,7 +43,7 @@ return {
                 -- Enable italics comments
                 italic_comments = true, -- Default: false
                 -- Replace all fillchars with ' ' for the ultimate clean look
-                hide_fillchars = true, -- Default: false
+                hide_fillchars = false, -- Default: false
                 -- Set terminal colors used in `:terminal`
                 terminal_colors = true, -- Default: true
             })
@@ -78,8 +77,6 @@ return {
             vim.keymap.set("i", "<tab>", function()
                 if require("tabnine.keymaps").has_suggestion() then
                     return require("tabnine.keymaps").accept_suggestion()
-                elseif vim.fn["coc#expandable"]() then
-                    return "<plug>(coc-snippets-expand)"
                 else
                     return "<tab>"
                 end
@@ -88,7 +85,7 @@ return {
         end,
     },
     {
-        "github/copilot.vim",
+        "zbirenbaum/copilot.lua",
         cond = vim.fn.has("mac") == 0,
         event = "VeryLazy",
         config = function()
@@ -100,7 +97,17 @@ return {
             -- Check if 'nvm which 18' succeeded
             if result ~= "" and result ~= nil then
                 -- Set the result of 'n which 18' to the global 'copilot_node_command'
-                vim.g.copilot_node_command = result
+
+                require("copilot").setup({
+                    copilot_node_command = result,
+                    -- suggestion = { enabled = false },
+                    -- panel = { enabled = false },
+                    suggestion = {
+                        debounce = 150,
+                        auto_trigger = true,
+                        hide_during_completion = false,
+                    },
+                })
                 -- print("copilot_node_command set to: " .. result)
                 require("notify")("Using GitHub Copilot", "info")
             else
@@ -130,7 +137,15 @@ return {
         end,
     },
     -- { "patstockwell/vim-monokai-tasty", config = function() vim.g.vim_monokai_tasty_italic = 1 end },
-    { "Yggdroot/indentLine", config = function() vim.g.indentLine_char = "⎸" end },
+    {
+        "nvimdev/indentmini.nvim",
+        config = function()
+            require("indentmini").setup({ exclude = { "markdown" } })
+            vim.cmd.highlight("IndentLine guifg=#5d626b")
+            -- Current indent line highlight
+            vim.cmd.highlight("IndentLineCurrent guifg=#f1ff5e")
+        end,
+    },
     -- select and press gr
     "vim-scripts/ReplaceWithRegister",
     -- Execute linux cmd in vim :SudoWrite, :SudoEdit, :Mkdirr etc.
@@ -176,23 +191,6 @@ return {
     -- lots of languages syntax highlighting support
     { "sheerun/vim-polyglot", event = "VeryLazy", dependencies = "filetype.nvim" },
     {
-        "vim-scripts/taglist.vim",
-        keys = { "<F2>" },
-        config = function() vim.keymap.set("", "<F2>", ":TlistToggle<CR>", { noremap = true }) end,
-    },
-    {
-        "SirVer/ultisnips",
-        init = function()
-            -- keymaping only effect before loading this plugin
-            vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
-            vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
-            -- use coc-snippets to expand the trigger so that TabNine '<tab>' works as expected
-            -- ctrl-tab usually not work as it captured by the terminal emulator
-            vim.g.UltiSnipsExpandTrigger = "<c-tab>"
-        end,
-        dependencies = { "honza/vim-snippets" },
-    },
-    {
         "mattn/emmet-vim",
         ft = { "vue", "html", "xml" },
         init = function() vim.g.user_emmet_leader_key = "<C-j>" end,
@@ -215,33 +213,21 @@ return {
     },
     -- distraction-free mode (:ZenMode)
     { "folke/zen-mode.nvim", cmd = "ZenMode" },
-    {
-        "fatih/vim-go",
-        ft = "go",
-        build = ":GoUpdateBinaries",
-        config = function()
-            vim.g.go_doc_popup_window = 1
-            vim.api.nvim_create_autocmd(
-                "FileType",
-                { pattern = "go", callback = function() vim.opt_local.tabstop = 4 end }
-            )
-        end,
-    },
 
     {
         "junegunn/fzf",
         build = ":call fzf#install()",
         config = function()
-            local km = vim.keymap
-            km.set("n", "<leader><tab>", "<plug>(fzf-maps-n)")
-            km.set("x", "<leader><tab>", "<plug>(fzf-maps-x)")
-            km.set("o", "<leader><tab>", "<plug>(fzf-maps-o)")
+            local km = vim.keymap.set
+            km("n", "<leader><tab>", "<plug>(fzf-maps-n)")
+            km("x", "<leader><tab>", "<plug>(fzf-maps-x)")
+            km("o", "<leader><tab>", "<plug>(fzf-maps-o)")
             -- 设置命令映射 MapsI 执行 <plug>(fzf-maps-i) `<c-o>:call fzf#vim#maps('i', 0)<cr>`
             vim.api.nvim_create_user_command("MapsI", ":call fzf#vim#maps('i', 0)", {})
 
-            km.set("n", "<C-p>", ":Files<CR>")
-            km.set("n", "<C-h>", ":History<CR>")
-            km.set("n", "<C-t>", ":Buffers<CR>")
+            km("n", "<C-p>", ":Files<CR>")
+            km("n", "<C-h>", ":History<CR>")
+            km("n", "<C-t>", ":Buffers<CR>")
             local fzfActions = {}
             fzfActions["ctrl-s"] = "split"
             fzfActions["ctrl-t"] = "tabnew"
@@ -250,15 +236,12 @@ return {
         end,
     },
     { "junegunn/fzf.vim", dependencies = "junegunn/fzf" },
-    { "voldikss/fzf-floaterm", dependencies = "junegunn/fzf" },
     {
-        -- :CocFzfList xxx
-        "antoinemadec/coc-fzf",
-        cmd = { "CocFzfList" },
-        dependencies = { "junegunn/fzf", "neoclide/coc.nvim" },
-        config = function() vim.g.coc_fzf_preview = "right:50%" end,
+        "gfanto/fzf-lsp.nvim",
+        config = function() require("fzf_lsp").setup({ override_ui_select = true }) end,
+        dependencies = "junegunn/fzf.vim",
     },
-
+    { "voldikss/fzf-floaterm", dependencies = "junegunn/fzf" },
     {
         "voldikss/vim-floaterm",
         cmd = "Floaterms",
@@ -340,7 +323,18 @@ return {
         ft = { "lua", "cmake", "vim", "bash", "toml", "yaml" },
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "lua", "cmake", "vim", "bash", "toml", "yaml", "vimdoc" },
+                ensure_installed = {
+                    "lua",
+                    "cmake",
+                    "vim",
+                    "bash",
+                    "toml",
+                    "yaml",
+                    "vimdoc",
+                    "go",
+                    "markdown_inline",
+                    "markdown",
+                },
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
@@ -397,7 +391,7 @@ return {
 
     {
         "folke/trouble.nvim",
-        dependencies = "kyazdani42/nvim-web-devicons",
+        dependencies = "nvim-tree/nvim-web-devicons",
         cmd = { "Trouble", "TroubleToggle" },
         config = function() require("trouble").setup() end,
     },
@@ -427,8 +421,9 @@ return {
                 yaml = { "yamllint", "prettier" },
                 vue = { "eslint", "vls" },
             }
-            -- use coc.nvim lsp instead
-            g.ale_disable_lsp = 1
+
+            g.ale_disable_lsp = "auto"
+            g.ale_use_neovim_diagnostics_api = 1
         end,
         config = function()
             local km = vim.keymap
@@ -453,7 +448,7 @@ return {
     },
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "kyazdani42/nvim-web-devicons", "junegunn/fzf" },
+        dependencies = { "nvim-tree/nvim-web-devicons", "junegunn/fzf" },
         config = function()
             require("lualine").setup({
                 -- options = { globalstatus = true, theme = "horizon" },
@@ -477,7 +472,7 @@ return {
                             --   'nvim_lsp', 'nvim_diagnostic', 'nvim_workspace_diagnostic', 'coc', 'ale', 'vim_lsp'.
                             -- or a function that returns a table as such:
                             --   { error=error_cnt, warn=warn_cnt, info=info_cnt, hint=hint_cnt }
-                            sources = { "nvim_diagnostic", "ale", "coc" },
+                            sources = { "nvim_diagnostic", "ale" },
                         },
                     },
                     lualine_c = { "windows" },
