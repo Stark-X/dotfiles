@@ -3,6 +3,26 @@
 
 return {
     {
+        "nvimdev/dashboard-nvim",
+        event = "VimEnter",
+        config = function()
+            require("dashboard").setup({
+                config = {
+                    disable_move = true,
+                    week_header = {
+                        enable = true,
+                    },
+                    shortcut = {
+                        { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
+                        { desc = " Profile", group = "@property", action = "Lazy profile", key = "p" },
+                        { desc = " Open", group = "@property", action = "Files", key = "o" },
+                    },
+                },
+            })
+        end,
+        dependencies = { { "nvim-tree/nvim-web-devicons" } },
+    },
+    {
         "danymat/neogen",
         event = "VeryLazy",
         config = function()
@@ -57,7 +77,11 @@ return {
         end,
     },
 
-    { "wuelnerdotexe/vim-astro", ft = { "astro" }, config = function() vim.g.astro_typescript = "enable" end },
+    {
+        "wuelnerdotexe/vim-astro",
+        ft = { "astro" },
+        config = function() vim.g.astro_typescript = "enable" end,
+    },
     {
         "codota/tabnine-nvim",
         build = "./dl_binaries.sh",
@@ -122,7 +146,10 @@ return {
     { "tweekmonster/startuptime.vim", lazy = true, cmd = { "StartupTime" } },
     "tpope/vim-fugitive",
     -- Comment with one Space
-    { "scrooloose/nerdcommenter", config = function() vim.g.NERDSpaceDelims = 1 end },
+    {
+        "scrooloose/nerdcommenter",
+        config = function() vim.g.NERDSpaceDelims = 1 end,
+    },
     "terryma/vim-multiple-cursors",
     { "tpope/vim-surround", event = "InsertEnter" },
     { "tpope/vim-repeat", event = "InsertEnter" },
@@ -304,9 +331,15 @@ return {
 
     -- replace the filetype.vim for speeding up
     -- Do not source the default filetype.vim
-    { "nathom/filetype.nvim", init = function() vim.g.did_load_filetypes = 1 end },
+    {
+        "nathom/filetype.nvim",
+        init = function() vim.g.did_load_filetypes = 1 end,
+    },
 
-    { "andymass/vim-matchup", config = function() vim.g.matchup_surround_enabled = 1 end },
+    {
+        "andymass/vim-matchup",
+        config = function() vim.g.matchup_surround_enabled = 1 end,
+    },
 
     -- local installedFt = { "lua", "cmake", "vim", "bash", "toml", "yaml" }
     -- You can specify multiple plugins in a single call
@@ -314,7 +347,10 @@ return {
         "nvim-treesitter/nvim-treesitter",
         dependencies = {
             -- % jump between begin and end of a word, jump between pairs when cursor in the block
-            { "yorickpeterse/nvim-tree-pairs", config = function() require("tree-pairs").setup() end },
+            {
+                "yorickpeterse/nvim-tree-pairs",
+                config = function() require("tree-pairs").setup() end,
+            },
             -- add rainbow delimiters
             "HiPhish/rainbow-delimiters.nvim",
         },
