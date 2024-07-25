@@ -31,9 +31,10 @@ return {
                         enable = false,
                     },
                     shortcut = {
-                        { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
+                        { desc = " New", group = "@property", action = "enew", key = "n" },
+                        { desc = " Update", group = "@property", action = "Lazy update", key = "u" },
                         { desc = " Profile", group = "@property", action = "Lazy profile", key = "p" },
-                        { desc = " Open", group = "@property", action = "Files", key = "o" },
+                        { desc = " Open", group = "@property", action = "Files", key = "o" },
                     },
                 },
             })
