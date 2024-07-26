@@ -167,6 +167,7 @@ return {
                 -- You can disable this by setting:
                 -- save_on_fmt = false,
             })
+            vim.keymap.set("n", "<F4>", "<cmd> GuardFmt<CR>", { silent = true, noremap = true })
         end,
     },
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
@@ -408,7 +409,7 @@ return {
             -- km("n", "K", ":lua vim.lsp.buf.hover()<CR>", opt)
             km("n", "K", "<cmd>Lspsaga hover_doc<CR>", opt)
             -- format
-            km("n", "<F4>", ":lua vim.lsp.buf.format { async = true }<CR>", opt)
+            -- km("n", "<F4>", ":lua vim.lsp.buf.format { async = true }<CR>", opt)
             -- show tag / outline, F60 == alt + F12
             km("n", "<F60>", "<cmd>Lspsaga outline<CR>", opt)
             km(
