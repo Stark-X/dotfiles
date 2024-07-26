@@ -52,6 +52,11 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         config = function()
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            capabilities.textDocument.foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+            }
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "lua_ls",
@@ -68,6 +73,7 @@ return {
                     "graphql",
                     "helm_ls",
                     "jdtls",
+                    "jsonls",
                     "tsserver",
                     "autotools_ls",
                     "mesonlsp",
@@ -77,6 +83,57 @@ return {
                     "yamlls",
                 },
                 automatic_installation = true,
+                handlers = {
+                    -- The first entry (without a key) will be the default handler
+                    -- and will be called for each installed server that doesn't have
+                    -- a dedicated handler.
+                    function(server_name) -- default handler (optional)
+                        require("lspconfig")[server_name].setup({
+                            capabilities = capabilities,
+                        })
+                    end,
+                    ["lua_ls"] = function()
+                        require("lspconfig").lua_ls.setup({
+                            on_init = function(client)
+                                local path = client.workspace_folders[1].name
+                                if
+                                    vim.loop.fs_stat(path .. "/.luarc.json")
+                                    or vim.loop.fs_stat(path .. "/.luarc.jsonc")
+                                then
+                                    return
+                                end
+
+                                client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                                    runtime = {
+                                        -- Tell the language server which version of Lua you're using
+                                        -- (most likely LuaJIT in the case of Neovim)
+                                        version = "LuaJIT",
+                                    },
+                                    -- Make the server aware of Neovim runtime files
+                                    workspace = {
+                                        checkThirdParty = false,
+                                        library = {
+                                            vim.env.VIMRUNTIME,
+                                            -- Depending on the usage, you might want to add additional paths here.
+                                            -- "${3rd}/luv/library"
+                                            -- "${3rd}/busted/library",
+                                        },
+                                        -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                                        -- library = vim.api.nvim_get_runtime_file("", true)
+                                    },
+                                })
+                            end,
+                            settings = {
+                                Lua = {
+                                    format = {
+                                        -- use stylua by guard.nvim instead
+                                        enable = false,
+                                    },
+                                },
+                            },
+                        })
+                    end,
+                },
             })
         end,
         dependencies = { "williamboman/mason.nvim" },
@@ -113,7 +170,10 @@ return {
         end,
     },
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
-    { "theHamsta/nvim-dap-virtual-text", config = function() require("nvim-dap-virtual-text").setup() end },
+    {
+        "theHamsta/nvim-dap-virtual-text",
+        config = function() require("nvim-dap-virtual-text").setup() end,
+    },
     {
         "L3MON4D3/LuaSnip",
         -- follow latest release.
@@ -283,68 +343,7 @@ return {
         "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
         -- lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
         event = "VeryLazy",
-        config = function()
-            require("lspconfig").lua_ls.setup({
-                on_init = function(client)
-                    local path = client.workspace_folders[1].name
-                    if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-                        return
-                    end
-
-                    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                        runtime = {
-                            -- Tell the language server which version of Lua you're using
-                            -- (most likely LuaJIT in the case of Neovim)
-                            version = "LuaJIT",
-                        },
-                        -- Make the server aware of Neovim runtime files
-                        workspace = {
-                            checkThirdParty = false,
-                            library = {
-                                vim.env.VIMRUNTIME,
-                                -- Depending on the usage, you might want to add additional paths here.
-                                -- "${3rd}/luv/library"
-                                -- "${3rd}/busted/library",
-                            },
-                            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                            -- library = vim.api.nvim_get_runtime_file("", true)
-                        },
-                    })
-                end,
-                settings = {
-                    Lua = {
-                        format = {
-                            -- use stylua by guard.nvim instead
-                            enable = false,
-                        },
-                    },
-                },
-            })
-            require("lspconfig").typos_lsp.setup({})
-            require("lspconfig").ansiblels.setup({})
-            require("lspconfig").bashls.setup({})
-            require("lspconfig").astro.setup({})
-            require("lspconfig").cmake.setup({})
-            require("lspconfig").cssls.setup({})
-            require("lspconfig").dockerls.setup({})
-            require("lspconfig").eslint.setup({})
-
-            require("lspconfig").groovyls.setup({})
-            require("lspconfig").graphql.setup({})
-            require("lspconfig").helm_ls.setup({})
-            require("lspconfig").jdtls.setup({})
-            require("lspconfig").tsserver.setup({})
-            require("lspconfig").autotools_ls.setup({})
-            require("lspconfig").mesonlsp.setup({})
-            require("lspconfig").ruff_lsp.setup({})
-            require("lspconfig").jedi_language_server.setup({})
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            require("lspconfig")["jedi_language_server"].setup({
-                capabilities = capabilities,
-            })
-            require("lspconfig").volar.setup({})
-            require("lspconfig").yamlls.setup({})
-        end,
+        config = function() end,
     },
     {
         -- maybe I can use ray-x/navigator.lua as replacement
