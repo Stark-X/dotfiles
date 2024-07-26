@@ -377,7 +377,7 @@ return {
                     },
                 },
                 lightbulb = {
-                    virtual_text = false,
+                    sign = false,
                 },
                 outline = {
                     layout = "float",
