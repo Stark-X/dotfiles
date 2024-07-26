@@ -241,7 +241,18 @@ return {
 
             local luasnip = require("luasnip")
             local t = function(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
-            local copilot_sug = require("copilot.suggestion")
+            local get_sugg_funcs = function()
+                local sug_available
+                local sug_accept
+                if require("lazy.core.config").plugins["copilot.lua"] ~= nil then
+                    sug_available = require("copilot.suggestion").is_visible
+                    sug_accept = require("copilot.suggestion").accept
+                else
+                    sug_available = require("tabnine.keymaps").has_suggestion
+                    sug_accept = require("tabnine.keymaps").accept_suggestion
+                end
+                return { available = sug_available, accept = sug_accept }
+            end
             cmp.setup({
                 snippet = {
                     expand = function(args)
@@ -273,8 +284,11 @@ return {
                     end),
 
                     ["<Tab>"] = cmp.mapping(function(fallback)
-                        if copilot_sug.is_visible() then
-                            copilot_sug.accept()
+                        local sugg_funcs = get_sugg_funcs()
+                        local sugg_available = sugg_funcs.available
+                        local sugg_accept = sugg_funcs.accept
+                        if sugg_available() then
+                            sugg_accept()
                         elseif cmp.visible() then
                             -- acts like IDEA
                             local entry = cmp.get_selected_entry()
