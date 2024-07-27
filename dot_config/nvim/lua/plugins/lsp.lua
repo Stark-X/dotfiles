@@ -39,7 +39,11 @@ return {
                 lsp_cfg = false,
                 -- disable lsp keymaps, if true, the lspsaga keymaps will be ignored
                 lsp_keymaps = false,
+                lsp_inlay_hints = {
+                    enable = false, -- disable go.nvim inlay as it is currently buggy.
+                },
             })
+            vim.lsp.inlay_hint.enable() --- enable inlay hints by lsp instead of go.nvim
             local cfg = require("go.lsp").config() -- config() return the go.nvim gopls setup
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
