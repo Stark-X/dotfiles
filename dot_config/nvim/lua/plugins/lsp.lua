@@ -271,8 +271,7 @@ return {
                 }, { { name = "buffer" } }),
                 mapping = {
                     ["<CR>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            local entry = cmp.get_selected_entry()
+                        if cmp.visible() and cmp.get_selected_entry() ~= nil then
                             if luasnip.expandable() then
                                 luasnip.expand()
                             else
