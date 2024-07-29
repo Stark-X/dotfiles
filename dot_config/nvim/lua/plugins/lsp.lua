@@ -384,12 +384,13 @@ return {
                 diagnostic = {
                     diagnostic_only_current = true,
                 },
-                findler = {
+                finder = {
                     default = "tyd+ref+imp+def",
                     silent = true,
                     keys = {
                         vsplit = "<c-v>",
                         split = "<c-s>",
+                        toggle_or_open = "<enter>",
                     },
                 },
                 lightbulb = {
