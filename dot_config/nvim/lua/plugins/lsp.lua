@@ -53,6 +53,7 @@ return {
         ft = { "go", "gomod" },
         build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     },
+    { "mfussenegger/nvim-jdtls", ft = { "java" } },
     {
         "williamboman/mason-lspconfig.nvim",
         config = function()
@@ -96,6 +97,8 @@ return {
                             capabilities = capabilities,
                         })
                     end,
+                    -- disable jdtls config, just use the mason to ensure the jdtls is installed
+                    jdtls = function() end,
                     ["lua_ls"] = function()
                         require("lspconfig").lua_ls.setup({
                             on_init = function(client)
