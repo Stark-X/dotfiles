@@ -192,6 +192,13 @@ return {
             vim.cmd.highlight("IndentLineCurrent guifg=#f1ff5e")
         end,
     },
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        build = "cd app && npm install",
+        init = function() vim.g.mkdp_filetypes = { "markdown" } end,
+        ft = { "markdown" },
+    },
     -- select and press gr
     "vim-scripts/ReplaceWithRegister",
     -- Execute linux cmd in vim :SudoWrite, :SudoEdit, :Mkdirr etc.
