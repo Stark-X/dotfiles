@@ -40,10 +40,10 @@ return {
                 -- disable lsp keymaps, if true, the lspsaga keymaps will be ignored
                 lsp_keymaps = false,
                 lsp_inlay_hints = {
-                    enable = false, -- disable go.nvim inlay as it is currently buggy.
+                    enable = false, -- disable go.nvim inlay as it is currently buggy. use vim.lsp.inlay_hint instead(bind to <leader>i)
                 },
             })
-            vim.lsp.inlay_hint.enable() --- enable inlay hints by lsp instead of go.nvim
+            vim.lsp.inlay_hint.enable() --- enable inlay hints by lsp instead of go.nvim, toggle with <leader>i
             local cfg = require("go.lsp").config() -- config() return the go.nvim gopls setup
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -360,7 +360,14 @@ return {
         "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
         -- lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
         event = "VeryLazy",
-        config = function() end,
+        config = function()
+            vim.keymap.set(
+                "n",
+                "<leader>i",
+                "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
+                { silent = true, noremap = true }
+            )
+        end,
     },
     {
         -- maybe I can use ray-x/navigator.lua as replacement
