@@ -278,6 +278,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH="$N_PREFIX/bin:$PATH"  # Added by n-install (see http://git.io/n-install-repo).
 
+# init python package management uv https://github.com/astral-sh/uv
+. "$HOME/.cargo/env"
+
 ##### Copilot Alias #####
 alias css="gh copilot suggest -t shell "
 alias csg="gh copilot suggest -t git "
