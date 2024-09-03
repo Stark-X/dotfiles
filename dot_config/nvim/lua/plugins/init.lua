@@ -104,7 +104,6 @@ return {
     {
         "codota/tabnine-nvim",
         build = "./dl_binaries.sh",
-        cond = vim.fn.has("mac") == 1,
         event = "VeryLazy",
         config = function()
             require("tabnine").setup({
@@ -125,38 +124,6 @@ return {
                 end
             end, { expr = true })
             require("notify")("Using TabNine", "info")
-        end,
-    },
-    {
-        "zbirenbaum/copilot.lua",
-        cond = vim.fn.has("mac") == 0,
-        event = "VeryLazy",
-        config = function()
-            -- Execute 'nvm which 18' and trim the result
-            local handle = io.popen("bash -c 'n which 18 --offline -q'")
-            local result = handle:read("*a"):gsub("^%s*(.-)%s*$", "%1")
-            handle:close()
-
-            -- Check if 'nvm which 18' succeeded
-            if result ~= "" and result ~= nil then
-                -- Set the result of 'n which 18' to the global 'copilot_node_command'
-
-                require("copilot").setup({
-                    copilot_node_command = result,
-                    -- suggestion = { enabled = false },
-                    -- panel = { enabled = false },
-                    suggestion = {
-                        debounce = 150,
-                        auto_trigger = true,
-                        hide_during_completion = false,
-                    },
-                })
-                -- print("copilot_node_command set to: " .. result)
-                require("notify")("Using GitHub Copilot", "info")
-            else
-                -- error("Command 'n which 18' failed.")
-                require("notify")("Command 'n which 18' failed.", "error", { title = "GitHub Copilot" })
-            end
         end,
     },
 
