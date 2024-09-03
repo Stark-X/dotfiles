@@ -38,6 +38,10 @@ stow -t ~/.config dot_config
 ```
 
 3. install [sheldon](https://github.com/rossmacarthur/sheldon) and [Neovim nightly](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-package)
+4. install [uv](https://github.com/astral-sh/uv?tab=readme-ov-file#installation) for python management
+  1. `mkdir -p ~/.config/uv/versions/`
+  2. init virtualenv for neovim: `uv venv ~/.config/uv/versions/neovim --python 3.12`
+  3. install python package "neovim" and "pynvim" for neovim `uv pip install pynvim neovim pip --python ~/.config/uv/versions/neovim/bin/python`
 
 ## Disable
 
