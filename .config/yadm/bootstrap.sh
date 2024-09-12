@@ -12,11 +12,15 @@ install_uv () {
 }
 
 install_fzf() {
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install
+}
+
+install_tmux() {
+  ln -s -f .tmux/.tmux.conf ~/.tmux.conf
 }
 
 . ~/enable_proxy.sh
 install_uv
 install_fzf
+install_tmux
 . ~/disable_proxy.sh
