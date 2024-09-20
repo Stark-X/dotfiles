@@ -433,6 +433,7 @@ return {
 				},
 				lightbulb = {
 					sign = false,
+					debounce = 100,
 				},
 				outline = {
 					layout = "float",
