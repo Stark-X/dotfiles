@@ -99,8 +99,18 @@ return {
 					end,
 					-- disable jdtls config, just use the mason to ensure the jdtls is installed
 					jdtls = function() end,
+					["yamlls"] = function()
+						require("lspconfig").yamlls.setup({
+							on_attach = function(client, bufnr)
+								-- enable yamlls formatter
+								client.server_capabilities.documentFormattingProvider = true
+							end,
+							capabilities = capabilities,
+						})
+					end,
 					["lua_ls"] = function()
 						require("lspconfig").lua_ls.setup({
+							capabilities = capabilities,
 							on_init = function(client)
 								local path = client.workspace_folders[1].name
 								if
@@ -186,6 +196,9 @@ return {
 			-- :extra(extra_args)
 
 			ft("lua"):fmt("stylua")
+
+			-- ensure the lsp formatting effec the yaml file
+			ft("yaml"):fmt("lsp")
 
 			-- Call setup() LAST!
 			require("guard").setup({
