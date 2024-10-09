@@ -471,7 +471,7 @@ return {
 			-- find references
 			km("n", "<leader>jr", "<cmd>Lspsaga finder def+ref<CR>", opt)
 			-- peek definition
-			km("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", opt)
+			km("n", "gh", "<cmd>Lspsaga peek_definition<CR>", opt)
 			-- find all usages of the symbol
 			km("n", "<M-C-F7>", "<cmd>Lspsaga finder<CR>", opt)
 			-- show hover
