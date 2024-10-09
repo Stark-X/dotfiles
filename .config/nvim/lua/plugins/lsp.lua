@@ -201,7 +201,7 @@ return {
 			ft("yaml"):fmt("lsp")
 
 			-- Call setup() LAST!
-			require("guard").setup({
+			vim.g.guard_config = {
 				-- Choose to format on every write to a buffer
 				fmt_on_save = true,
 				-- Use lsp if no formatter was defined for this filetype
@@ -209,7 +209,7 @@ return {
 				-- By default, Guard writes the buffer on every format
 				-- You can disable this by setting:
 				-- save_on_fmt = false,
-			})
+			}
 			vim.keymap.set("n", "<F4>", "<cmd> GuardFmt<CR>", { silent = true, noremap = true })
 		end,
 	},

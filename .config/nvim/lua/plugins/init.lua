@@ -30,11 +30,13 @@ return {
 					week_header = {
 						enable = false,
 					},
+					theme = "hyper",
 					shortcut = {
 						{ desc = " New", group = "@property", action = "enew", key = "n" },
 						{ desc = " Update", group = "@property", action = "Lazy update", key = "u" },
 						{ desc = " Profile", group = "@property", action = "Lazy profile", key = "p" },
 						{ desc = " Open", group = "@property", action = "Files", key = "o" },
+						{ desc = " LeetCode", group = "@property", action = "Leet", key = "c" },
 					},
 				},
 			})
