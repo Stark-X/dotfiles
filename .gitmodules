@@ -4,3 +4,6 @@
 [submodule "$HOME/.fzf"]
 	path = $HOME/.fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "/home/stark/.local/share/nvim/leetcode"]
+	path = /home/stark/.local/share/nvim/leetcode
+	url = git@github.com:Stark-X/leetcode.git
