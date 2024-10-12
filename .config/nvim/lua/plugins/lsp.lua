@@ -83,7 +83,7 @@ return {
 					"autotools_ls",
 					"mesonlsp",
 					"ruff_lsp",
-					"jedi_language_server",
+					"pylyzer", -- for python lsp, written in Rust
 					"volar",
 					"yamlls",
 				},
@@ -203,14 +203,15 @@ return {
 			-- Call setup() LAST!
 			vim.g.guard_config = {
 				-- Choose to format on every write to a buffer
-				fmt_on_save = true,
+				-- !!! DO NOT set to true, or the js files will be cleard
+				fmt_on_save = false,
 				-- Use lsp if no formatter was defined for this filetype
 				lsp_as_default_formatter = true,
 				-- By default, Guard writes the buffer on every format
 				-- You can disable this by setting:
 				-- save_on_fmt = false,
 			}
-			vim.keymap.set("n", "<F4>", "<cmd> GuardFmt<CR>", { silent = true, noremap = true })
+			vim.keymap.set("n", "<F4>", "<cmd> Guard fmt<CR>", { silent = true, noremap = true })
 		end,
 	},
 	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
