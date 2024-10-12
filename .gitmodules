@@ -1,9 +1,9 @@
-[submodule "$HOME/.tmux"]
-	path = $HOME/.tmux
+[submodule ".tmux"]
+	path = .tmux
 	url = git@github.com:gpakosz/.tmux.git
-[submodule "$HOME/.fzf"]
-	path = $HOME/.fzf
+[submodule ".fzf"]
+	path = .fzf
 	url = https://github.com/junegunn/fzf.git
-[submodule "/home/stark/.local/share/nvim/leetcode"]
-	path = /home/stark/.local/share/nvim/leetcode
+[submodule ".local/share/nvim/leetcode"]
+	path = .local/share/nvim/leetcode
 	url = git@github.com:Stark-X/leetcode.git
