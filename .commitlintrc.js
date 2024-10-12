@@ -12,6 +12,7 @@ module.exports = {
   prompt: {
     useEmoji: true,
     useAI: true,
+    aiModel: "gpt-4o-mini",
     aiNumber: 2,
     aiDiffIgnore: [
       "package-lock.json",
