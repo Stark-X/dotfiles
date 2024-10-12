@@ -1,0 +1,7 @@
+# ignore README.md etc.
+# ref: https://github.com/TheLocehiliosan/yadm/issues/93#issuecomment-1831546105
+if [[ ! -f "${YADM_HOOK_REPO}/info/sparse-checkout" ]]; then
+  yadm gitconfig core.sparseCheckout true
+  yadm sparse-checkout set --non-cone '/*' '!README.md' '!UNLICENSE.md' '!LICENSE'
+  yadm checkout --quiet
+fi

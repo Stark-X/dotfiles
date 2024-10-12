@@ -1,3 +1,9 @@
-[submodule "lsp-examples"]
-	path = lsp-examples
-	url = https://github.com/ycm-core/lsp-examples.git
+[submodule "$HOME/.tmux"]
+	path = $HOME/.tmux
+	url = git@github.com:gpakosz/.tmux.git
+[submodule "$HOME/.fzf"]
+	path = $HOME/.fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "/home/stark/.local/share/nvim/leetcode"]
+	path = /home/stark/.local/share/nvim/leetcode
+	url = git@github.com:Stark-X/leetcode.git
