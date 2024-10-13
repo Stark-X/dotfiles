@@ -79,7 +79,7 @@ return {
 					"helm_ls",
 					"jdtls",
 					"jsonls",
-					"tsserver",
+					"ts_ls",
 					"autotools_ls",
 					"mesonlsp",
 					"ruff_lsp",
