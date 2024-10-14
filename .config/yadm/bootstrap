@@ -16,7 +16,9 @@ install_fzf() {
 }
 
 install_tmux() {
-  ln -s -f .tmux/.tmux.conf ~/.tmux.conf
+  ln -s -f ~/oh-my-tmux/.tmux.conf ~/.tmux.conf
+  # install tpm to manage the tmux plugins
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
 . ~/enable_proxy.sh
