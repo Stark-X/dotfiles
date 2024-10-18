@@ -83,7 +83,7 @@ return {
 					"autotools_ls",
 					"mesonlsp",
 					"ruff_lsp",
-					"pylyzer", -- for python lsp, written in Rust
+					"pyright",
 					"volar",
 					"yamlls",
 				},
