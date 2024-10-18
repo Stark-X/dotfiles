@@ -284,3 +284,5 @@ alias css="gh copilot suggest -t shell "
 alias csg="gh copilot suggest -t git "
 alias csh="gh copilot suggest -t gh "
 ##### Copilot Alias #####
+
+alias gf=gf
