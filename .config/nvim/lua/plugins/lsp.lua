@@ -82,7 +82,7 @@ return {
 					"ts_ls",
 					"autotools_ls",
 					"mesonlsp",
-					"ruff_lsp",
+					"ruff",
 					"pyright",
 					"volar",
 					"yamlls",

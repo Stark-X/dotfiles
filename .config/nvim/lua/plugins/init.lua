@@ -416,7 +416,7 @@ return {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
-		keys = { "<F3>" },
+		keys = { "<F3>", "<F49>" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -425,6 +425,8 @@ return {
 		},
 		config = function()
 			vim.keymap.set("", "<F3>", "<Cmd> :Neotree toggle<CR>")
+			-- equlas to alt+F1
+			vim.keymap.set("", "<F49>", "<Cmd> :Neotree reveal<CR>")
 		end,
 	},
 
