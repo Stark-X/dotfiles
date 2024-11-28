@@ -469,6 +469,8 @@ return {
 			-- go to definition
 			-- km("n", "<leader>jd", ":lua vim.lsp.buf.definition()<CR>", opt)
 			km("n", "<leader>jd", "<cmd>Lspsaga goto_definition<CR>", opt)
+			-- find implementation
+			km("n", "<leader>ji", "<cmd>Lspsaga finder imp<CR>", opt)
 			-- find references
 			km("n", "<leader>jr", "<cmd>Lspsaga finder def+ref<CR>", opt)
 			-- peek definition
