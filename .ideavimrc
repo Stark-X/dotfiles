@@ -39,6 +39,7 @@ map ]<space> :action EditorStartNewLine<CR>
 " Show usage
 map \jr :action ShowUsages<CR>
 map \jd :action GotoDeclaration<CR>
+map \ji :action GotoImplementation<CR>
 
 " quick definition
 map gh :action QuickImplementations<CR>
