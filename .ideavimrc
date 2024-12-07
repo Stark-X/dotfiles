@@ -41,6 +41,10 @@ map \jr :action ShowUsages<CR>
 map \jd :action GotoDeclaration<CR>
 map \ji :action GotoImplementation<CR>
 
+
+map \y :action EditorCopy<CR>
+map \p :action EditorPaste<CR>
+
 " quick definition
 map gh :action QuickImplementations<CR>
 
