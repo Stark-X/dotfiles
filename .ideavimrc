@@ -42,8 +42,13 @@ map \jd :action GotoDeclaration<CR>
 map \ji :action GotoImplementation<CR>
 
 
-map \y :action EditorCopy<CR>
-map \p :action EditorPaste<CR>
+"copy and paste
+vmap \y "+y
+vmap \p "+p
+nmap \p "+p
+vmap \P "+P
+nmap \P "+P
+
 
 " quick definition
 map gh :action QuickImplementations<CR>
