@@ -12,8 +12,9 @@ module.exports = {
   prompt: {
     useEmoji: true,
     useAI: true,
-    aiModel: "gpt-4o-mini",
-    aiNumber: 2,
+    // aiModel: "gpt-4o-mini",
+    aiModel: "deepseek-chat",
+    aiNumber: 1,
     aiDiffIgnore: [
       "package-lock.json",
       "yarn.lock",
