@@ -444,6 +444,10 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @continuum-restore 'on'
 
+unbind Tab
+
+set -g @plugin 'laktak/extrakto'
+
 
 # fzf find url
 set -g @plugin 'wfxr/tmux-fzf-url'
