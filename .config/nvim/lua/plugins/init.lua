@@ -2,6 +2,12 @@
 -- vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
 
 return {
+	-- lazy
+	{
+		"sontungexpt/stcursorword",
+		event = "VeryLazy",
+		config = true,
+	},
 	{
 		"nvimdev/dashboard-nvim",
 		event = "VimEnter",
