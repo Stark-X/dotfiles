@@ -2,12 +2,6 @@
 -- vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
 
 return {
-	-- lazy
-	{
-		"sontungexpt/stcursorword",
-		event = "VeryLazy",
-		config = true,
-	},
 	{
 		"nvimdev/dashboard-nvim",
 		event = "VimEnter",
@@ -373,6 +367,7 @@ return {
 			},
 			-- add rainbow delimiters
 			"HiPhish/rainbow-delimiters.nvim",
+			"nvim-treesitter/nvim-treesitter-refactor",
 		},
 		build = ":TSUpdate",
 		cmd = { "TSUpdate", "TSInstall", "TSToggle" },
@@ -411,6 +406,25 @@ return {
 						node_incremental = "<CR>",
 						node_decremental = "<BS>",
 						scope_incremental = "<TAB>",
+					},
+				},
+				-- provided by "nvim-treesitter/nvim-treesitter-refactor"
+				refactor = {
+					navigation = {
+						enable = true,
+						-- Assign keymaps to false to disable them, e.g. `goto_definition = false`.
+						keymaps = {
+							goto_definition = false,
+							list_definitions = false,
+							list_definitions_toc = false,
+							goto_next_usage = "]h",
+							goto_previous_usage = "[h",
+						},
+					},
+					highlight_definitions = {
+						enable = true,
+						-- Set to false if you have an `updatetime` of ~100.
+						clear_on_cursor_move = true,
 					},
 				},
 			})
