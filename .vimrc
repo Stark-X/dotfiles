@@ -1,15 +1,3 @@
-" Initialize for the vim-plug
-if has('win32')
-    call plug#begin('$USERPROFILE/vimfiles/bundle/')
-else
-    call plug#begin('~/.vim/bundle/')
-endif
-
-" TODO: drop vim-plug when all devices had execute :PlugClean
-
-" All of your Plugs must be added before the following line
-call plug#end()            " required
-
 "-----------------------------------------------------------------------------------
 
 " Configuration file for vim
