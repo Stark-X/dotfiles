@@ -16,6 +16,6 @@ macos-option-as-alt            = true
 macos-auto-secure-input        = true
 auto-update                    = check
 cursor-opacity =0.5
-cursor-style = block_hollow
 
 keybind                        = global:f12=toggle_quick_terminal
+
