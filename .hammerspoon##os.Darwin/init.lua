@@ -4,6 +4,7 @@ require("./Spoons/winDrag").init()
 require("./Spoons/vimEmulation").init({
     "MacVim",
     "iTerm2",
+    "Ghostty",
     "PhpStorm",
     "IntelliJ IDEA",
     "PyCharm",
