@@ -19,3 +19,5 @@ cursor-opacity =0.5
 
 keybind                        = global:f12=toggle_quick_terminal
 
+theme = catppuccin-mocha
+
