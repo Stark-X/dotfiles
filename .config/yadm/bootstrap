@@ -22,7 +22,7 @@ install_tmux() {
 }
 
 . ~/enable_proxy.sh
-install_uv
-install_fzf
+command -v uv >/dev/null || install_uv
+command -v fzf >/dev/null || install_fzf
 install_tmux
 . ~/disable_proxy.sh
