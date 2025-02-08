@@ -84,9 +84,11 @@ return {
 				-- Enable italics comments
 				italic_comments = true, -- Default: false
 				-- Replace all fillchars with ' ' for the ultimate clean look
-				hide_fillchars = false, -- Default: false
+				hide_fillchars = true, -- Default: false
 				-- Set terminal colors used in `:terminal`
 				terminal_colors = true, -- Default: true
+				-- Improve start up time by caching highlights. Generate cache with :CyberdreamBuildCache and clear with :CyberdreamClearCache
+				cache = true,
 			})
 			vim.cmd([[colorscheme cyberdream]])
 		end,
