@@ -287,4 +287,11 @@ alias csg="gh copilot suggest -t git "
 alias csh="gh copilot suggest -t gh "
 ##### Copilot Alias #####
 
+# for GoFrame. avoid `git fetch` alias conflict
 alias gf=gf
+
+##### Flutter #####
+export PUB_HOSTED_URL="https://pub.flutter-io.cn"
+export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
+export PATH="$HOME/flutter/bin:$PATH"
+##### Flutter #####
