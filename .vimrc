@@ -1,7 +1,8 @@
 "-----------------------------------------------------------------------------------
 
 " Configuration file for vim
-set modelines=0		" CVE-2007-2438
+" latest version had fixed this issue
+" set modelines=0		" CVE-2007-2438
 
 " Normally we use vim-extensions. If you want true vi-compatibility
 " remove change the following statements
