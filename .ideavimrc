@@ -66,3 +66,6 @@ map [c :action VcsShowPrevChangeMarker<CR>
 
 map \y :action EditorCopy<CR>
 map \p :action EditorPaste<CR>
+
+map \hs :action Vcs.Diff.IncludeWholeChangedLinesIntoCommit<CR>
+map \hr :action Vcs.Diff.IncludeWholeChangedLinesIntoCommit<CR>
