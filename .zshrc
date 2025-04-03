@@ -221,8 +221,11 @@ if uname -r |grep -iq 'Microsoft' ; then
 
     # nohup fcitx-autostart  2>&1 >> /dev/null &
 
-    export HOST_IP=$(ip route  | awk '/default/{print $3}' 2>/dev/null)
-    export DISPLAY=${HOST_IP}:0
+    # export HOST_IP=$(ip route  | awk '/default/{print $3}' 2>/dev/null)
+    # export DISPLAY=${HOST_IP}:0
+    
+    # WSL network mode switch to mirrored
+    export DISPLAY=0.0:0
     export LIBGL_ALWAYS_INDIRECT=1
 
     alias pbcopy='win32yank.exe -i'
