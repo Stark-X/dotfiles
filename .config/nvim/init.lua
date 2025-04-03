@@ -38,5 +38,8 @@ require("lazy").setup("plugins", {
     ui = {
         border = "rounded",
     },
+    diff = {
+        cmd = "diffview.nvim",
+    }
 })
 require("neovide")

@@ -445,6 +445,15 @@ return {
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+      {
+        's1n7ax/nvim-window-picker',
+        name = 'window-picker',
+        event = 'VeryLazy',
+        version = '2.*',
+        config = function()
+              require'window-picker'.setup()
+        end,
+      }
 		},
 		config = function()
 			vim.keymap.set("", "<F3>", "<Cmd> :Neotree toggle<CR>")
@@ -479,56 +488,57 @@ return {
 		end,
 	},
 
-	{
-		"dense-analysis/ale",
-		init = function()
-			local g = vim.g
-			-- :help ale-fix (<C-]> to jump tag, <C-t> to come back)
-			-- NOTE: check the help document for some tools installation
-			-- :ALEFixSuggest to get the suggest the supported fixers
-			g.ale_fixers = {
-				["*"] = { "trim_whitespace", "remove_trailing_lines" },
-				javascript = { "eslint" },
-				typescript = { "prettier" },
-				python = { "ruff", "isort" },
-				yaml = { "trim_whitespace" },
-				vue = { "eslint" },
-			}
-			-- Run both javascript and vue linters for vue files.
-			g.ale_linter_aliases = { vue = { "vue", "javascript" } }
-			g.ale_linters = {
-				lua = { "stylua" },
-				javascript = { "eslint" },
-				typescript = { "tslint" },
-				python = { "pyright", "pydocstyle", "flake8" },
-				yaml = { "yamllint", "prettier" },
-				vue = { "eslint", "vls" },
-			}
+  {
+    "dense-analysis/ale",
+    init = function()
+      local g = vim.g
+      -- :help ale-fix (<C-]> to jump tag, <C-t> to come back)
+      -- NOTE: check the help document for some tools installation
+      -- :ALEFixSuggest to get the suggest the supported fixers
+      g.ale_fixers = {
+        ["*"] = { "trim_whitespace", "remove_trailing_lines" },
+        javascript = { "eslint" },
+        typescript = { "prettier" },
+        python = { "ruff", "isort" },
+        yaml = { "trim_whitespace" },
+        vue = { "eslint" },
+      }
+      -- Run both javascript and vue linters for vue files.
+      g.ale_linter_aliases = { vue = { "vue", "javascript" } }
+      g.ale_linters = {
+        lua = { "stylua" },
+        javascript = { "eslint" },
+        typescript = { "tslint" },
+        python = { "pyright", "pydocstyle" },
+        yaml = { "yamllint", "prettier" },
+        vue = { "eslint", "vls" },
+        markdown = {},
+      }
 
-			g.ale_disable_lsp = "auto"
-			g.ale_use_neovim_diagnostics_api = 1
-		end,
-		config = function()
-			local km = vim.keymap
-			km.set("n", "<leader>f", ":ALEFix<cr>", { noremap = true, silent = true })
-			km.set("n", "]a", ":ALENextWrap<cr>", { silent = true })
-			km.set("n", "[a", ":ALEPreviousWrap<cr>", { silent = true })
-			-- equals to <C-F1>. insert mode, then press <c-k><ctrl><f1>, it'll print <F25>. (WSL neovim)
-			km.set("n", "<F25>", ":ALEDetail<cr>", { silent = true })
+      g.ale_disable_lsp = 1
+      g.ale_use_neovim_diagnostics_api = 1
+    end,
+    config = function()
+      local km = vim.keymap
+      km.set("n", "<leader>f", ":ALEFix<cr>", { noremap = true, silent = true })
+      km.set("n", "]a", ":ALENextWrap<cr>", { silent = true })
+      km.set("n", "[a", ":ALEPreviousWrap<cr>", { silent = true })
+      -- equals to <C-F1>. insert mode, then press <c-k><ctrl><f1>, it'll print <F25>. (WSL neovim)
+      km.set("n", "<F25>", ":ALEDetail<cr>", { silent = true })
 
-			local g = vim.g
-			g.ale_floating_preview = 1
-			-- Fix files when they are saved.
-			g.ale_fix_on_save = 0
+      local g = vim.g
+      g.ale_floating_preview = 1
+      -- Fix files when they are saved.
+      g.ale_fix_on_save = 0
 
-			g.ale_echo_msg_format = "[%linter%] %s [%severity%]"
-			g.ale_echo_msg_error_str = ""
-			g.ale_sign_error = ""
-			g.ale_echo_msg_warning_str = ""
-			g.ale_sign_warning = ""
-			g.ale_floating_window_border = { "│", "─", "╭", "╮", "╯", "╰", "│", "─" }
-		end,
-	},
+      g.ale_echo_msg_format = "[%linter%] %s [%severity%]"
+      g.ale_echo_msg_error_str = ""
+      g.ale_sign_error = ""
+      g.ale_echo_msg_warning_str = ""
+      g.ale_sign_warning = ""
+      g.ale_floating_window_border = { "│", "─", "╭", "╮", "╯", "╰", "│", "─" }
+    end,
+  },
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons", "junegunn/fzf" },
@@ -659,14 +669,18 @@ return {
 					},
 				},
 			},
-			{
-				-- Make sure to set this up properly if you have lazy=true
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					file_types = { "markdown", "Avante" },
-				},
-				ft = { "markdown", "Avante" },
-			},
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
 		},
 	},
+  {
+    "sindrets/diffview.nvim",
+		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+  },
 }
