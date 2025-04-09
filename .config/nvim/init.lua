@@ -40,6 +40,8 @@ require("lazy").setup("plugins", {
     },
     diff = {
         cmd = "diffview.nvim",
-    }
+    },
 })
 require("neovide")
+
+vim.o.winborder = "rounded"

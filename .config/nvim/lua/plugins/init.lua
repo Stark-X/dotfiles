@@ -410,6 +410,13 @@ return {
                         -- Set to false if you have an `updatetime` of ~100.
                         clear_on_cursor_move = true,
                     },
+                    smart_rename = {
+                        enable = false,
+                        -- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
+                        keymaps = {
+                            smart_rename = false,
+                        },
+                    },
                 },
             })
 
@@ -495,8 +502,8 @@ return {
         config = function()
             local km = vim.keymap
             km.set("n", "<leader>f", ":ALEFix<cr>", { noremap = true, silent = true })
-            km.set("n", "]a", ":ALENextWrap<cr>", { silent = true })
-            km.set("n", "[a", ":ALEPreviousWrap<cr>", { silent = true })
+            -- km.set("n", "]a", ":ALENextWrap<cr>", { silent = true })
+            -- km.set("n", "[a", ":ALEPreviousWrap<cr>", { silent = true })
             -- equals to <C-F1>. insert mode, then press <c-k><ctrl><f1>, it'll print <F25>. (WSL neovim)
             km.set("n", "<F25>", ":ALEDetail<cr>", { silent = true })
 

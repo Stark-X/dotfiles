@@ -415,9 +415,7 @@ return {
         -- maybe I can use ray-x/navigator.lua as replacement
         "nvimdev/lspsaga.nvim",
         config = function()
-            vim.diagnostic.config({
-                virtual_text = false, -- disable default diagnostic virtual text
-            })
+            -- vim.diagnostic.config({ })
             require("lspsaga").setup({
                 code_action = {
                     extend_gitsigns = true,
@@ -431,6 +429,7 @@ return {
                     },
                 },
                 diagnostic = {
+                    virtual_text = false, -- disable default diagnostic virtual text
                     diagnostic_only_current = true,
                 },
                 finder = {
