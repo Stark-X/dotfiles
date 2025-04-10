@@ -296,5 +296,7 @@ alias gf=gf
 ##### Flutter #####
 export PUB_HOSTED_URL="https://pub.flutter-io.cn"
 export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
-export PATH="$HOME/flutter/bin:$PATH"
+export PATH="$HOME/flutter/bin:$PATH:$HOME/.pub-cache/bin"
 ##### Flutter #####
+
+[[ -s "/Users/stark/.gvm/scripts/gvm" ]] && source "/Users/stark/.gvm/scripts/gvm"
