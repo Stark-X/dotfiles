@@ -142,7 +142,7 @@ return {
         config = function() vim.g.NERDSpaceDelims = 1 end,
     },
     "terryma/vim-multiple-cursors",
-    { "tpope/vim-surround", event = "InsertEnter" },
+    { "tpope/vim-surround", event = "VeryLazy"},
     { "tpope/vim-repeat", event = "InsertEnter" },
     { "leafgarland/typescript-vim", ft = { "typescript" } },
     { "posva/vim-vue", ft = { "vue" } },

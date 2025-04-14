@@ -427,7 +427,6 @@ return {
         -- maybe I can use ray-x/navigator.lua as replacement
         "nvimdev/lspsaga.nvim",
         config = function()
-            -- vim.diagnostic.config({ })
             require("lspsaga").setup({
                 code_action = {
                     extend_gitsigns = true,
@@ -438,11 +437,8 @@ return {
                         vsplit = "<C-v>",
                         split = "<C-s>",
                         tabe = "<C-t>",
+                        quit = { "q", "<ESC>" },
                     },
-                },
-                diagnostic = {
-                    virtual_text = false, -- disable default diagnostic virtual text
-                    diagnostic_only_current = true,
                 },
                 finder = {
                     default = "tyd+ref+imp+def",
@@ -487,6 +483,7 @@ return {
             km("n", "<M-C-F7>", "<cmd>Lspsaga finder<CR>", opt)
             -- show hover
             -- km("n", "K", ":lua vim.lsp.buf.hover()<CR>", opt)
+            -- nvim 0.11 support treesitter render hover doc, but some syntax not supported yet, use lspsaga implementation instead
             km("n", "K", "<cmd>Lspsaga hover_doc<CR>", opt)
             -- format
             -- km("n", "<F4>", ":lua vim.lsp.buf.format { async = true }<CR>", opt)
@@ -545,6 +542,17 @@ return {
                     require("lsp_signature").on_attach(opts, bufnr)
                 end,
             })
+        end,
+    },
+    {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require("lsp_lines").setup()
+            vim.diagnostic.config({
+                virtual_text = false,
+                virtual_lines = { only_current_line = true },
+            })
+            vim.keymap.set("", "<leader>tl", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
         end,
     },
 }
