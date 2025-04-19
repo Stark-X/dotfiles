@@ -470,6 +470,7 @@ return {
             -- code action
             --[[ km("n", "<space>a", ":lua vim.lsp.buf.code_action()<CR>", opt) ]]
             km("n", "<space>a", "<cmd>Lspsaga code_action<CR>", opt)
+            km("n", "<M-CR>", "<cmd>Lspsaga code_action<CR>", opt)
             -- go to definition
             -- km("n", "<leader>jd", ":lua vim.lsp.buf.definition()<CR>", opt)
             km("n", "<leader>jd", "<cmd>Lspsaga goto_definition<CR>", opt)
