@@ -85,7 +85,7 @@ return {
                     "mesonlsp",
                     "ruff",
                     "basedpyright",
-                    "volar",
+                    "vue_ls",
                     "yamlls",
                 },
                 automatic_installation = true,
