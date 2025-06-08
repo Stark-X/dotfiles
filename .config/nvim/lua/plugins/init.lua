@@ -602,11 +602,17 @@ return {
             ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
             provider = "openai", -- Recommend using Claude
             auto_suggestions_provider = "openai", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-            openai = {
-                endpoint = "https://one-ai.xjztest.com:5002/v1",
-                model = "deepseek-chat",
-                temperature = 0,
-                max_tokens = 4096,
+            providers = {
+                openai = {
+                    endpoint = "https://one-ai.xjztest.com:5002/v1",
+                    model = "deepseek-chat",
+                    extra_request_body = {
+                        timeout = 30000, -- 超时时间（毫秒），增加此值以适应推理模型
+                        temperature = 0,
+                        max_tokens = 8192, -- 增加此值以包括推理模型的推理令牌
+                        --reasoning_effort = "medium", -- low|medium|high，仅用于推理模型
+                    },
+                },
             },
             windows = {
                 ask = {
