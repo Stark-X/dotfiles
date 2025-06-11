@@ -1,6 +1,8 @@
 # disable zsh wildcard behavior which is different from bash
 setopt +o nomatch
 
+export PATH="$HOME/.local/bin:$PATH"
+
 . /etc/profile
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -204,7 +206,6 @@ alias ssh='TERM=xterm-256color \ssh'
 
 # Added by serverless binary installer
 export PATH="$HOME/.serverless/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
 
 
 # Default PNPM_HOME
@@ -300,3 +301,5 @@ export PATH="$HOME/flutter/bin:$PATH:$HOME/.pub-cache/bin"
 ##### Flutter #####
 
 [[ -s "/Users/stark/.gvm/scripts/gvm" ]] && source "/Users/stark/.gvm/scripts/gvm"
+
+. "$HOME/.local/bin/env"
