@@ -1,5 +1,1 @@
-{% if yadm.os == "WSL" %}
-172.16.215.61:3128
-{% else %}
 localhost:7890
-{% endif %}
