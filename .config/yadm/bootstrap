@@ -1,28 +1,44 @@
 #!/bin/bash
 
-# install uv. (ref: https://github.com/astral-sh/uv?tab=readme-ov-file#installation
-install_uv () {
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-  mkdir -p ~/.config/uv/versions/
+# Save this file as ~/.config/yadm/bootstrap and make it executable. It will
+# execute all executable files (excluding templates and editor backups) in the
+# ~/.config/yadm/bootstrap.d directory when run.
 
-  # init virtualenv for neovim: 
-  uv venv ~/.config/uv/versions/neovim --python 3.12
-  # install python package "neovim" and "pynvim" for neovim 
-  uv pip install pynvim neovim pip --python ~/.config/uv/versions/neovim/bin/python
-}
+set -eu
 
-install_fzf() {
-  ~/.fzf/install
-}
+# Because Git submodule commands cannot operate without a work tree, they must
+# be run from within $HOME (assuming this is the root of your dotfiles)
+pushd "$HOME"
 
-install_tmux() {
-  ln -s -f ~/oh-my-tmux/.tmux.conf ~/.tmux.conf
-  # install tpm to manage the tmux plugins
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-}
+echo "Init submodules"
+yadm submodule update --recursive --init
+popd
+
+##### sys dependencies #####
+./boot-sys_dep.sh
+##### sys dependencies #####
+
+# Directory to look for bootstrap executables in
+BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
+
+if [[ ! -d "$BOOTSTRAP_D" ]]; then
+    echo "Error: bootstrap directory '$BOOTSTRAP_D' not found" >&2
+    exit 1
+fi
+
+declare -a bootstraps
+while IFS= read -r bootstrap; do
+    if [[ -x "$bootstrap" && ! "$bootstrap" =~ "##" && ! "$bootstrap" =~ ~$ ]]; then
+        bootstraps+=("$bootstrap")
+    fi
+done < <(find -L "$BOOTSTRAP_D" -type f | sort)
 
 . ~/enable_proxy.sh
-command -v uv >/dev/null || install_uv
-command -v fzf >/dev/null || install_fzf
-install_tmux
+for bootstrap in "${bootstraps[@]}"; do
+    if ! "$bootstrap"; then
+        echo "Error: bootstrap '$bootstrap' failed" >&2
+        exit 1
+    fi
+done
 . ~/disable_proxy.sh
+
