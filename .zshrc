@@ -300,6 +300,6 @@ export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
 export PATH="$HOME/flutter/bin:$PATH:$HOME/.pub-cache/bin"
 ##### Flutter #####
 
-[[ -s "/Users/stark/.gvm/scripts/gvm" ]] && source "/Users/stark/.gvm/scripts/gvm"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 . "$HOME/.local/bin/env"
