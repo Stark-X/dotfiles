@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if ! locale-check en_US.UTF-8; then
-  sudo locale-gen en_US.UTF-8
-fi
-
-sudo apt install unzip traceroute dnsutls silversearcher-ag bison gcc lua5.4 make telnet
-# vim: set ft=bash
