@@ -13,7 +13,7 @@ module.exports = {
     useEmoji: true,
     useAI: true,
     // aiModel: "gpt-4o-mini",
-    aiModel: "deepseek-chat",
+    // aiModel: "deepseek-chat",
     aiNumber: 1,
     aiDiffIgnore: [
       "package-lock.json",
