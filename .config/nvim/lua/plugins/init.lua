@@ -205,7 +205,8 @@ return {
     -- cx{range} to swap two text-obj, X for select mode
     "tommcdo/vim-exchange",
     "machakann/vim-highlightedyank",
-    "vim-scripts/argtextobj.vim",
+    -- vim-scripts/argtextobj.vim alternative
+    "wellle/targets.vim",
     -- toggle quickfix list with <learder>q and toggle location list with <leader>l
     "Valloric/ListToggle",
     -- + expand_region_expand
