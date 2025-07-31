@@ -1,6 +1,9 @@
 # disable zsh wildcard behavior which is different from bash
 setopt +o nomatch
 
+# local env settings that not store in yadm
+[[ ! -f ~/.zshrc.local ]] || . ~/.zshrc.local
+
 export PATH="$HOME/.local/bin:$PATH"
 
 . /etc/profile
@@ -78,8 +81,6 @@ plugins=(
   git
   fzf
   python
-  pip
-  poetry
   # auto-login
   kubectl
 )
@@ -303,3 +304,28 @@ export PATH="$HOME/flutter/bin:$PATH:$HOME/.pub-cache/bin"
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 . "$HOME/.local/bin/env"
+
+
+# bun
+# Skip if bun is not installed
+if [[ -d "$HOME/.bun" && -x "$HOME/.bun/bin/bun" ]]; then
+  export BUN_INSTALL="$HOME/.bun"
+
+  # Add bun to PATH if not already present
+  case ":$PATH:" in
+    *":$BUN_INSTALL/bin:"*) ;;
+    *) export PATH="$BUN_INSTALL/bin:$PATH" ;;
+  esac
+
+  # Load bun completions if not already loaded
+  if [[ -z "$BUN_COMPLETIONS_LOADED" && -s "$HOME/.bun/_bun" ]]; then
+    source "$HOME/.bun/_bun"
+    export BUN_COMPLETIONS_LOADED=1
+  fi
+fi
+# bun end
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select
+
