@@ -490,6 +490,9 @@ return {
             -- km("n", "<F4>", ":lua vim.lsp.buf.format { async = true }<CR>", opt)
             -- show tag / outline, F60 == alt + F12
             km("n", "<F60>", "<cmd>Lspsaga outline<CR>", opt)
+            km("n", "<F25>", "<cmd>Trouble diagnostic toggle focus=false filter.buf=0<CR>", opt)
+            km("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)
+            km("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opt)
             km(
                 { "n" },
                 "<M-p>",

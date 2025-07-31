@@ -167,7 +167,7 @@ return {
     {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        build = "cd app && npm install",
+        build = function() vim.fn["mkdp#util#install"]() end,
         init = function() vim.g.mkdp_filetypes = { "markdown" } end,
         ft = { "markdown" },
     },
@@ -671,13 +671,8 @@ return {
         cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     },
     {
-        "tversteeg/registers.nvim",
-        cmd = "Registers",
-        config = true,
-        keys = {
-            { '"', mode = { "n", "v" } },
-            { "<C-R>", mode = "i" },
-        },
-        name = "registers",
+        "goerz/jupytext.nvim",
+        version = "0.2.0",
+        opts = {}, -- see Options
     },
 }
