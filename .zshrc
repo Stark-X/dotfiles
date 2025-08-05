@@ -228,7 +228,6 @@ if uname -r |grep -iq 'Microsoft' ; then
     
     # WSL network mode switch to mirrored
     export DISPLAY=0.0:0
-    export LIBGL_ALWAYS_INDIRECT=1
 
     alias pbcopy='win32yank.exe -i'
     alias pbpaste='win32yank.exe -o'
