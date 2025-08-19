@@ -281,9 +281,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH="$N_PREFIX/bin:$PATH"  # Added by n-install (see http://git.io/n-install-repo).
 
-# init python package management uv https://github.com/astral-sh/uv
-# added by uv installer
-. "$HOME/.cargo/env"
 
 ##### Copilot Alias #####
 alias css="gh copilot suggest -t shell "
@@ -300,7 +297,6 @@ export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
 export PATH="$HOME/flutter/bin:$PATH:$HOME/.pub-cache/bin"
 ##### Flutter #####
 
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 . "$HOME/.local/bin/env"
 
@@ -328,3 +324,5 @@ fpath+=~/.zfunc; autoload -Uz compinit; compinit
 
 zstyle ':completion:*' menu select
 
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
