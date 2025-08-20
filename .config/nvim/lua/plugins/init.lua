@@ -601,16 +601,25 @@ return {
         opts = {
             -- add any opts here
             ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-            provider = "openai", -- Recommend using Claude
+            provider = "claude", -- Recommend using Claude
             auto_suggestions_provider = "openai", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
             providers = {
                 openai = {
-                    endpoint = "https://one-ai.xjztest.com:5002/v1",
-                    model = "deepseek-chat",
+                    endpoint = "https://open.bigmodel.cn/api/paas/v4/",
+                    model = "glm-4.5",
                     extra_request_body = {
                         timeout = 30000, -- 超时时间（毫秒），增加此值以适应推理模型
-                        temperature = 0,
-                        max_tokens = 8192, -- 增加此值以包括推理模型的推理令牌
+                        max_tokens = 20480, -- 增加此值以包括推理模型的推理令牌
+                        --reasoning_effort = "medium", -- low|medium|high，仅用于推理模型
+                    },
+                },
+                claude = {
+                    endpoint = "https://sg.instcopilot-api.com",
+                    model = "claude-sonnet-4-20250514",
+                    extra_request_body = {
+                        timeout = 30000, -- 超时时间（毫秒），增加此值以适应推理模型
+                        temperature = 0.6,
+                        max_tokens = 20480, -- 增加此值以包括推理模型的推理令牌
                         --reasoning_effort = "medium", -- low|medium|high，仅用于推理模型
                     },
                 },
