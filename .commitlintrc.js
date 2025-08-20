@@ -20,6 +20,7 @@ module.exports = {
       "yarn.lock",
       "pnpm-lock.yaml",
       "poetry.lock",
+      "uv.lock",
     ],
     emojiAlign: "left",
     allowCustomScopes: false,
