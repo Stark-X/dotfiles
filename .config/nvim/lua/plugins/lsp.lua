@@ -48,7 +48,7 @@ return {
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             cfg["capabilities"] = capabilities
-            require("lspconfig").gopls.setup(cfg)
+            vim.lsp.config.gopls.setup(cfg)
         end,
         ft = { "go", "gomod" },
         build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
@@ -85,7 +85,6 @@ return {
                     "mesonlsp",
                     "ruff",
                     "ty",
-                    "debugpy",
                     "basedpyright",
                     "vue_ls",
                     "yamlls",
@@ -96,14 +95,14 @@ return {
                     -- and will be called for each installed server that doesn't have
                     -- a dedicated handler.
                     function(server_name) -- default handler (optional)
-                        require("lspconfig")[server_name].setup({
+                        vim.lsp.config[server_name].setup({
                             capabilities = capabilities,
                         })
                     end,
                     -- disable jdtls config, just use the mason to ensure the jdtls is installed
                     jdtls = function() end,
                     ["yamlls"] = function()
-                        require("lspconfig").yamlls.setup({
+                        vim.lsp.config.yamlls.setup({
                             on_attach = function(client, bufnr)
                                 -- enable yamlls formatter
                                 client.server_capabilities.documentFormattingProvider = true
@@ -112,7 +111,7 @@ return {
                         })
                     end,
                     ["basedpyright"] = function()
-                        require("lspconfig").basedpyright.setup({
+                        vim.lsp.config.basedpyright.setup({
                             settings = {
                                 analysis = {
                                     autoSearchPaths = true,
@@ -123,7 +122,7 @@ return {
                         })
                     end,
                     ["lua_ls"] = function()
-                        require("lspconfig").lua_ls.setup({
+                        vim.lsp.config.lua_ls.setup({
                             capabilities = capabilities,
                             on_init = function(client)
                                 if client.workspace_folders then
