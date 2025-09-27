@@ -84,6 +84,8 @@ return {
                     "autotools_ls",
                     "mesonlsp",
                     "ruff",
+                    "ty",
+                    "debugpy",
                     "basedpyright",
                     "vue_ls",
                     "yamlls",
