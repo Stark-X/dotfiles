@@ -7,5 +7,9 @@ install() {
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
-command -v tmux > /dev/null || install
+if command -v tmux &> /dev/null; then
+  install
+else
+  echo >&2 "Error: tmux not found"
+fi
 
