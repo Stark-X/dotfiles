@@ -279,7 +279,6 @@ esac
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH="$N_PREFIX/bin:$PATH"  # Added by n-install (see http://git.io/n-install-repo).
 
 
 ##### Copilot Alias #####
@@ -300,6 +299,14 @@ export PATH="$HOME/flutter/bin:$PATH:$HOME/.pub-cache/bin"
 
 . "$HOME/.local/bin/env"
 
+##### bun(official install script added) #####
+# bun completions
+# [ -s "/home/stark/.bun/_bun" ] && source "/home/stark/.bun/_bun"
+
+# bun
+# export BUN_INSTALL="$HOME/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
+##### bun(official install script added) #####
 
 # bun
 # Skip if bun is not installed
@@ -326,3 +333,6 @@ zstyle ':completion:*' menu select
 
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
