@@ -15,7 +15,7 @@ yadm submodule update --recursive --init
 popd
 
 ##### sys dependencies #####
-./boot-sys_dep.sh
+$(dirname ${BASH_SOURCE})/boot-sys_dep.sh
 ##### sys dependencies #####
 
 # Directory to look for bootstrap executables in
