@@ -5,7 +5,9 @@ linux_init() {
     sudo locale-gen en_US.UTF-8
   fi
 
-  sudo apt install unzip zip traceroute dnsutils silversearcher-ag bison gcc lua5.4 make telnet
+  sudo apt install unzip zip traceroute dnsutils silversearcher-ag bison gcc lua5.4 make telnet batcat
+
+  ln -s /usr/bin/batcat $HOME/.local/bin/bat
 }
 
 system_type=$(uname -s)
