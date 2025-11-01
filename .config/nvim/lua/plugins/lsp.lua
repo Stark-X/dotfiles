@@ -197,40 +197,46 @@ return {
         end,
     },
     {
-        -- a formatter that replace the null-ls
-        "nvimdev/guard.nvim",
-        -- Builtin configuration, optional
-        dependencies = {
-            "nvimdev/guard-collection",
+        "stevearc/conform.nvim",
+        opts = {
+            formatters_by_ft = {
+                lua = { "stylua" },
+                -- Conform will run multiple formatters sequentially
+                python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+                -- You can customize some of the format options for the filetype (:help conform.format)
+                rust = { "rustfmt", lsp_format = "fallback" },
+                -- Conform will run the first available formatter
+                javascript = { "prettierd", "prettier", stop_after_first = true },
+                xml = { "xmlformatter" },
+            },
+            -- Set default options
+            default_format_opts = {
+                lsp_format = "fallback",
+            },
         },
-        config = function()
-            local ft = require("guard.filetype")
-
-            -- Assuming you have guard-collection
-            -- ft('lang'):fmt('format-tool-1')
-            -- :append('format-tool-2')
-            -- :env(env_table)
-            -- :lint('lint-tool-1')
-            -- :extra(extra_args)
-
-            ft("lua"):fmt("stylua")
-
-            -- ensure the lsp formatting effec the yaml file
-            ft("yaml"):fmt("lsp")
-
-            -- Call setup() LAST!
-            vim.g.guard_config = {
-                -- Choose to format on every write to a buffer
-                -- !!! DO NOT set to true, or the js files will be cleard
-                fmt_on_save = false,
-                -- Use lsp if no formatter was defined for this filetype
-                lsp_as_default_formatter = true,
-                -- By default, Guard writes the buffer on every format
-                -- You can disable this by setting:
-                -- save_on_fmt = false,
-            }
-            vim.keymap.set("n", "<F4>", "<cmd> Guard fmt<CR>", { silent = true, noremap = true })
-        end,
+        event = { "BufWritePre" },
+        cmd = { "ConformInfo" },
+        keys = {
+            {
+                "<leader>f",
+                function()
+                    require("conform").format({ async = true }, function(err)
+                        if not err then
+                            local mode = vim.api.nvim_get_mode().mode
+                            if vim.startswith(string.lower(mode), "v") then
+                                vim.api.nvim_feedkeys(
+                                    vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+                                    "n",
+                                    true
+                                )
+                            end
+                        end
+                    end)
+                end,
+                mode = "",
+                desc = "Format buffer",
+            },
+        },
     },
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
     {
