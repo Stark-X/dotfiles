@@ -56,7 +56,7 @@ map gh :action QuickImplementations<CR>
 map K :action QuickJavaDoc<CR>
 
 " Override vim's reformat
-nnoremap \l :action ReformatCode<CR>
+nnoremap \f :action ReformatCode<CR>
 
 " easy motion
 let g:EasyMotion_override_acejump = 1
