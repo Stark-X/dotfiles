@@ -236,6 +236,9 @@ if uname -r |grep -iq 'Microsoft' ; then
     # sudo service mysql status >> /dev/null || sudo service mysql start
     # sudo service redis-server status >> /dev/null || sudo service redis-server start
     alias freecachemem='sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null'
+elif [[ `uname` == "Linux" ]]; then
+    alias pbcopy='wl-copy'
+    alias pbpaste='wl-paste'
 
 elif [[ `uname` == "Darwin" ]]; then
     # MacOs
