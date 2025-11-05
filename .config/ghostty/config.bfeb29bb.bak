@@ -24,4 +24,3 @@ theme = Catppuccin Mocha
 quit-after-last-window-closed = true
 quit-after-last-window-closed-delay = 5m
 
-keybind = shift+enter=text:\x1b\r
