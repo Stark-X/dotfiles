@@ -53,15 +53,43 @@ return {
         ft = { "go", "gomod" },
         build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     },
-    { "mfussenegger/nvim-jdtls", ft = { "java" } },
     {
         "williamboman/mason-lspconfig.nvim",
         config = function()
+            local lombok_jar = vim.fn.expand("$MASON/packages/jdtls/") .. "lombok.jar"
+            -- require("notify")(lombok_jar)
+            vim.env.JDTLS_JVM_ARGS = "-javaagent:" .. lombok_jar
+
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             capabilities.textDocument.foldingRange = {
                 dynamicRegistration = false,
                 lineFoldingOnly = true,
             }
+            vim.lsp.config("*", {
+                capabilities = capabilities,
+            })
+            vim.lsp.config("jdtls", {
+                settings = {
+                    java = {
+                        configuration = {
+                            runtimes = {
+                                {
+                                    name = "JavaSE-1.8",
+                                    path = vim.fn.expand("$HOME/.sdkman/candidates/java/8.0.462-amzn"),
+                                },
+                                {
+                                    name = "JavaSE-17",
+                                    path = vim.fn.expand("$HOME/.sdkman/candidates/java/17.0.17-amzn"),
+                                },
+                                {
+                                    name = "JavaSE-21",
+                                    path = vim.fn.expand("$HOME/.sdkman/candidates/java/21.0.7-amzn"),
+                                },
+                            },
+                        },
+                    },
+                },
+            })
             vim.lsp.config("yamlls", {
                 on_attach = function(client, bufnr)
                     -- enable yamlls formatter
@@ -136,7 +164,6 @@ return {
                     "graphql",
                     "helm_ls",
                     "superhtml",
-                    "jdtls",
                     "jsonls",
                     "ts_ls",
                     "autotools_ls",
@@ -397,6 +424,13 @@ return {
         end,
     },
     {
+        "nvim-java/nvim-java",
+        config = false,
+        dependencies = {
+            "neovim/nvim-lspconfig",
+        },
+    },
+    {
         "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
         -- lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
         event = "VeryLazy",
@@ -407,6 +441,25 @@ return {
                 "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
                 { silent = true, noremap = true }
             )
+            -- "nvim-java/nvim-java" config, should config before the lspconfig setup
+            require("java").setup({
+                jdtls = {
+                    version = "v1.52.0",
+                },
+                java_test = {
+                    enable = true,
+                    version = "0.43.2",
+                },
+                jdk = {
+                    -- disable install jdk using mason.nvim
+                    auto_install = false,
+                    version = "21.0.2",
+                },
+                spring_boot_tools = {
+                    enable = true,
+                    version = "1.59.0",
+                },
+            })
         end,
     },
     {

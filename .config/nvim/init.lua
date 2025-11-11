@@ -45,3 +45,15 @@ require("lazy").setup("plugins", {
 require("neovide")
 
 vim.o.winborder = "rounded"
+
+vim.lsp.config('*', {
+  capabilities = {
+    textDocument = {
+      semanticTokens = {
+        multilineTokenSupport = true,
+      }
+    }
+  },
+  root_markers = { '.git' },
+})
+

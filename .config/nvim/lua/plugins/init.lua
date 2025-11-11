@@ -363,6 +363,7 @@ return {
                     "lua",
                     "cmake",
                     "just",
+                    "java",
                     "vim",
                     "bash",
                     "toml",
