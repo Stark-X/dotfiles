@@ -62,6 +62,64 @@ return {
                 dynamicRegistration = false,
                 lineFoldingOnly = true,
             }
+            vim.lsp.config("yamlls", {
+                on_attach = function(client, bufnr)
+                    -- enable yamlls formatter
+                    client.server_capabilities.documentFormattingProvider = true
+                end,
+                capabilities = capabilities,
+            })
+            vim.lsp.config("basedpyright", {
+                settings = {
+                    analysis = {
+                        autoSearchPaths = true,
+                        diagnosticMode = "openFilesOnly",
+                        useLibraryCodeForTypes = true,
+                    },
+                },
+            })
+            vim.lsp.config("lua_ls", {
+                capabilities = capabilities,
+                on_init = function(client)
+                    if client.workspace_folders then
+                        local path = client.workspace_folders[1].name
+                        if
+                            path ~= vim.fn.stdpath("config")
+                            and (vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc"))
+                        then
+                            return
+                        end
+                    end
+
+                    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using
+                            -- (most likely LuaJIT in the case of Neovim)
+                            version = "LuaJIT",
+                        },
+                        -- Make the server aware of Neovim runtime files
+                        workspace = {
+                            checkThirdParty = false,
+                            library = {
+                                vim.env.VIMRUNTIME,
+                                -- Depending on the usage, you might want to add additional paths here.
+                                -- "${3rd}/luv/library"
+                                -- "${3rd}/busted/library",
+                            },
+                            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                            -- library = vim.api.nvim_get_runtime_file("", true)
+                        },
+                    })
+                end,
+                settings = {
+                    Lua = {
+                        format = {
+                            -- use stylua by guard.nvim instead
+                            enable = false,
+                        },
+                    },
+                },
+            })
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "lua_ls",
@@ -90,85 +148,6 @@ return {
                     "yamlls",
                 },
                 automatic_installation = true,
-                handlers = {
-                    -- The first entry (without a key) will be the default handler
-                    -- and will be called for each installed server that doesn't have
-                    -- a dedicated handler.
-                    function(server_name) -- default handler (optional)
-                        vim.lsp.config[server_name].setup({
-                            capabilities = capabilities,
-                        })
-                    end,
-                    -- disable jdtls config, just use the mason to ensure the jdtls is installed
-                    jdtls = function() end,
-                    ["yamlls"] = function()
-                        vim.lsp.config.yamlls.setup({
-                            on_attach = function(client, bufnr)
-                                -- enable yamlls formatter
-                                client.server_capabilities.documentFormattingProvider = true
-                            end,
-                            capabilities = capabilities,
-                        })
-                    end,
-                    ["basedpyright"] = function()
-                        vim.lsp.config.basedpyright.setup({
-                            settings = {
-                                analysis = {
-                                    autoSearchPaths = true,
-                                    diagnosticMode = "openFilesOnly",
-                                    useLibraryCodeForTypes = true,
-                                },
-                            },
-                        })
-                    end,
-                    ["lua_ls"] = function()
-                        vim.lsp.config.lua_ls.setup({
-                            capabilities = capabilities,
-                            on_init = function(client)
-                                if client.workspace_folders then
-                                    local path = client.workspace_folders[1].name
-                                    if
-                                        path ~= vim.fn.stdpath("config")
-                                        and (
-                                            vim.loop.fs_stat(path .. "/.luarc.json")
-                                            or vim.loop.fs_stat(path .. "/.luarc.jsonc")
-                                        )
-                                    then
-                                        return
-                                    end
-                                end
-
-                                client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                                    runtime = {
-                                        -- Tell the language server which version of Lua you're using
-                                        -- (most likely LuaJIT in the case of Neovim)
-                                        version = "LuaJIT",
-                                    },
-                                    -- Make the server aware of Neovim runtime files
-                                    workspace = {
-                                        checkThirdParty = false,
-                                        library = {
-                                            vim.env.VIMRUNTIME,
-                                            -- Depending on the usage, you might want to add additional paths here.
-                                            -- "${3rd}/luv/library"
-                                            -- "${3rd}/busted/library",
-                                        },
-                                        -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                                        -- library = vim.api.nvim_get_runtime_file("", true)
-                                    },
-                                })
-                            end,
-                            settings = {
-                                Lua = {
-                                    format = {
-                                        -- use stylua by guard.nvim instead
-                                        enable = false,
-                                    },
-                                },
-                            },
-                        })
-                    end,
-                },
             })
         end,
         dependencies = { "williamboman/mason.nvim" },
