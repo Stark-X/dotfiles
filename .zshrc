@@ -239,6 +239,8 @@ if uname -r |grep -iq 'Microsoft' ; then
 elif [[ `uname` == "Linux" ]]; then
     alias pbcopy='wl-copy'
     alias pbpaste='wl-paste'
+    # for homebrew on linux
+    [[ ! -f ~/.zshrc.local ]] || eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 elif [[ `uname` == "Darwin" ]]; then
     # MacOs
