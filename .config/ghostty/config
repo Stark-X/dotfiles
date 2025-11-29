@@ -1,5 +1,7 @@
 font-family                    = "Maple Mono NF CN"
 font-size                      = 12
+font-feature                   = +ss10
+font-feature                   = +zero
 adjust-cell-height             = 0%
 cursor-click-to-move           = true
 mouse-hide-while-typing        = true
