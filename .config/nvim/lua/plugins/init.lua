@@ -154,15 +154,11 @@ return {
             vim.keymap.set({ "x", "n" }, "ga", "<Plug>(EasyAlign)")
         end,
     },
-    -- { "patstockwell/vim-monokai-tasty", config = function() vim.g.vim_monokai_tasty_italic = 1 end },
     {
-        "nvimdev/indentmini.nvim",
-        config = function()
-            require("indentmini").setup({ exclude = { "markdown" } })
-            vim.cmd.highlight("IndentLine guifg=#5d626b")
-            -- Current indent line highlight
-            vim.cmd.highlight("IndentLineCurrent guifg=#f1ff5e")
-        end,
+        "saghen/blink.indent",
+        --- @module 'blink.indent'
+        --- @type blink.indent.Config
+        -- opts = {},
     },
     {
         "iamcco/markdown-preview.nvim",

@@ -181,6 +181,7 @@ return {
     },
     {
         "MunifTanjim/prettier.nvim",
+        ft = { "javascript", "typescript", "json", "markdown", "yaml", "typescript" },
         config = function()
             local prettier = require("prettier")
             prettier.setup({
@@ -426,6 +427,7 @@ return {
     {
         "nvim-java/nvim-java",
         config = false,
+        ft = { "java" },
         dependencies = {
             "neovim/nvim-lspconfig",
         },
