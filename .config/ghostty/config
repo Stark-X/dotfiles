@@ -1,4 +1,4 @@
-font-family                         = "Maple Mono NF CN"
+font-family                         = Maple Mono NF CN
 font-size                           = 12
 font-feature                        = +ss10
 font-feature                        = +zero
@@ -6,8 +6,7 @@ adjust-cell-height                  = 0%
 cursor-click-to-move                = true
 mouse-hide-while-typing             = true
 mouse-shift-capture                 = true
-background-opacity                  = 0.8
-background-blur-radius              = 30
+background-opacity                  = 0.85
 
 link-url                            = true
 clipboard-trim-trailing-spaces      = true
