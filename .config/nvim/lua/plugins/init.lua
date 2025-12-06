@@ -211,7 +211,7 @@ return {
     -- Browsing the files
     "justinmk/vim-dirvish",
     -- lots of languages syntax highlighting support
-    { "sheerun/vim-polyglot", event = "VeryLazy", dependencies = "filetype.nvim" },
+    { "sheerun/vim-polyglot", event = "VeryLazy" },
     {
         "mattn/emmet-vim",
         ft = { "vue", "html", "xml" },
@@ -323,14 +323,6 @@ return {
             vim.g.vim_markdown_folding_disabled = 1
         end,
     },
-
-    -- replace the filetype.vim for speeding up
-    -- Do not source the default filetype.vim
-    {
-        "nathom/filetype.nvim",
-        init = function() vim.g.did_load_filetypes = 1 end,
-    },
-
     {
         "andymass/vim-matchup",
         config = function() vim.g.matchup_surround_enabled = 1 end,
