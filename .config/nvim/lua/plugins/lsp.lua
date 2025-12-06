@@ -3,15 +3,6 @@ return {
         "williamboman/mason.nvim",
         config = function()
             require("mason").setup({
-                github = {
-                    ---@since 1.0.0
-                    -- The template URL to use when downloading assets from GitHub.
-                    -- The placeholders are the following (in order):
-                    -- 1. The repository (e.g. "rust-lang/rust-analyzer")
-                    -- 2. The release version (e.g. "v0.3.0")
-                    -- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
-                    download_url_template = "https://ghfast.top/https://github.com/%s/releases/download/%s/%s",
-                },
                 ui = {
                     border = "rounded",
                 },
@@ -60,14 +51,6 @@ return {
             -- require("notify")(lombok_jar)
             vim.env.JDTLS_JVM_ARGS = "-javaagent:" .. lombok_jar
 
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            capabilities.textDocument.foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true,
-            }
-            vim.lsp.config("*", {
-                capabilities = capabilities,
-            })
             vim.lsp.config("jdtls", {
                 settings = {
                     java = {
@@ -90,24 +73,7 @@ return {
                     },
                 },
             })
-            vim.lsp.config("yamlls", {
-                on_attach = function(client, bufnr)
-                    -- enable yamlls formatter
-                    client.server_capabilities.documentFormattingProvider = true
-                end,
-                capabilities = capabilities,
-            })
-            vim.lsp.config("basedpyright", {
-                settings = {
-                    analysis = {
-                        autoSearchPaths = true,
-                        diagnosticMode = "openFilesOnly",
-                        useLibraryCodeForTypes = true,
-                    },
-                },
-            })
             vim.lsp.config("lua_ls", {
-                capabilities = capabilities,
                 on_init = function(client)
                     if client.workspace_folders then
                         local path = client.workspace_folders[1].name
@@ -177,7 +143,7 @@ return {
                 automatic_installation = true,
             })
         end,
-        dependencies = { "williamboman/mason.nvim" },
+        dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
     },
     {
         "MunifTanjim/prettier.nvim",
@@ -426,7 +392,27 @@ return {
     },
     {
         "nvim-java/nvim-java",
-        config = false,
+        config = function()
+            -- "nvim-java/nvim-java" config, should config before the lspconfig setup
+            require("java").setup({
+                jdtls = {
+                    version = "1.53.0",
+                },
+                java_test = {
+                    enable = true,
+                    version = "0.43.2",
+                },
+                jdk = {
+                    -- disable install jdk using mason.nvim
+                    auto_install = false,
+                    version = "21.0.2",
+                },
+                spring_boot_tools = {
+                    enable = true,
+                    version = "1.59.0",
+                },
+            })
+        end,
         ft = { "java" },
         dependencies = {
             "neovim/nvim-lspconfig",
@@ -443,24 +429,18 @@ return {
                 "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
                 { silent = true, noremap = true }
             )
-            -- "nvim-java/nvim-java" config, should config before the lspconfig setup
-            require("java").setup({
-                jdtls = {
-                    version = "v1.52.0",
-                },
-                java_test = {
-                    enable = true,
-                    version = "0.43.2",
-                },
-                jdk = {
-                    -- disable install jdk using mason.nvim
-                    auto_install = false,
-                    version = "21.0.2",
-                },
-                spring_boot_tools = {
-                    enable = true,
-                    version = "1.59.0",
-                },
+            vim.o.foldmethod = "expr"
+            -- Default to treesitter folding
+            vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            -- Prefer LSP folding if client supports it
+            vim.api.nvim_create_autocmd("LspAttach", {
+                callback = function(args)
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    if client:supports_method("textDocument/foldingRange") then
+                        local win = vim.api.nvim_get_current_win()
+                        vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+                    end
+                end,
             })
         end,
     },
