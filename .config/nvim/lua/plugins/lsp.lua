@@ -146,7 +146,7 @@ return {
                 lsp_format = "fallback",
             },
         },
-        event = { "BufWritePre" },
+        event = "VeryLazy",
         cmd = { "ConformInfo" },
         keys = {
             {
