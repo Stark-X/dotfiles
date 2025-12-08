@@ -47,32 +47,6 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         config = function()
-            local lombok_jar = vim.fn.expand("$MASON/packages/jdtls/") .. "lombok.jar"
-            -- require("notify")(lombok_jar)
-            vim.env.JDTLS_JVM_ARGS = "-javaagent:" .. lombok_jar
-
-            vim.lsp.config("jdtls", {
-                settings = {
-                    java = {
-                        configuration = {
-                            runtimes = {
-                                {
-                                    name = "JavaSE-1.8",
-                                    path = vim.fn.expand("$HOME/.sdkman/candidates/java/8.0.462-amzn"),
-                                },
-                                {
-                                    name = "JavaSE-17",
-                                    path = vim.fn.expand("$HOME/.sdkman/candidates/java/17.0.17-amzn"),
-                                },
-                                {
-                                    name = "JavaSE-21",
-                                    path = vim.fn.expand("$HOME/.sdkman/candidates/java/21.0.7-amzn"),
-                                },
-                            },
-                        },
-                    },
-                },
-            })
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "emmylua_ls",
@@ -352,29 +326,63 @@ return {
     {
         "nvim-java/nvim-java",
         config = function()
+            -- load lombok from mason-jdtls
+            local lombok_jar = vim.fn.expand("$MASON/packages/jdtls/") .. "lombok.jar"
+            -- require("notify")(lombok_jar)
+            vim.env.JDTLS_JVM_ARGS = "-javaagent:" .. lombok_jar
+
+            vim.lsp.config("jdtls", {
+                default_config = {
+                    settings = {
+                        java = {
+                            configuration = {
+                                runtimes = {
+                                    {
+                                        name = "JavaSE-1.8",
+                                        path = vim.fn.expand("$HOME/.sdkman/candidates/java/8.0.462-amzn"),
+                                    },
+                                    {
+                                        name = "JavaSE-17",
+                                        path = vim.fn.expand("$HOME/.sdkman/candidates/java/17.0.17-amzn"),
+                                    },
+                                    {
+                                        name = "JavaSE-21",
+                                        path = vim.fn.expand("$HOME/.sdkman/candidates/java/21.0.7-amzn"),
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            })
+
             -- "nvim-java/nvim-java" config, should config before the lspconfig setup
             require("java").setup({
-                jdtls = {
-                    version = "1.53.0",
-                },
-                java_test = {
-                    enable = true,
-                    version = "0.43.2",
-                },
+                -- DON't switch the versions due to the hardcoded settings in nvim-java itself
+                -- jdtls = {
+                    -- version = "1.53.0",
+                -- },
+                -- java_test = {
+                    -- enable = true,
+                    -- version = "0.43.2",
+                -- },
                 jdk = {
                     -- disable install jdk using mason.nvim
+                    -- NOTED. use the correct jdk by sdkman.io
                     auto_install = false,
-                    version = "21.0.2",
+                    version = "21.0.7",
                 },
-                spring_boot_tools = {
-                    enable = true,
-                    version = "1.59.0",
-                },
+                -- spring_boot_tools = {
+                    -- enable = true,
+                    -- version = "1.59.0",
+                -- },
             })
         end,
         ft = { "java" },
         dependencies = {
             "neovim/nvim-lspconfig",
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
         },
     },
     {
