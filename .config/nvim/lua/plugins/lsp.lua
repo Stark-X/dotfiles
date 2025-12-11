@@ -161,168 +161,216 @@ return {
         config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
     },
     {
-        "hrsh7th/nvim-cmp",
-        event = "VeryLazy",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "onsails/lspkind.nvim",
+        "saghen/blink.cmp",
+        dependencies = { "L3MON4D3/LuaSnip", version = "v2.*" },
 
-            "L3MON4D3/LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
+        -- use a release tag to download pre-built binaries
+        version = "1.*",
+        -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+        -- build = 'cargo build --release',
+        -- If you use nix, you can build from source using latest nightly rust with:
+        -- build = 'nix run .#build-plugin',
+
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+            -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+            -- 'super-tab' for mappings similar to vscode (tab to accept)
+            -- 'enter' for enter to accept
+            -- 'none' for no mappings
+            --
+            -- All presets have the following mappings:
+            -- C-space: Open menu or open docs if already open
+            -- C-n/C-p or Up/Down: Select next/previous item
+            -- C-e: Hide menu
+            -- C-k: Toggle signature help (if signature.enabled = true)
+            --
+            -- See :h blink-cmp-config-keymap for defining your own keymap
+            keymap = { preset = "super-tab" },
+
+            snippets = { preset = "luasnip" },
+
+            -- (Default) Only show the documentation popup when manually triggered
+            completion = { documentation = { auto_show = true } },
+
+            -- Default list of enabled providers defined so that you can extend it
+            -- elsewhere in your config, without redefining it, due to `opts_extend`
+            sources = {
+                default = { "lsp", "path", "snippets", "buffer" },
+            },
+
+            -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+            -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+            -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+            --
+            -- See the fuzzy documentation for more information
+            fuzzy = { implementation = "prefer_rust_with_warning" },
         },
-        config = function()
-            local cmp = require("cmp")
-            local lspkind = require("lspkind")
-            cmp.setup({
-                formatting = {
-                    format = lspkind.cmp_format({
-                        mode = "symbol", -- show only symbol annotations
-                        maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-                        -- can also be a function to dynamically calculate max width such as
-                        -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-                        ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-                        show_labelDetails = true, -- show labelDetails in menu. Disabled by default
-
-                        symbol_map = { Copilot = "" },
-
-                        -- The function below will be called before any actual modifications from lspkind
-                        -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-                        before = function(entry, vim_item) return vim_item end,
-                    }),
-                },
-            })
-            -- Use buffer source for `/` and `?`.
-            cmp.setup.cmdline({ "/", "?" }, {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" },
-                },
-            })
-
-            -- Use cmdline & path source for ':'.
-            cmp.setup.cmdline(":", {
-                completion = { autocomplete = false },
-                mapping = cmp.mapping.preset.cmdline(), -- do not delete this line
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                    { name = "cmdline" },
-                }),
-            })
-
-            local luasnip = require("luasnip")
-            local t = function(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
-            local get_sugg_funcs = function()
-                local sug_available
-                local sug_accept
-                if require("lazy.core.config").plugins["copilot.lua"] ~= nil then
-                    sug_available = require("copilot.suggestion").is_visible
-                    sug_accept = require("copilot.suggestion").accept
-                else
-                    sug_available = require("tabnine.keymaps").has_suggestion
-                    sug_accept = require("tabnine.keymaps").accept_suggestion
-                end
-                return { available = sug_available, accept = sug_accept }
-            end
-            cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-                    end,
-                },
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-                sources = cmp.config.sources({
-                    -- Copilot Source
-                    -- { name = "copilot" },
-                    { name = "luasnip" }, -- For luasnip users.
-                    { name = "nvim_lsp" },
-                }, { { name = "buffer" } }),
-                mapping = {
-                    ["<CR>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() and cmp.get_selected_entry() ~= nil then
-                            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-                        else
-                            fallback()
-                        end
-                    end),
-
-                    ["<Tab>"] = cmp.mapping(function(fallback)
-                        local sugg_funcs = get_sugg_funcs()
-                        local sugg_available = sugg_funcs.available
-                        local sugg_accept = sugg_funcs.accept
-                        if sugg_available() then
-                            sugg_accept()
-                        elseif cmp.visible() then
-                            -- acts like IDEA
-                            local entry = cmp.get_selected_entry()
-                            if not entry then
-                                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                            end
-                            cmp.confirm()
-                        elseif luasnip.locally_jumpable(1) then
-                            luasnip.jump(1)
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
-
-                    ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        if luasnip.locally_jumpable(-1) then
-                            luasnip.jump(-1)
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
-                    ["<Down>"] = cmp.mapping(
-                        cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-                        { "i" }
-                    ),
-                    ["<Up>"] = cmp.mapping(
-                        cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-                        { "i" }
-                    ),
-                    ["<C-n>"] = cmp.mapping({
-                        c = function()
-                            if cmp.visible() then
-                                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                            else
-                                vim.api.nvim_feedkeys(t("<Down>"), "n", true)
-                            end
-                        end,
-                        i = function(fallback)
-                            if cmp.visible() then
-                                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                            else
-                                fallback()
-                            end
-                        end,
-                    }),
-                    ["<C-p>"] = cmp.mapping({
-                        c = function()
-                            if cmp.visible() then
-                                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-                            else
-                                vim.api.nvim_feedkeys(t("<Up>"), "n", true)
-                            end
-                        end,
-                        i = function(fallback)
-                            if cmp.visible() then
-                                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-                            else
-                                fallback()
-                            end
-                        end,
-                    }),
-                },
-            })
-        end,
+        opts_extend = { "sources.default" },
     },
+    -- {
+    -- "hrsh7th/nvim-cmp",
+    -- event = "VeryLazy",
+    -- dependencies = {
+    -- "hrsh7th/cmp-nvim-lsp",
+    -- "hrsh7th/cmp-buffer",
+    -- "hrsh7th/cmp-path",
+    -- "hrsh7th/cmp-cmdline",
+    -- "onsails/lspkind.nvim",
+
+    -- "L3MON4D3/LuaSnip",
+    -- "saadparwaiz1/cmp_luasnip",
+    -- },
+    -- config = function()
+    -- local cmp = require("cmp")
+    -- local lspkind = require("lspkind")
+    -- cmp.setup({
+    -- formatting = {
+    -- format = lspkind.cmp_format({
+    -- mode = "symbol", -- show only symbol annotations
+    -- maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+    -- -- can also be a function to dynamically calculate max width such as
+    -- -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+    -- ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+    -- show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+
+    -- symbol_map = { Copilot = "" },
+
+    -- -- The function below will be called before any actual modifications from lspkind
+    -- -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+    -- before = function(entry, vim_item) return vim_item end,
+    -- }),
+    -- },
+    -- })
+    -- -- Use buffer source for `/` and `?`.
+    -- cmp.setup.cmdline({ "/", "?" }, {
+    -- mapping = cmp.mapping.preset.cmdline(),
+    -- sources = {
+    -- { name = "buffer" },
+    -- },
+    -- })
+
+    -- -- Use cmdline & path source for ':'.
+    -- cmp.setup.cmdline(":", {
+    -- completion = { autocomplete = false },
+    -- mapping = cmp.mapping.preset.cmdline(), -- do not delete this line
+    -- sources = cmp.config.sources({
+    -- { name = "path" },
+    -- }, {
+    -- { name = "cmdline" },
+    -- }),
+    -- })
+
+    -- local luasnip = require("luasnip")
+    -- local t = function(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
+    -- local get_sugg_funcs = function()
+    -- local sug_available
+    -- local sug_accept
+    -- if require("lazy.core.config").plugins["copilot.lua"] ~= nil then
+    -- sug_available = require("copilot.suggestion").is_visible
+    -- sug_accept = require("copilot.suggestion").accept
+    -- else
+    -- sug_available = require("tabnine.keymaps").has_suggestion
+    -- sug_accept = require("tabnine.keymaps").accept_suggestion
+    -- end
+    -- return { available = sug_available, accept = sug_accept }
+    -- end
+    -- cmp.setup({
+    -- snippet = {
+    -- expand = function(args)
+    -- require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+    -- end,
+    -- },
+    -- window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+    -- },
+    -- sources = cmp.config.sources({
+    -- -- Copilot Source
+    -- -- { name = "copilot" },
+    -- { name = "luasnip" }, -- For luasnip users.
+    -- { name = "nvim_lsp" },
+    -- }, { { name = "buffer" } }),
+    -- mapping = {
+    -- ["<CR>"] = cmp.mapping(function(fallback)
+    -- if cmp.visible() and cmp.get_selected_entry() ~= nil then
+    -- cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+    -- else
+    -- fallback()
+    -- end
+    -- end),
+
+    -- ["<Tab>"] = cmp.mapping(function(fallback)
+    -- local sugg_funcs = get_sugg_funcs()
+    -- local sugg_available = sugg_funcs.available
+    -- local sugg_accept = sugg_funcs.accept
+    -- if sugg_available() then
+    -- sugg_accept()
+    -- elseif cmp.visible() then
+    -- -- acts like IDEA
+    -- local entry = cmp.get_selected_entry()
+    -- if not entry then
+    -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+    -- end
+    -- cmp.confirm()
+    -- elseif luasnip.locally_jumpable(1) then
+    -- luasnip.jump(1)
+    -- else
+    -- fallback()
+    -- end
+    -- end, { "i", "s" }),
+
+    -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+    -- if luasnip.locally_jumpable(-1) then
+    -- luasnip.jump(-1)
+    -- else
+    -- fallback()
+    -- end
+    -- end, { "i", "s" }),
+    -- ["<Down>"] = cmp.mapping(
+    -- cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    -- { "i" }
+    -- ),
+    -- ["<Up>"] = cmp.mapping(
+    -- cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    -- { "i" }
+    -- ),
+    -- ["<C-n>"] = cmp.mapping({
+    -- c = function()
+    -- if cmp.visible() then
+    -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+    -- else
+    -- vim.api.nvim_feedkeys(t("<Down>"), "n", true)
+    -- end
+    -- end,
+    -- i = function(fallback)
+    -- if cmp.visible() then
+    -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+    -- else
+    -- fallback()
+    -- end
+    -- end,
+    -- }),
+    -- ["<C-p>"] = cmp.mapping({
+    -- c = function()
+    -- if cmp.visible() then
+    -- cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+    -- else
+    -- vim.api.nvim_feedkeys(t("<Up>"), "n", true)
+    -- end
+    -- end,
+    -- i = function(fallback)
+    -- if cmp.visible() then
+    -- cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+    -- else
+    -- fallback()
+    -- end
+    -- end,
+    -- }),
+    -- },
+    -- })
+    -- end,
+    -- },
     {
         "nvim-java/nvim-java",
         config = function()
@@ -360,11 +408,11 @@ return {
             require("java").setup({
                 -- DON't switch the versions due to the hardcoded settings in nvim-java itself
                 -- jdtls = {
-                    -- version = "1.53.0",
+                -- version = "1.53.0",
                 -- },
                 -- java_test = {
-                    -- enable = true,
-                    -- version = "0.43.2",
+                -- enable = true,
+                -- version = "0.43.2",
                 -- },
                 jdk = {
                     -- disable install jdk using mason.nvim
@@ -373,8 +421,8 @@ return {
                     version = "21.0.7",
                 },
                 -- spring_boot_tools = {
-                    -- enable = true,
-                    -- version = "1.59.0",
+                -- enable = true,
+                -- version = "1.59.0",
                 -- },
             })
         end,
