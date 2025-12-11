@@ -47,6 +47,16 @@ return {
         "danymat/neogen",
         event = "VeryLazy",
         config = function()
+            require("neogen").setup(
+                {
+                    snippet_engine = "luasnip",
+                    languages = {
+                        python = {
+                            template = { annotation_convention = "reST" }
+                        }
+                    }
+                }
+            )
             local opts = { noremap = true, silent = true }
             vim.api.nvim_set_keymap("n", "<leader>nf", ":lua require('neogen').generate({type='func'})<CR>", opts)
             vim.api.nvim_set_keymap("n", "<leader>nc", ":lua require('neogen').generate({type='class'})<CR>", opts)
@@ -84,7 +94,7 @@ return {
                 -- Enable italics comments
                 italic_comments = true, -- Default: false
                 -- Replace all fillchars with ' ' for the ultimate clean look
-                hide_fillchars = true, -- Default: false
+                hide_fillchars = false, -- Default: false
                 -- Set terminal colors used in `:terminal`
                 terminal_colors = true, -- Default: true
                 -- Improve start up time by caching highlights. Generate cache with :CyberdreamBuildCache and clear with :CyberdreamClearCache
@@ -106,32 +116,19 @@ return {
         config = function() vim.g.astro_typescript = "enable" end,
     },
     {
-        "codota/tabnine-nvim",
-        build = "./dl_binaries.sh",
-        event = "VeryLazy",
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
         config = function()
-            require("tabnine").setup({
-                disable_auto_comment = true,
-                accept_keymap = "<Tab>",
-                dismiss_keymap = "<C-]>",
-                debounce_ms = 800,
-                suggestion_color = { gui = "#808080", cterm = 244 },
-                exclude_filetypes = { "TelescopePrompt", "NvimTree", "neo-tree" },
-                -- log_file_path = "/tmp/tabnine.log", -- absolute path to Tabnine log file
-                log_file_path = nil, -- absolute path to Tabnine log file
+            require("copilot").setup({
+                -- copilot_node_command = vim.fn.expand("$HOME") .. "/.config/nvm/versions/node/v22.0.0/bin/node", -- Node.js version must be > 22
             })
-            --- falling back to inserting tab if neither has a completion
-            vim.keymap.set("i", "<tab>", function()
-                if require("tabnine.keymaps").has_suggestion() then
-                    return require("tabnine.keymaps").accept_suggestion()
-                else
-                    return "<tab>"
-                end
-            end, { expr = true })
-            require("notify")("Using TabNine", "info")
         end,
+        dependencies = {
+            "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
+             'AndreM222/copilot-lualine' -- lualine support
+        },
     },
-
     "ryanoasis/vim-devicons",
     "psliwka/vim-smoothie",
     { "tweekmonster/startuptime.vim", lazy = true, cmd = { "StartupTime" } },
@@ -542,7 +539,7 @@ return {
                     lualine_c = { "windows" },
                     -- lualine_x has default setting
                     lualine_y = {
-                        "tabnine",
+                        "copilot",
                         {
                             require("lazy.status").updates,
                             cond = require("lazy.status").has_updates,
@@ -637,7 +634,7 @@ return {
             --- The below dependencies are optional,
             "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
             "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-            -- "zbirenbaum/copilot.lua", -- for providers='copilot'
+            "zbirenbaum/copilot.lua", -- for providers='copilot'
             {
                 -- support for image pasting
                 "HakonHarnes/img-clip.nvim",
