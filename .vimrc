@@ -18,8 +18,8 @@ au BufWrite /private/etc/pw.* set nowritebackup
 set background=dark
 
 if has('gui_running')
-    " set guifont=Source_Code_Pro:h14
-    set guifont=MesloLGS-NF-Regular:h13
+    set guifont=Maple_Mono_NF_CN:h14
+    " set guifont=MesloLGS-NF-Regular:h13
 endif
 
 set hls
