@@ -70,6 +70,16 @@ export ZSH="${HOME}/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  fzf
+  git
+  python
+  kubectl
+)
 
 # z.lua
 alias zc='z -c'      # 严格匹配当前路径的子路径
@@ -328,15 +338,8 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 source $HOME/.config/op/plugins.sh
 
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# eza is loaded by homebrew, should load the homebrew first
 plugins=(
-  git
-  fzf
-  python
-  kubectl
   eza
 )
 
