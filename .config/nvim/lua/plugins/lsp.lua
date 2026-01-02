@@ -466,6 +466,9 @@ return {
             require("lspsaga").setup({
                 code_action = {
                     extend_gitsigns = true,
+                    keys = {
+                        quit = { "q", "<ESC>" }
+                    }
                 },
                 definition = {
                     keys = {
@@ -483,6 +486,7 @@ return {
                         vsplit = "<c-v>",
                         split = "<c-s>",
                         toggle_or_open = "<enter>",
+                        quit = { "q", "<ESC>" },
                     },
                 },
                 lightbulb = {
@@ -493,6 +497,7 @@ return {
                     layout = "float",
                     keys = {
                         jump = "<enter>",
+                        quit = { "q", "<ESC>" },
                     },
                 },
             })
