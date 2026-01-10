@@ -47,16 +47,14 @@ return {
         "danymat/neogen",
         event = "VeryLazy",
         config = function()
-            require("neogen").setup(
-                {
-                    snippet_engine = "luasnip",
-                    languages = {
-                        python = {
-                            template = { annotation_convention = "reST" }
-                        }
-                    }
-                }
-            )
+            require("neogen").setup({
+                snippet_engine = "luasnip",
+                languages = {
+                    python = {
+                        template = { annotation_convention = "reST" },
+                    },
+                },
+            })
             local opts = { noremap = true, silent = true }
             vim.api.nvim_set_keymap("n", "<leader>nf", ":lua require('neogen').generate({type='func'})<CR>", opts)
             vim.api.nvim_set_keymap("n", "<leader>nc", ":lua require('neogen').generate({type='class'})<CR>", opts)
@@ -114,20 +112,6 @@ return {
         "wuelnerdotexe/vim-astro",
         ft = { "astro" },
         config = function() vim.g.astro_typescript = "enable" end,
-    },
-    {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        config = function()
-            require("copilot").setup({
-                -- copilot_node_command = vim.fn.expand("$HOME") .. "/.config/nvm/versions/node/v22.0.0/bin/node", -- Node.js version must be > 22
-            })
-        end,
-        dependencies = {
-            "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
-             'AndreM222/copilot-lualine' -- lualine support
-        },
     },
     "ryanoasis/vim-devicons",
     "psliwka/vim-smoothie",
@@ -219,6 +203,8 @@ return {
         config = function()
             vim.g.AutoPairsShortcutToggle = ""
             vim.g.AutoPairsFlyMode = 0
+            -- prevent insert `<SNR>51_AutoPairsReturn` when using blink.cmp
+            vim.g.AutoPairsMapCR = 0
         end,
     },
     {
@@ -264,22 +250,20 @@ return {
     {
         "voldikss/vim-floaterm",
         cmd = "Floaterms",
-        keys = { "<F8>", "<F9>", "<F10>" },
+        keys = {
+            { "<F8>", "<cmd>FloatermPrev<CR>", desc = "Floaterm prev" },
+            { "<F9>", "<cmd>FloatermNext<CR>", desc = "Floaterm next" },
+            { "<F10>", "<cmd>FloatermToggle<CR>", desc = "Floaterm toggle" },
+
+            { "<leader>tt", "<cmd>FloatermNew pytest<CR>", ft = "python", desc = "pytest" },
+            { "<leader>ts", "<cmd>FloatermNew pytest -sv<CR>", ft = "python", desc = "pytest -sv" },
+            { "<leader>tp", "<cmd>FloatermNew pytest -v --pdb<CR>", ft = "python", desc = "pytest pdb" },
+        },
         init = function()
             vim.g.floaterm_keymap_prev = "<F8>"
             vim.g.floaterm_keymap_next = "<F9>"
             vim.g.floaterm_keymap_toggle = "<F10>"
             vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
-        end,
-        config = function()
-            vim.api.nvim_create_autocmd("Filetype", {
-                pattern = "python",
-                callback = function()
-                    vim.keymap.set("", "<leader>tt", ":FloatermNew pytest<CR>")
-                    vim.keymap.set("", "<leader>ts", ":FloatermNew pytest -sv<CR>")
-                    vim.keymap.set("", "<leader>tp", ":FloatermNew pytest -v --pdb<CR>")
-                end,
-            })
         end,
     },
 
@@ -582,7 +566,6 @@ return {
     {
         "yetone/avante.nvim",
         event = "VeryLazy",
-        lazy = false,
         version = false, -- set this to "*" if you want to always pull the latest change, false to update on release
         opts = {
             -- add any opts here
@@ -591,17 +574,17 @@ return {
             auto_suggestions_provider = "openai", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
             providers = {
                 openai = {
-                    endpoint = "https://open.bigmodel.cn/api/paas/v4/",
-                    model = "glm-4.5",
+                    endpoint = "https://new-api.xjztest.com/v1",
+                    model = "deepseek-chat",
                     extra_request_body = {
                         timeout = 30000, -- 超时时间（毫秒），增加此值以适应推理模型
                         max_tokens = 20480, -- 增加此值以包括推理模型的推理令牌
-                        --reasoning_effort = "medium", -- low|medium|high，仅用于推理模型
+                        reasoning_effort = "high", -- low|medium|high，仅用于推理模型
                     },
                 },
                 claude = {
-                    endpoint = "https://sg.instcopilot-api.com",
-                    model = "claude-sonnet-4-20250514",
+                    endpoint = "https://new-api.xjztest.com",
+                    model = "claude-sonnet-4-5-20250929",
                     extra_request_body = {
                         timeout = 30000, -- 超时时间（毫秒），增加此值以适应推理模型
                         temperature = 0.6,
@@ -632,9 +615,10 @@ return {
             "nvim-lua/plenary.nvim",
             "MunifTanjim/nui.nvim",
             --- The below dependencies are optional,
-            "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+            -- use blink.cmp instead
+            -- "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
             "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-            "zbirenbaum/copilot.lua", -- for providers='copilot'
+            -- "zbirenbaum/copilot.lua", -- for providers='copilot'
             {
                 -- support for image pasting
                 "HakonHarnes/img-clip.nvim",
