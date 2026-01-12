@@ -1,5 +1,7 @@
 #compdef aichat
 
+# from https://github.com/sigoden/aichat/blob/236097b18478fd0714f6f207988a32663ccea155/scripts/completions/aichat.zsh
+
 autoload -U is-at-least
 
 _aichat() {
