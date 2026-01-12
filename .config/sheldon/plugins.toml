@@ -48,6 +48,10 @@ apply = ["defer"]
 github = 'chitoku-k/fzf-zsh-completions'
 apply = ["defer"]
 
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+apply = ["defer"]
+
 # For example:
 #
 # [plugins.base16]
