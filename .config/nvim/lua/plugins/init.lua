@@ -263,7 +263,13 @@ return {
             vim.g.floaterm_keymap_prev = "<F8>"
             vim.g.floaterm_keymap_next = "<F9>"
             vim.g.floaterm_keymap_toggle = "<F10>"
-            vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
+            -- vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
+
+            -- like IDE terminal panel
+            vim.g.floaterm_borderchars = "─"
+            vim.g.floaterm_position = "bottom"
+            -- should be 0 ~ 1.0, bprevent float convert error in vimscript
+            vim.g.floaterm_width = 1.0000001
         end,
     },
 
@@ -417,6 +423,13 @@ return {
             vim.keymap.set("", "<F3>", "<Cmd> :Neotree toggle<CR>")
             -- equlas to alt+F1
             vim.keymap.set("", "<F49>", "<Cmd> :Neotree reveal<CR>")
+            require("neo-tree").setup({
+                window = {
+                    mappings = {
+                        ["Z"] = "expand_all_subnodes"
+                    }
+                }
+            })
         end,
     },
 
@@ -583,7 +596,7 @@ return {
                     },
                 },
                 claude = {
-                    endpoint = "https://new-api.xjztest.com",
+                    endpoint = "https://new-api.xjztest.com/v1",
                     model = "claude-sonnet-4-5-20250929",
                     extra_request_body = {
                         timeout = 30000, -- 超时时间（毫秒），增加此值以适应推理模型
