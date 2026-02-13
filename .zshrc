@@ -79,6 +79,7 @@ plugins=(
   git
   python
   kubectl
+  direnv
 )
 
 # z.lua
@@ -381,3 +382,6 @@ bindkey '\ee' _aichat_zsh #alt+e to trigger
 
 # opencode by official script
 export PATH=$HOME/.opencode/bin:$PATH
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
