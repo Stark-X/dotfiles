@@ -385,3 +385,6 @@ export PATH=$HOME/.opencode/bin:$PATH
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
+
+# TokenArena alias
+alias ta="tokenarena"
