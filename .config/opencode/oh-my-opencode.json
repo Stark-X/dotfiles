@@ -3,7 +3,7 @@
   "google_auth": false,
   "agents": {
     "sisyphus": {
-      "model": "opencode/claude-opus-4-6",
+      "model": "foxcode-aws/claude-opus-4-6",
       "variant": "max"
     },
     "oracle": {
@@ -11,20 +11,20 @@
       "variant": "high"
     },
     "librarian": {
-      "model": "opencode/glm-4.7-free"
+      "model": "opencode/qwen3.6-plus-free"
     },
     "explore": {
-      "model": "opencode/claude-haiku-4-5"
+      "model": "foxcode-aws/claude-haiku-4-5-20251001"
     },
     "multimodal-looker": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "foxcode-aws/claude-haiku-4-5-20251001"
     },
     "prometheus": {
-      "model": "opencode/claude-opus-4-6",
+      "model": "foxcode-aws/claude-opus-4-6",
       "variant": "max"
     },
     "metis": {
-      "model": "opencode/claude-opus-4-6",
+      "model": "foxcode-aws/claude-opus-4-6",
       "variant": "max"
     },
     "momus": {
@@ -32,10 +32,10 @@
       "variant": "medium"
     },
     "atlas": {
-      "model": "opencode/kimi-k2.5-free"
+      "model": "opencode/qwen3.6-plus-free"
     },
     "frontend-ui-ux-engineer": {
-      "model": "google/antigravity-gemini-3-pro-high"
+      "model": "openai/gpt-5.4"
     },
     "hephaestus": {
       "model": "openai/gpt-5.4",
@@ -44,32 +44,32 @@
   },
   "categories": {
     "visual-engineering": {
-      "model": "google/gemini-3-pro-preview",
+      "model": "openai/gpt-5.4",
       "variant": "high"
     },
     "ultrabrain": {
-      "model": "openai/gpt-5.3-codex",
+      "model": "openai/gpt-5.4",
       "variant": "xhigh"
     },
     "artistry": {
-      "model": "google/gemini-3-pro-preview",
+      "model": "openai/gpt-5.4",
       "variant": "high"
     },
     "quick": {
-      "model": "opencode/claude-haiku-4-5"
+      "model": "foxcode-aws/claude-haiku-4-5-20251001"
     },
     "unspecified-low": {
-      "model": "opencode/claude-sonnet-4-5"
+      "model": "foxcode-aws/claude-sonnet-4-6"
     },
     "unspecified-high": {
-      "model": "opencode/claude-sonnet-4-5",
+      "model": "foxcode-aws/claude-sonnet-4-6",
       "variant": "max"
     },
     "writing": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "foxcode-aws/claude-haiku-4-5-20251001"
     },
     "deep": {
-      "model": "openai/gpt-5.3-codex",
+      "model": "openai/gpt-5.4",
       "variant": "medium"
     }
   }
