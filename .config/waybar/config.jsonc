@@ -1,0 +1,129 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 35,
+  "modules-left": [
+    // "hyprland/workspaces",
+    "wlr/taskbar"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "tray",
+    "group/hardware",
+    // "custom/weather",
+    "custom/notification",
+    "clock"
+  ],
+  "group/hardware": {
+    "orientation": "inherit",
+    "modules": [
+      "cpu",
+      "memory",
+      // "network",
+      "battery"
+    ]
+  },
+  "cpu": {
+    "interval": 5,
+    "format": " {}%",
+    "max-length": 8,
+    "states": {
+      "warning": 60,
+      "critical": 90
+    }
+  },
+  "memory": {
+    "interval": 10,
+    "format": " {percentage}%"
+  },
+  "wlr/taskbar": {
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      "foot"
+    ],
+    "icon-size": 20
+  },
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1",
+  },
+  "hyprland/window": {
+    "max-length": 64
+  },
+  // "clock": {
+  // "format": "{:%c}",
+  // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  // },
+  "network": {
+    "interface": "enp0s31f6",
+    "format": "{ifname}",
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "󰊗 {bandwidthDownBytes} {bandwidthDownBytes}",
+    "format-disconnected": "", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
+  },
+  "clock": {
+    "format": "{:%R %a %D}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      // "mode": "year",
+      "mode-mon-col": 3,
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'>{}</span>",
+        "days": "<span color='#ecc6d9'>{}</span>",
+        "weeks": "<span color='#99ffdd'>W{}</span>",
+        "weekdays": "<span color='#ffcc66'>{}</span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "tz_up",
+      "on-scroll-down": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "tray": {
+    "spacing": 4
+  },
+  "custom/weather": {
+    "exec": "~/.config/waybar/wittr.sh",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 900
+  },
+  "reload_style_on_change": true,
+  "margin": 5,
+  "spacing": 5,
+  "custom/notification": {
+    "tooltip": true,
+    "format": "{0} {icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂜",
+      "dnd-notification": "󰂠",
+      "dnd-none": "󰪓",
+      "inhibited-notification": "󰂛",
+      "inhibited-none": "󰪑",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰪑"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  }
+}

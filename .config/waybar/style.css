@@ -1,0 +1,99 @@
+@import url("./colors.css");
+
+* {
+  border: none;
+  padding: 0 5px;
+  font-family: "Maple Mono NF CN";
+  font-size: 14pt;
+  min-height: 0;
+  border-radius: 17px;
+  border: 1px solid transparent;
+}
+
+window#waybar {
+  opacity: 0.8;
+  background: transparent;
+  color: @foreground;
+}
+
+#window {
+  background: @background;
+}
+
+#workspaces button {
+  padding: 0 10px;
+  background: @background-darker;
+  color: @foreground;
+  min-width: 10px;
+}
+
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+  background-image: linear-gradient(0deg, @selection, @background-darker);
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+  background-image: linear-gradient(0deg, @purple, @selection);
+}
+
+#workspaces button.urgent {
+  background-image: linear-gradient(0deg, @red, @background-darker);
+}
+
+#taskbar {
+  padding: 0;
+  background: @background-darker;
+}
+
+#taskbar button.active:first-child {
+  border-radius: 17px 0 0 17px;
+}
+
+#taskbar button.active:last-child {
+  border-radius: 0 17px 17px 0;
+}
+
+#taskbar button.active {
+  border-radius: 0px;
+  border: 0;
+  background-image: linear-gradient(0deg, @selection, @background-darker);
+}
+
+#clock {
+  padding: 0 10px;
+  background: @background-darker;
+}
+
+#tray {
+  background: @background-darker;
+}
+
+#hardware {
+  background: @background-darker;
+}
+
+#cpu.warning {
+  background: @orange;
+  color: @background;
+}
+
+#cpu.critical {
+  background: @red;
+  color: @background;
+}
+
+#custom-notification {
+  padding: 0 10px;
+  background: @background-darker;
+}
+
+
+/* 有通知时红点/高亮 */
+#custom-notification.notification,
+#custom-notification.dnd-notification,
+#custom-notification.inhibited-notification,
+#custom-notification.dnd-inhibited-notification {
+  color: #ff5f56;
+}
