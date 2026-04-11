@@ -447,10 +447,12 @@ set -g @continuum-restore 'on'
 unbind Tab
 
 set -g @plugin 'laktak/extrakto'
+set -g @extrakto_fzf_tool $HOME/.fzf/bin/fzf
 
 
 # fzf find url
 set -g @plugin 'wfxr/tmux-fzf-url'
+set -g @fzf-url-fzf-options '-w 50% -h 50% --multi -0 --no-preview'
 set -g @fzf-url-bind 'x'
 # use wslview to open url in WSL
 if-shell -b 'command -v wslview' {
