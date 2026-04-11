@@ -426,9 +426,9 @@ return {
             require("neo-tree").setup({
                 window = {
                     mappings = {
-                        ["Z"] = "expand_all_subnodes"
-                    }
-                }
+                        ["Z"] = "expand_all_subnodes",
+                    },
+                },
             })
         end,
     },
@@ -584,27 +584,56 @@ return {
             -- add any opts here
             ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
             provider = "claude", -- Recommend using Claude
-            auto_suggestions_provider = "openai", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+            auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
             providers = {
                 openai = {
-                    endpoint = "https://new-api.xjztest.com/v1",
-                    model = "deepseek-chat",
+                    endpoint = "https://api.siliconflow.cn/v1",
+                    model = "deepseek-ai/DeepSeek-V3.2",
                     extra_request_body = {
                         timeout = 30000, -- 超时时间（毫秒），增加此值以适应推理模型
-                        max_tokens = 20480, -- 增加此值以包括推理模型的推理令牌
+                        max_tokens = 32768, -- 增加此值以包括推理模型的推理令牌
                         reasoning_effort = "high", -- low|medium|high，仅用于推理模型
                     },
                 },
                 claude = {
-                    endpoint = "https://new-api.xjztest.com/v1",
-                    model = "claude-sonnet-4-5-20250929",
+                    endpoint = "https://api.siliconflow.cn",
+                    model = "Pro/zai-org/GLM-5.1",
                     extra_request_body = {
                         timeout = 30000, -- 超时时间（毫秒），增加此值以适应推理模型
                         temperature = 0.6,
                         max_tokens = 20480, -- 增加此值以包括推理模型的推理令牌
-                        --reasoning_effort = "medium", -- low|medium|high，仅用于推理模型
+                        reasoning_effort = "medium", -- low|medium|high，仅用于推理模型
                     },
                 },
+            },
+            {
+                acp_providers = {
+                    ["gemini-cli"] = {
+                        command = "gemini",
+                        args = { "--experimental-acp" },
+                        env = {
+                            NODE_NO_WARNINGS = "1",
+                            GEMINI_API_KEY = os.getenv("GEMINI_API_KEY"),
+                        },
+                    },
+                    ["claude-code"] = {
+                        command = "bunx",
+                        args = { "@zed-industries/claude-code-acp" },
+                        env = {
+                            NODE_NO_WARNINGS = "1",
+                            -- ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
+                        },
+                    },
+                    ["codex"] = {
+                        command = "bunx",
+                        args = { "@zed-industries/codex-acp" },
+                        env = {
+                            NODE_NO_WARNINGS = "1",
+                            -- OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
+                        },
+                    },
+                },
+                -- other configuration options...
             },
             windows = {
                 ask = {
