@@ -16,6 +16,9 @@ if has('webstorm')
     set matchit
 endif
 
+nnoremap ]d :action GotoNextError<CR>
+nnoremap [d :action GotoPreviousError<CR>
+
 nnoremap ]h :action GotoNextElementUnderCaretUsage<CR>
 nnoremap [h :action GotoPrevElementUnderCaretUsage<CR>
 
@@ -69,3 +72,21 @@ map \p :action EditorPaste<CR>
 
 map \hs :action Vcs.Diff.IncludeWholeChangedLinesIntoCommit<CR>
 map \hr :action Vcs.Diff.IncludeWholeChangedLinesIntoCommit<CR>
+
+"--- plugin: dial ---
+" Activate plugin
+set dial
+
+" Custom transformations
+let g:dial_custom_definitions = [
+    ['normalizedCaseWords', ['one', 'two', 'three']],
+    ['words', ['un', 'deux', 'trois']],
+    ['normalizedCasePattern', ['alpha', 'beta', 'gamma']],
+    ['pattern', ['start', 'middle', 'end']]
+]
+" Map Ctrl+A to increment
+nnoremap <C-a> :DialIncrement<cr>
+
+" Map Ctrl+X to decrement
+nnoremap <C-x> :DialDecrement<cr>
+"--- plugin: dial ---
