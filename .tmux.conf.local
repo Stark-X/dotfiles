@@ -402,6 +402,17 @@ set-option -a terminal-overrides ",*256col*:RGB"
 set -g popup-border-lines rounded
 set -g pane-border-lines heavy
 
+# -- Moshi best practices -------------------------------------------------------
+
+# terminal titles
+set -g set-titles on
+set -g set-titles-string "#I: #W"
+
+# window/pane indexing from 1 (Moshi recommendation)
+set -g base-index 1
+setw -g pane-base-index 1
+set -g renumber-windows on
+
 # -- tpm -----------------------------------------------------------------------
 
 # while I don't use tpm myself, many people requested official support so here
