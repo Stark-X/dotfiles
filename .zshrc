@@ -128,8 +128,8 @@ export GOPROXY=https://goproxy.cn
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export LC_ALL='en_US.UTF-8'
-export LANG='en_US.UTF-8'
+# export LC_ALL='en_US.UTF-8'
+# export LANG='en_US.UTF-8'
 
 # Remove the prompt the shell showed
 DEFAULT_USER=$USER
@@ -388,3 +388,9 @@ export PATH=$HOME/.opencode/bin:$PATH
 
 # TokenArena alias
 alias ta="tokenarena"
+
+# Moshi: trim prompt when running under Moshi client
+if [ -n "$MOSHI_CLIENT" ]; then
+  # running under Moshi — narrower prompt, skip heavy glyphs if needed
+  : # extend here as needed
+fi
