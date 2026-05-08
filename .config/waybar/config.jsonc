@@ -3,7 +3,6 @@
   "position": "top",
   "height": 35,
   "modules-left": [
-    // "hyprland/workspaces",
     "wlr/taskbar"
   ],
   "modules-center": [
@@ -12,7 +11,6 @@
   "modules-right": [
     "tray",
     "group/hardware",
-    // "custom/weather",
     "custom/notification",
     "clock"
   ],
@@ -21,13 +19,13 @@
     "modules": [
       "cpu",
       "memory",
-      // "network",
+      "network",
       "battery"
     ]
   },
   "cpu": {
     "interval": 5,
-    "format": " {}%",
+    "format": "\uf2db {}%",
     "max-length": 15,
     "states": {
       "warning": 60,
@@ -36,7 +34,7 @@
   },
   "memory": {
     "interval": 10,
-    "format": " {percentage}%"
+    "format": "\uefc5 {percentage}%"
   },
   "wlr/taskbar": {
     "on-click": "activate",
@@ -49,24 +47,20 @@
   "hyprland/workspaces": {
     "on-click": "activate",
     "on-scroll-up": "hyprctl dispatch workspace e-1",
-    "on-scroll-down": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1"
   },
   "hyprland/window": {
     "max-length": 64
   },
-  // "clock": {
-  // "format": "{:%c}",
-  // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-  // },
   "network": {
     "interface": "enp0s31f6",
     "format": "{ifname}",
-    "format-wifi": "{essid} ({signalStrength}%) ",
-    "format-ethernet": "󰊗 {bandwidthDownBytes} {bandwidthDownBytes}",
-    "format-disconnected": "", //An empty format will hide the module.
-    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-    "tooltip-format-ethernet": "{ifname} ",
+    "format-wifi": "{essid} ({signalStrength}%) \uf1eb",
+    "format-ethernet": "\udb80\ude97 {bandwidthDownBytes} {bandwidthDownBytes}",
+    "format-disconnected": "",
+    "tooltip-format": "{ifname} via {gwaddr} \udb80\ude97",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) \uf1eb",
+    "tooltip-format-ethernet": "{ifname} \uf0c1",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50
   },
@@ -74,7 +68,6 @@
     "format": "{:%R %a %D}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
-      // "mode": "year",
       "mode-mon-col": 3,
       "on-scroll": 1,
       "format": {
@@ -87,8 +80,6 @@
     },
     "actions": {
       "on-click-right": "mode",
-      "on-scroll-up": "tz_up",
-      "on-scroll-down": "tz_down",
       "on-scroll-up": "shift_up",
       "on-scroll-down": "shift_down"
     }
@@ -110,14 +101,14 @@
     "tooltip": true,
     "format": "{0} {icon}",
     "format-icons": {
-      "notification": "󱅫",
-      "none": "󰂜",
-      "dnd-notification": "󰂠",
-      "dnd-none": "󰪓",
-      "inhibited-notification": "󰂛",
-      "inhibited-none": "󰪑",
-      "dnd-inhibited-notification": "󰂛",
-      "dnd-inhibited-none": "󰪑"
+      "notification": "\udb84\udd6b",
+      "none": "\udb80\udc9c",
+      "dnd-notification": "\udb80\udca0",
+      "dnd-none": "\udb82\ude93",
+      "inhibited-notification": "\udb80\udc9b",
+      "inhibited-none": "\udb82\ude91",
+      "dnd-inhibited-notification": "\udb80\udc9b",
+      "dnd-inhibited-none": "\udb82\ude91"
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
