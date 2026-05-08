@@ -30,9 +30,9 @@ max_file_size = 1048576
 
 [telemetry]
 enabled = false
+consent_given = false
 
 [hooks]
-# because the ls is replace by alias 'eza'
 exclude_commands = ["ls"]
 
 [limits]
