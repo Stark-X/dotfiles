@@ -422,3 +422,7 @@ moshi() {
 
   tmux attach -t "$session"
 }
+
+# thefuck in rust (https://github.com/iffse/pay-respects/issues)
+command -v pay-respects >/dev/null && eval "$(pay-respects zsh)"
+
