@@ -422,6 +422,7 @@ moshi() {
 }
 
 # thefuck in rust (https://github.com/iffse/pay-respects/issues)
+export _PR_AI_DISABLE=1
 command -v pay-respects >/dev/null && eval "$(pay-respects zsh)"
 
 command -v hermes >/dev/null && eval "$(hermes completion zsh)"
