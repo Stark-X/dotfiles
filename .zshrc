@@ -80,6 +80,9 @@ plugins=(
   python
   kubectl
   direnv
+  1password
+  alias-finder
+  uv
 )
 
 # z.lua
@@ -280,12 +283,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 
 
-##### Copilot Alias #####
-alias css="gh copilot suggest -t shell "
-alias csg="gh copilot suggest -t git "
-alias csh="gh copilot suggest -t gh "
-##### Copilot Alias #####
-
 # for GoFrame. avoid `git fetch` alias conflict
 alias gf=gf
 
@@ -425,4 +422,6 @@ moshi() {
 
 # thefuck in rust (https://github.com/iffse/pay-respects/issues)
 command -v pay-respects >/dev/null && eval "$(pay-respects zsh)"
+
+command -v hermes >/dev/null && eval "$(hermes completion zsh)"
 
