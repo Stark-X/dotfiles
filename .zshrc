@@ -83,6 +83,7 @@ plugins=(
   1password
   alias-finder
   uv
+  sudo
 )
 
 # z.lua
