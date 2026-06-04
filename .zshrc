@@ -81,7 +81,6 @@ plugins=(
   kubectl
   direnv
   1password
-  alias-finder
   uv
   sudo
 )
